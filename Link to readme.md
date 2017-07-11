@@ -1,0 +1,1 @@
+/opt/lampp/htdocs/trippy/readme.md
