@@ -104,4 +104,3 @@ function check_driver_google($google_id)
 	}
 }
 
-

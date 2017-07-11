@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'localhost'),
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,9 +177,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-	'Intervention\Image\ImageServiceProvider',
-'Collective\Html\HtmlServiceProvider',
-
     ],
 
     /*
@@ -228,9 +225,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-'Image' => 'Intervention\Image\Facades\Image',
- 'Form' => 'Collective\Html\FormFacade',
-  'Html' => 'Collective\Html\HtmlFacade',
+	'Helper' => App\Http\Helpers::class,
     ],
 
 ];
