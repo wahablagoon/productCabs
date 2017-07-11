@@ -17,18 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('upload_image/{userid}', function (Request $request) {
+Route::post('upload_image', function (Request $request) {
 	$file = request()->file('upload_image');
 	$ext=$file->guessClientExtension();
 	$name=$file->getClientOriginalName();
-	$userid=$request->userid;
-	$file->storeAs('images/'.$userid,$name);
-
-	//echo $url = Storage::url($userid."/".$name);
+	$file->storeAs('images/',$name);
 	$myArray['status']="Success";
 	$myArray['image_name']=$name;
 	$myArray['message']="";
-	$myArray['image_url']= url('/')."/storage/app/images/".$userid."/".$name;
+	$myArray['image_url']= url('/')."/storage/app/images/".$name;
 	return response()->json(array($myArray));
 });
 
