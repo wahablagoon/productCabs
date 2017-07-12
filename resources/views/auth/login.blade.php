@@ -45,7 +45,7 @@
 
 						<div class="form-group">
 							<div class="col-md-12">
-							    <input type="text"><span class="highlight"></span><span class="bar"></span>
+							    <input type="text" autocomplete='off'><span class="highlight"></span><span class="bar"></span>
 							    <label>Username</label>
 							</div>
 						</div>

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>trippy - Admin Panel</title>
 	<link rel="icon" href="images/favicon.png">
-	<link href="/css/app.css" rel="stylesheet">
+	<link href="css/app.css" rel="stylesheet">
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>

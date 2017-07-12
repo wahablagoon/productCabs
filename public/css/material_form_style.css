@@ -98,11 +98,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 
 /* active */
 
-input:focus ~ .highlight {
-	-webkit-animation: inputHighlighter 0.3s ease;
-	        animation: inputHighlighter 0.3s ease;
-}
-
 
 /* Animations */
 
