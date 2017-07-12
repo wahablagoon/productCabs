@@ -2,6 +2,8 @@
 use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +21,22 @@ Route::get('/', function () {
 Route::get('login', function () {
     return view('auth/login');
 });
+Route::get('sendsms/{to}/{message}', function (Request $request){
+	$result=sendSms('+'.$request->to,$request->message);
+	if($result->status!="queued")
+	{
+	$myArray['status']= $result->status;
+	$myArray['message']= $result->message;
+	return response()->json(array($myArray));
+	}
+	else
+	{
+	$myArray['status']= $result->status;
+	$myArray['message']= "success";
+	return response()->json(array($myArray));
+	}
+});
+
 
 Route::post('upload_image', function (Request $request) {
 	$file = request()->file('upload_image');
