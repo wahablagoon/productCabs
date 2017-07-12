@@ -178,3 +178,28 @@ function updatelocation($request)
 		return response()->json(array($myArray));
 	}
 }
+
+function sendSms($to, $body)
+{
+	$id = "ACcbe5062f48b4b80892f2660ea73cf0b5";
+	$token = "ac08f91a02769ace9798b89ad3762ca0";
+	$url = "https://api.twilio.com/2010-04-01/Accounts/$id/SMS/Messages.json";
+	$from = "+12679301259";
+	$data = array (
+	    'From' => $from,
+	    'To' => $to,
+	    'Body' => $body,
+	);
+	$post = http_build_query($data);
+	$x = curl_init($url );
+	curl_setopt($x, CURLOPT_POST, true);
+	curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($x, CURLOPT_USERPWD, "$id:$token");
+	curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+	$y = curl_exec($x);
+	curl_close($x);
+	$res=json_decode($y);
+	return $res;
+}
