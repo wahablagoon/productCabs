@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('login', function () {
+    return view('auth/login');
+});
 
 Route::post('upload_image', function (Request $request) {
 	$file = request()->file('upload_image');
