@@ -50,6 +50,12 @@ Route::get('driver/updateProfile/{userid}/{firstname}/{lastname}/{mobile}/{count
 //common API's
 Route::get('updateLocation/{userid}/{lat}/{long}', 'MonoController@updateLocation');
 Route::get('getCategory/', 'MonoController@getCategory');
+Route::get('sentOTP/{userid}/{countrycode}/{mobile}', 'MonoController@sendOTP');
+Route::get('updateOTP/{userid}/{verifycode}', 'MonoController@updateOTP');
 
 
 
+//request API's
+Route::get('requests/setRequest/{userid}/{start_lat}/{start_long}/{end_lat}/{end_long}/{payment_mode}/{category}/{pickup_address}/{drop_address}/{ride_type}', 'RequestController@setRequest');
+Route::get('requests/getRequest/{request_id}', 'RequestController@getRequest');
+Route::get('requests/updateRequest/{request_id}/{driver_id}/{request_status}', 'RequestController@updateRequest');
