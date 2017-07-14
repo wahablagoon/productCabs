@@ -53,4 +53,31 @@ class MonoController extends Controller
 
 	}
 
+	public function sendOTP(Request $request)
+	{
+		$otp=generatePIN(4);
+		$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
+		$data['verifycode']=$otp;
+		DB::table('member')->where('id',$request->userid)->update($data);
+		$myArray = ['status'=>'Success','message_status'=>$s->status];
+		return response()->json(array($myArray));
+	}
+
+	public function updateOTP(Request $request)
+	{
+		$ifuser=DB::table('member')->where('id',$request->userid)->where('verifycode',$request->verifycode);
+		if($ifuser->count()>0)
+		{
+			$data['phone_verify']=1;
+			$update=DB::table('member')->where('id',$request->userid)->update($data);
+			$myArray = ['status'=>'Success'];
+			return response()->json(array($myArray));
+		}
+		else
+		{
+			$myArray = ['status'=>'fail'];
+			return response()->json(array($myArray));
+		}
+	}
+
 }
