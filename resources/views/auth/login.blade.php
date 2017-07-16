@@ -1,7 +1,9 @@
 @extends('app')
 @section('content')
-<link rel="stylesheet" href="css/material_form_style.css">
-<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="{{ url('assets/stylesheets/material_form_style.css') }}">
+<link rel="stylesheet" href="{{ url('assets/stylesheets/custom.css') }}">
+<link rel="stylesheet" href="{{ url('assets/stylesheets/app.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Oleo+Script|Quicksand" rel="stylesheet"> 
 <style>
 
  img.login-logo{
@@ -25,7 +27,7 @@
       <div class="col-md-8 col-md-offset-2">
          <center>
             <h1 class="title_login">trippy</h1>
-            <img class="login-logo" src="images/logo-white.png" width="20%" />
+            <img class="login-logo" src="{{ url("assets/images/logo-white.png") }}" width="20%" />
          </center>
          <center>
             <h3 class="admin-text">Admin Panel</h3>
@@ -45,7 +47,7 @@
                </div>
                @endif
 
-               <form class="form-horizontal home-login-form" role="form" method="POST" action="/auth/login">
+               <form class="form-horizontal home-login-form" role="form" method="POST" action="{{ url("auth/login") }}">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
                      <div class="col-md-12">
@@ -76,5 +78,5 @@
    </div>
 </div>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="js/material.js"></script>
+
 @endsection

@@ -216,7 +216,7 @@
                 <nav class="navbar navbar-light">
                     <div class="navbar-left">
                         <a class="navbar-brand" href="http://localhost/Hari/trippy/admin/dashboard">
-                            <div class="logo" style="background: url({{url('images/logo.png')}}) no-repeat;"></div>
+                            <div class="logo" style="background: url({{ url('assets/images/logo.png') }}) no-repeat;"></div>
                         </a>
                         <div class="toggle-button dark sidebar-toggle-first float-xs-left hidden-md-up">
                             <span class="hamburger"></span>
@@ -245,7 +245,7 @@
                             <li class="nav-item dropdown hidden-sm-down">
                                 <a href="#" data-toggle="dropdown" aria-expanded="false">
                                     <span class="avatar box-32">
-                                        <img src="{{url('images/avatar.png')}}" alt="">
+                                        <img src="{{url('assets/images/avatar.png')}}" alt="">
                                             </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right animated fadeInUp">

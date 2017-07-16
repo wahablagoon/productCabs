@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/waves.min.css") }}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/core.css") }}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/font-awesome.min.css") }}" />
-	<link rel="stylesheet" href="{{ url('/css/custom.css')}}" />
+	<link rel="stylesheet" href="{{ url("assets/stylesheets/custom.css")}}" />
 	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css">
@@ -30,7 +30,6 @@
 	@yield('body')
 	<script src="{{ url("assets/scripts/frontend.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/jquery-1.12.3.min.js") }}" type="text/javascript"></script>
-
 	<script src="{{ url("assets/scripts/bootstrap.min.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/detectmobilebrowser.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/jquery.mousewheel.js") }}" type="text/javascript"></script>
