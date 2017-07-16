@@ -14,10 +14,17 @@ use Illuminate\Support\Facades\Storage;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function()
+{
+	return View::make('home');
 });
+
+Route::post('/auth/login', function()
+{
+	return View::make('home');
+});
+
+
 Route::get('login', function () {
     return view('auth/login');
 });
