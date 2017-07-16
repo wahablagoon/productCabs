@@ -50,7 +50,7 @@ input:focus ~ label, input.used ~ label {
   -webkit-transform: scale(.90);
           transform: scale(.90); left: 2px;
 	/* font-size: 14px; */
-	color: #4a89dc;
+	color: #3f51b5;
 }
 
 
@@ -68,7 +68,7 @@ input:focus ~ label, input.used ~ label {
 	width: 0;
 	bottom: 1px; 
 	position: absolute;
-	background: #4a89dc; 
+	background: #3f51b5; 
 	-webkit-transition:all 0.2s ease; 
 	transition: all 0.2s ease;
 }
@@ -102,12 +102,12 @@ input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 /* Animations */
 
 @-webkit-keyframes inputHighlighter {
-	from { background: #4a89dc; }
+	from { background: #3f51b5; }
 	to 	{ width: 0; background: transparent; }
 }
 
 @keyframes inputHighlighter {
-	from { background: #4a89dc; }
+	from { background: #3f51b5; }
 	to 	{ width: 0; background: transparent; }
 }
 
@@ -140,7 +140,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 /* Button modifiers */
 
 .buttonBlue {
-  background: #4a89dc;
+  background: #3f51b5;
   text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
 }
 
@@ -216,7 +216,7 @@ footer p {
 }
 
 footer a {
-	color: #4a89dc;
+	color: #3f51b5;
 	text-decoration: none;
 	-webkit-transition:all .2s ease;
 	transition: all .2s ease;
