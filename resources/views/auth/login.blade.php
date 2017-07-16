@@ -21,6 +21,11 @@
    {
    box-shadow:0 0 10px #ccc;
    }
+.home-login-form label
+{
+   font-weight:normal;
+}
+
 </style>
 <div class="container-fluid">
    <div class="row">

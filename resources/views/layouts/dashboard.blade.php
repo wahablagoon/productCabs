@@ -228,7 +228,7 @@
                             <span class="more"></span>
                         </div>
                     </div>
-                    <div class="navbar-right navbar-toggleable-sm collapse" id="collapse-1">
+                    <div class="navbar-right navbar-toggleable-sm collapse" id="collapse-1" style="display:none">
                         <div class="toggle-button light sidebar-toggle-second float-xs-left hidden-sm-down">
                             <span class="hamburger"></span>
                         </div>

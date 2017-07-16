@@ -499,7 +499,7 @@ a:active {
 }
 
 .site-header .toggle-button.dark {
-  color: rgba(255, 255, 255, 0.5);
+  color: #c1c1c1;
 }
 
 .site-header .toggle-button span {
@@ -531,7 +531,7 @@ a:active {
 }
 
 .site-header .toggle-button.dark span {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #c1c1c1;
 }
 
 .site-header .toggle-button span:before, 
@@ -564,7 +564,7 @@ a:active {
 
 .site-header .toggle-button.dark span:before, 
 .site-header .toggle-button.dark span:after {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #c1c1c1;
 }
 
 .site-header .toggle-button span.hamburger:before {
@@ -596,7 +596,7 @@ a:active {
 .site-header .toggle-button.dark:focus span,
 .site-header .toggle-button.dark:focus span:before,
 .site-header .toggle-button.dark:focus span:after {
-  background-color: #fff;
+  background-color: #c1c1c1;
 }
 
 .site-header .toggle-button-second {
@@ -617,8 +617,8 @@ a:active {
 }
 
 .site-header .toggle-button-second.dark {
-  border-left: 1px solid rgba(255, 255, 255, 0.125);
-  color: rgba(255, 255, 255, 0.7);
+  border-left: 1px solid #c1c1c1;
+  color: #c1c1c1;
 }
 
 .site-header .toggle-button-second i {
