@@ -17,7 +17,7 @@
                         <li class="menu-title">Admin Dashboard</li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/dashboard" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-anchor"></i></span>
+                                <span class="s-icon"><i class="fa fa-tachometer" aria-hidden="true"></i></span>
                                 <span class="s-text">Dashboard</span>
                             </a>
                         </li>
@@ -26,7 +26,7 @@
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-user"></i></span>
+                                <span class="s-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                                 <span class="s-text">Users</span>
                             </a>
                             <ul>
@@ -37,7 +37,7 @@
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-car"></i></span>
+                                <span class="s-icon"><i class="fa fa-taxi" aria-hidden="true"></i></span>
                                 <span class="s-text">Providers</span>
                             </a>
                             <ul>
@@ -47,13 +47,13 @@
                         </li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/dashboard" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-alarm-clock"></i></span>
+                                <span class="s-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                 <span class="s-text">Ride Later</span>
                             </a>
                         </li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/dashboard" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-stats-up"></i></span>
+                                <span class="s-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
                                 <span class="s-text">Peak Hour pricing</span>
                             </a>
                         </li>
@@ -64,7 +64,7 @@
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-crown"></i></span>
+                                <span class="s-icon"><i class="fa fa-area-chart" aria-hidden="true"></i></span>
                                 <span class="s-text">Statements</span>
                             </a>
                             <ul>
@@ -78,14 +78,14 @@
                         <li class="menu-title">Details</li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/map" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-map-alt"></i></span>
+                                <span class="s-icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
                                 <span class="s-text">Map</span>
                             </a>
                         </li>
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-view-grid"></i></span>
+                                <span class="s-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
                                 <span class="s-text">Ratings &amp; Reviews</span>
                             </a>
                             <ul>
@@ -96,13 +96,13 @@
                         <li class="menu-title">Requests</li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/requests" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-infinite"></i></span>
+                                <span class="s-icon"><i class="fa fa-history" aria-hidden="true"></i></span>
                                 <span class="s-text">Request History</span>
                             </a>
                         </li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/scheduled" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-palette"></i></span>
+                                <span class="s-icon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                 <span class="s-text">Scheduled Rides</span>
                             </a>
                         </li>
@@ -110,7 +110,7 @@
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-view-grid"></i></span>
+                                <span class="s-icon"><i class="fa fa-car" aria-hidden="true"></i></span>
                                 <span class="s-text">Service Types</span>
                             </a>
                             <ul>
@@ -121,7 +121,7 @@
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-layout-tab"></i></span>
+                                <span class="s-icon"><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
                                 <span class="s-text">Documents</span>
                             </a>
                             <ul>
@@ -133,7 +133,7 @@
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
-                                <span class="s-icon"><i class="ti-layout-tab"></i></span>
+                                <span class="s-icon"><i class="fa fa-gift" aria-hidden="true"></i></span>
                                 <span class="s-text">Promocodes</span>
                             </a>
                             <ul>
@@ -145,20 +145,20 @@
                         <li class="menu-title">Payment Details</li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/payment" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-infinite"></i></span>
+                                <span class="s-icon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                                 <span class="s-text">Payment History</span>
                             </a>
                         </li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/settings/payment" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-money"></i></span>
+                                <span class="s-icon"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                 <span class="s-text">Payment Settings</span>
                             </a>
                         </li>
                         <li class="menu-title">Settings</li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/settings" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-settings"></i></span>
+                                <span class="s-icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
                                 <span class="s-text">Site Settings</span>
                             </a>
                         </li>
@@ -166,19 +166,19 @@
                         <li class="menu-title">Others</li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/privacy" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-help"></i></span>
+                                <span class="s-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
                                 <span class="s-text">Privacy Policy</span>
                             </a>
                         </li>
                         <li>
                             <a href="http://localhost/Hari/trippy/admin/help" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-help"></i></span>
+                                <span class="s-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span>
                                 <span class="s-text">Help</span>
                             </a>
                         </li>
                         <li>
                             <a href="http://localhost/Hari/trippy/translations" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="ti-smallcap"></i></span>
+                                <span class="s-icon"><i class="fa fa-language" aria-hidden="true"></i></span>
                                 <span class="s-text">Translations</span>
                             </a>
                         </li>
@@ -196,10 +196,8 @@
                             </a>
                         </li>
                         <li class="compact-hide">
-                            <a href="http://localhost/Hari/trippy/admin/logout"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                <span class="s-icon"><i class="ti-power-off"></i></span>
+                            <a href="{{ url("logout") }}">
+                                <span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
                                 <span class="s-text">Logout</span>
                             </a>
                             
@@ -222,12 +220,12 @@
                             <span class="hamburger"></span>
                         </div>
                         <div class="toggle-button-second dark float-xs-right hidden-md-up">
-                            <i class="ti-arrow-left"></i>
+                                <a href=" {{ url('logout') }} "  aria-expanded="false">
+                                        <span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
+                                </a>
+
                         </div>
-                        <div class="toggle-button dark float-xs-right hidden-md-up" data-toggle="collapse" data-target="#collapse-1">
-                            <span class="more"></span>
-                        </div>
-                    </div>
+                     </div>
                     <div class="navbar-right navbar-toggleable-sm collapse" id="collapse-1" style="display:none">
                         <div class="toggle-button light sidebar-toggle-second float-xs-left hidden-sm-down">
                             <span class="hamburger"></span>
@@ -240,27 +238,23 @@
                                 </a>
                             </li>
                         </ul>
-                        
+                         <ul class="nav navbar-nav float-md">
+                            <li class="nav-item  hidden-sm-down" style="font-family: Oleo Script; padding: 5px; font-size: 32px;">
+                                trippy
+                            </li>
+                        </ul>
                         <ul class="nav navbar-nav float-md-right">
-                            <li class="nav-item dropdown hidden-sm-down">
-                                <a href="#" data-toggle="dropdown" aria-expanded="false">
+                            <li class="nav-item  hidden-sm-down">
+                                <a href="#"  aria-expanded="false">
                                     <span class="avatar box-32">
                                         <img src="{{url('assets/images/avatar.png')}}" alt="">
                                             </span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right animated fadeInUp">
-                                    <a class="dropdown-item" href="http://localhost/Hari/trippy/admin/profile">
-                                        <i class="ti-user mr-0-5"></i> Profile
-                                    </a>
-                                    <a class="dropdown-item" href="http://localhost/Hari/trippy/admin/password">
-                                        <i class="ti-settings mr-0-5"></i> Change Password
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="http://localhost/Hari/trippy/admin/help"><i class="ti-help mr-0-5"></i> Help</a>
-                                    <a class="dropdown-item" href="http://localhost/Hari/trippy/admin/logout"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();"><i class="ti-power-off mr-0-5"></i> Sign out</a>
-                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href=" {{ url('logout') }} "  aria-expanded="false">
+                                        <span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
+                                </a>
                             </li>
                         </ul>
                         
