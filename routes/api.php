@@ -13,11 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('user', 'MonoController@index');
 
 //Rider API's
 Route::get('rider/signup/{firstname}/{lastname}/{mobile}/{countrycode}/{password}/{city}/{email}', 'UserController@rider_signup');

@@ -2,7 +2,7 @@
 use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +16,57 @@ use Illuminate\Support\Facades\Storage;
 */
 Route::get('/', function()
 {
-	return View::make('home');
+	return View::make('comming_soon');	
 });
-
-Route::post('/auth/login', function()
+Route::get('admin', function()
 {
-	return View::make('home');
+	if(is_loggedin())
+	{
+		return View::make('home');	
+	}
+	else
+	{
+		return View::make('auth/login');		
+	}	
+	
+});
+Route::get('admin/login', function()
+{
+	if(is_loggedin())
+	{
+		return View::make('home');	
+	}
+	else
+	{
+		return View::make('auth/login');		
+	}	
+});
+
+Route::post('checklogin', function(Request $request)
+{	
+	$users = DB::table('member')->where('role',3)->where('email',$request->username);
+	if($users->count()>0 && $users->first()->password==$request->password)
+	{
+		$userdata['trippy_username']=$request->username;
+		$userdata['trippy_id']=$users->first()->id;
+		$userdata['trippy_loggedin']=true;
+		session($userdata);
+		echo  "success";
+	}
+	else
+	{
+		echo "fail";
+	}
 });
 
 
-Route::get('login', function () {
-    return view('auth/login');
+Route::get('logout', function(Request $request)
+{	
+	$userdata['trippy_loggedin']=false;
+	session($userdata);
+	return redirect('admin/login');
 });
+
 Route::get('sendsms/{to}/{message}', function (Request $request){
 	$result=sendSms('+'.$request->to,$request->message);
 	if($result->status!="queued")
