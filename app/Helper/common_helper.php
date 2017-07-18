@@ -1,5 +1,19 @@
 <?php
 
+function is_loggedin()
+{
+	if(session('trippy_loggedin'))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+
 function check_rider_id($userid)
 {
 	$users = DB::table('member')->where('role',1)->where('id',$userid);
