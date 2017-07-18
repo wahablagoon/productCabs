@@ -333,12 +333,16 @@ a:active {
   }
 
   .compact-sidebar .site-sidebar .sidebar-menu li > ul {
+
     position: absolute;
     top: 100%;
     left: 70px;
     width: 220px;
     background: #fff;
     border-left: none;
+   border: 1px solid #ccc;
+   background: rgb(253, 253, 253);
+   box-shadow: 2px 2px 15px -7px rgb(0, 0, 0);
   }
 
   .compact-sidebar .site-sidebar .sidebar-menu > li:hover {
