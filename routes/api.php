@@ -27,7 +27,7 @@ Route::get('rider/editProfile/{userid}', 'UserController@edit_profile');
 Route::get('rider/updateProfile/{userid}/{firstname}/{lastname}/{mobile}/{countrycode}/{password}/{city}/{profile_pic}/{email}', 'UserController@update_profile');
 
 
-
+Route::get('sendmail','MonoController@sendEmailReminder');
 //Drivers API's
 Route::get('driver/signup/{firstname}/{lastname}/{mobile}/{countrycode}/{password}/{city}/{email}/{profile_pic}/{license}/{insurance}/{category}', 'DriverController@driver_signup');
 Route::get('driver/fb_signup/{firstname}/{lastname}/{mobile}/{countrycode}/{city}/{email}/{fb_id}/{profile_pic}/{license}/{insurance}/{category}', 'DriverController@driver_fbsignup');
