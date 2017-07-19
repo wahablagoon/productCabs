@@ -14,6 +14,19 @@ function is_loggedin()
 
 
 
+function site_name()
+{
+	$settings = DB::table('site_settings');
+	if($settings->count()>0)
+	{
+		return $settings->first()->site_name;	
+	}
+	else
+	{
+		return false;	
+	}
+}
+
 function check_rider_id($userid)
 {
 	$users = DB::table('member')->where('role',1)->where('id',$userid);
