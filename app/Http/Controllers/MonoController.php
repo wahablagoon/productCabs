@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Mail;
 use Illuminate\Support\Facades\DB;
 
 class MonoController extends Controller
@@ -78,6 +79,17 @@ class MonoController extends Controller
 			$myArray = ['status'=>'fail'];
 			return response()->json(array($myArray));
 		}
+	}
+	public function sendEmailReminder(Request $request)
+	{
+	//dd(env('MAIL_HOST'));exit;
+		$user['name'] ="Praveen";
+		$user['email']="praveenak4286@gmail.com";
+		Mail::send('emails.remainder', ['user' => $user], function ($m) use ($user) {
+		    $m->from('praveenak.bsc@gmail.com', 'Your Application');
+		
+		    $m->to($user['email'], $user['name'])->subject('Your Reminder!');
+		});
 	}
 
 }
