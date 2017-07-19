@@ -18,6 +18,14 @@ Route::get('/', function()
 {
 	return View::make('comming_soon');	
 });
+
+Route::get('mailsample/{page}', function(Request $request){
+	$data['email']="dfs";
+	$data['reset_url']="dfs";
+	$data['name']="praveen";
+	return View::make('emails/'.$request->page,$data);
+});
+
 Route::get('admin', function()
 {
 	if(is_loggedin())
@@ -58,6 +66,26 @@ Route::post('checklogin', function(Request $request)
 		echo "fail";
 	}
 });
+
+Route::post('resetadmin', function(Request $request)
+{	
+	$users = DB::table('member')->where('role',3)->where('email',$request->email);
+	if($users->count()>0)
+	{
+		$data['email']=$request->email;
+		$data['reset_url']=url('reset_password/'.$users->first()->id.'/'.time());
+		Mail::send('emails.remainder', ['data' => $data], function ($m) use ($data) {
+		    $m->from('praveenak.bsc@gmail.com','trippy');	
+		    $m->to($request->email, $users->first()->firstname)->subject('trippy - Reset your password');
+		});
+		echo  "success";
+	}
+	else
+	{
+		echo "fail";
+	}
+});
+
 
 
 Route::get('logout', function(Request $request)
