@@ -4,9 +4,6 @@
  <div id="wrapper" class="">
 
         <!-- Navigation -->
-        
-
-        
         <div class="wrapper">
             <div class="preloader"></div>
             <div class="site-overlay"></div>
@@ -244,18 +241,84 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav float-md-right">
-                            <li class="nav-item  hidden-sm-down">
-                                <a href="#"  aria-expanded="false">
+                            <li class="dropdown nav-item  hidden-sm-down">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     <span class="avatar box-32">
                                         <img src="{{url('assets/images/avatar.png')}}" alt="">
                                             </span>
                                 </a>
+                                <ul class="dropdown-menu" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
+                                    <li><a href="#"><span class="s-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>Change password</a></li>
+                                    <li><a href=" {{ url('logout') }} "><span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>Logout</a></li>
+                                </ul>
+
                             </li>
-                            <li class="nav-item">
-                                <a href=" {{ url('logout') }} "  aria-expanded="false">
-                                        <span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
+
+                        </ul>
+                        <ul class="nav navbar-nav float-md-right">
+                            <li class="dropdown nav-item  hidden-sm-down">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span class="avatar box-32">
+<i class="fa fa-bell bell_notify"  aria-hidden="true"></i>
+                                            </span>
                                 </a>
+                                <ul class=" dropdown-menu" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-comment fa-fw"></i> New Comment
+                                            
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                            
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                            
+                                        </a>
+                                     </li>
+                                    <li>
+                                       <a href="#" class="list-group-item1">
+                                            <i class="fa fa-tasks fa-fw"></i> New Task
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-bolt fa-fw"></i> Server Crashed!
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-warning fa-fw"></i> Server Not Responding
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="list-group-item1">
+                                            <i class="fa fa-money fa-fw"></i> Payment Received
+
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                                    </li>
+                                </ul>
+
                             </li>
+
                         </ul>
                         
                     </div>

@@ -20,6 +20,7 @@ font-weight:bold;
 body 
 {
 	font-family: 'Quicksand', sans-serif !important;
+  font-size:15px !important;
 }
 
 .btn_custom {
@@ -108,3 +109,160 @@ background-color: #fcfcfc;
 .home-login-form #mymodal{
     -webkit-appearance: none;
 }
+.dropdown-menu > li > a
+{
+  padding: 10px 20px !important;
+}
+.dropdown-menu > li > a > span
+{
+   padding: 0 15px 0px 0px;
+    vertical-align: middle;
+}
+.dropdown-menu
+{
+  font-size: 14px !important;
+}
+.bell_notify
+{
+    font-size: 20px !important;
+    color: #3f51b5;
+}
+
+/*
+  Max width before this PARTICULAR table gets nasty
+  This query will take effect for any screen smaller than 760px
+  and also iPads specifically.
+  */
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+    /* Force table to not be like tables anymore */
+    table.res_table, table.res_table thead, table.res_table tbody, table.res_table th, table.res_table td, table.res_table tr {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    table.res_table thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    table.res_table tr { border: 1px solid #ccc; }
+
+    table.res_table td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+
+    table.res_table td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+
+    /*
+    Label the data
+    */
+  }
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen
+  and (min-device-width : 320px)
+  and (max-device-width : 480px) {
+    body {
+      padding: 0;
+      margin: 0;
+      width: 320px; }
+    }
+
+  /* iPads (portrait and landscape) ----------- */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    body {
+      width: 495px;
+    }
+  }
+
+
+.list_settings
+{
+  padding :15px 0;
+}
+.text_box
+{
+  border: 1px solid #ccc;
+    padding: 5px 10px;
+    width: 100%;
+}
+.item_settings
+{
+  line-height: 33px;
+}
+
+ /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
