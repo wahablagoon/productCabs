@@ -16,7 +16,7 @@
                     <ul class="sidebar-menu">
                         <li class="menu-title">Admin Dashboard</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/dashboard" class="waves-effect waves-light">
+                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-tachometer" aria-hidden="true"></i></span>
                                 <span class="s-text">Dashboard</span>
                             </a>
@@ -30,8 +30,8 @@
                                 <span class="s-text">Users</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/user">List Users</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/user/create">Add New User</a></li>
+                                <li><a href="{{ url("admin/user") }}">List Users</a></li>
+                                <li><a href="{{ url("admin/user/create") }}">Add New User</a></li>
                             </ul>
                         </li>
                         <li class="with-sub">
@@ -41,18 +41,18 @@
                                 <span class="s-text">Providers</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/provider">List Providers</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/provider/create">Add New Provider</a></li>
+                                <li><a href="{{ url("admin/provider") }}">List Providers</a></li>
+                                <li><a href="{{ url("admin/provider/create") }}">Add New Provider</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/dashboard" class="waves-effect waves-light">
+                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                 <span class="s-text">Ride Later</span>
                             </a>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/dashboard" class="waves-effect waves-light">
+                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
                                 <span class="s-text">Peak Hour pricing</span>
                             </a>
@@ -68,16 +68,16 @@
                                 <span class="s-text">Statements</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/statement">Overall Ride Statments</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/statement/provider">Provider Statement</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/statement/today">Daily Statement</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/statement/monthly">Monthly Statement</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/statement/yearly">Yearly Statement</a></li>
+                                <li><a href="{{ url("admin/statement") }}">Overall Ride Statments</a></li>
+                                <li><a href="{{ url("admin/statement/provider") }}">Provider Statement</a></li>
+                                <li><a href="{{ url("admin/statement/today") }}">Daily Statement</a></li>
+                                <li><a href="{{ url("admin/statement/monthly") }}">Monthly Statement</a></li>
+                                <li><a href="{{ url("admin/statement/yearly") }}">Yearly Statement</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Details</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/map" class="waves-effect waves-light">
+                            <a href="{{ url("admin/map") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
                                 <span class="s-text">Map</span>
                             </a>
@@ -89,19 +89,19 @@
                                 <span class="s-text">Ratings &amp; Reviews</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/review/user">User Ratings</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/review/provider">Provider Ratings</a></li>
+                                <li><a href="{{ url("admin/review/user") }}">User Ratings</a></li>
+                                <li><a href="{{ url("admin/review/provider") }}">Provider Ratings</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Requests</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/requests" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/requests") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-history" aria-hidden="true"></i></span>
                                 <span class="s-text">Request History</span>
                             </a>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/scheduled" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/scheduled") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                 <span class="s-text">Scheduled Rides</span>
                             </a>
@@ -114,8 +114,8 @@
                                 <span class="s-text">Service Types</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/service">List Service Types</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/service/create">Add New Service Type</a></li>
+                                <li><a href="{{ url("admin/service") }}">List Service Types</a></li>
+                                <li><a href="{{ url("admin/service/create") }}">Add New Service Type</a></li>
                             </ul>
                         </li>
                         <li class="with-sub">
@@ -125,8 +125,8 @@
                                 <span class="s-text">Documents</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/document">List Documents</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/document/create">Add New Document</a></li>
+                                <li><a href="{{ url("admin/document") }}">List Documents</a></li>
+                                <li><a href="{{ url("admin/document/create") }}">Add New Document</a></li>
                             </ul>
                         </li>
                         
@@ -137,27 +137,27 @@
                                 <span class="s-text">Promocodes</span>
                             </a>
                             <ul>
-                                <li><a href="http://localhost/Hari/trippy/admin/promocode">List Promocodes</a></li>
-                                <li><a href="http://localhost/Hari/trippy/admin/promocode/create">Add New Promocode</a></li>
+                                <li><a href="{{ url("admin/promocode") }}">List Promocodes</a></li>
+                                <li><a href="{{ url("admin/promocode/create") }}">Add New Promocode</a></li>
                             </ul>
                         </li>
                         
                         <li class="menu-title">Payment Details</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/payment" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/payment") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                                 <span class="s-text">Payment History</span>
                             </a>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/settings/payment" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/settings/payment") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                 <span class="s-text">Payment Settings</span>
                             </a>
                         </li>
                         <li class="menu-title">Settings</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/settings" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/settings") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
                                 <span class="s-text">Site Settings</span>
                             </a>
@@ -165,32 +165,32 @@
                         
                         <li class="menu-title">Others</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/privacy" class="waves-effect waves-light">
+                            <a href="{{ url("admin/privacy") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
                                 <span class="s-text">Privacy Policy</span>
                             </a>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/help" class="waves-effect waves-light">
+                            <a href="{{ url("admin/help") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span>
                                 <span class="s-text">Help</span>
                             </a>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/translations" class="waves-effect waves-light">
+                            <a href="{{ url("translations") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-language" aria-hidden="true"></i></span>
                                 <span class="s-text">Translations</span>
                             </a>
                         </li>
                         <li class="menu-title">Account</li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/profile" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/profile") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="ti-user"></i></span>
                                 <span class="s-text">Account Settings</span>
                             </a>
                         </li>
                         <li>
-                            <a href="http://localhost/Hari/trippy/admin/password" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/password") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="ti-exchange-vertical"></i></span>
                                 <span class="s-text">Change Password</span>
                             </a>
@@ -201,7 +201,7 @@
                                 <span class="s-text">Logout</span>
                             </a>
                             
-                            <form id="logout-form" action="http://localhost/Hari/trippy/admin/logout" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ url("admin/logout") }}" method="POST" style="display: none;">
                                 <input type="hidden" name="_token" value="V7eGUn0ZoWZIhJl2zFfHJqRI8RqJIHQYIvbIXG0V">
                                     </form>
                         </li>
@@ -213,7 +213,7 @@
             <div class="site-header">
                 <nav class="navbar navbar-light">
                     <div class="navbar-left">
-                        <a class="navbar-brand" href="http://localhost/Hari/trippy/admin/dashboard">
+                        <a class="navbar-brand" href="{{ url("admin/dashboard") }}">
                             <div class="logo" style="background: url({{ url('assets/images/logo.png') }}) no-repeat;"></div>
                         </a>
                         <div class="toggle-button dark sidebar-toggle-first float-xs-left hidden-md-up">
@@ -263,12 +263,12 @@
             </div>    
         
         <div id="" class="site-content body_container">
-			 <div class="row">
+			<div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">@yield('page_heading')</h1>
                 </div>
                 <!-- /.col-lg-12 -->
-           </div>
+            </div>
 			<div class="row">  
 				@yield('section')
 

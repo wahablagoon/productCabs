@@ -6,6 +6,7 @@ use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Mail;
+use View;
 use Illuminate\Support\Facades\DB;
 
 class MonoController extends Controller
@@ -91,5 +92,4 @@ class MonoController extends Controller
 		    $m->to($user['email'], $user['name'])->subject('Your Reminder!');
 		});
 	}
-
 }

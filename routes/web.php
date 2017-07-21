@@ -14,87 +14,6 @@ use Illuminate\Support\Facades\DB;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function()
-{
-	return View::make('comming_soon');	
-});
-
-Route::get('mailsample/{page}', function(Request $request){
-	$data['email']="dfs";
-	$data['reset_url']="dfs";
-	$data['name']="praveen";
-	return View::make('emails/'.$request->page,$data);
-});
-
-Route::get('admin', function()
-{
-	if(is_loggedin())
-	{
-		return View::make('home');	
-	}
-	else
-	{
-		return View::make('auth/login');		
-	}	
-	
-});
-Route::get('admin/login', function()
-{
-	if(is_loggedin())
-	{
-		return View::make('home');	
-	}
-	else
-	{
-		return View::make('auth/login');		
-	}	
-});
-
-Route::post('checklogin', function(Request $request)
-{	
-	$users = DB::table('member')->where('role',3)->where('email',$request->username);
-	if($users->count()>0 && $users->first()->password==$request->password)
-	{
-		$userdata['trippy_username']=$request->username;
-		$userdata['trippy_id']=$users->first()->id;
-		$userdata['trippy_loggedin']=true;
-		session($userdata);
-		echo  "success";
-	}
-	else
-	{
-		echo "fail";
-	}
-});
-
-Route::post('resetadmin', function(Request $request)
-{	
-	$users = DB::table('member')->where('role',3)->where('email',$request->email);
-	if($users->count()>0)
-	{
-		$data['email']=$request->email;
-		$data['reset_url']=url('reset_password/'.$users->first()->id.'/'.time());
-		Mail::send('emails.remainder', ['data' => $data], function ($m) use ($data) {
-		    $m->from('praveenak.bsc@gmail.com','trippy');	
-		    $m->to($request->email, $users->first()->firstname)->subject('trippy - Reset your password');
-		});
-		echo  "success";
-	}
-	else
-	{
-		echo "fail";
-	}
-});
-
-
-
-Route::get('logout', function(Request $request)
-{	
-	$userdata['trippy_loggedin']=false;
-	session($userdata);
-	return redirect('admin/login');
-});
-
 Route::get('sendsms/{to}/{message}', function (Request $request){
 	$result=sendSms('+'.$request->to,$request->message);
 	if($result->status!="queued")
@@ -138,3 +57,13 @@ Route::post('upload_document/{userid}', function (Request $request) {
 	$myArray['image_url']= url('/')."/storage/app/documents/".$userid."/".$name;
 	return response()->json(array($myArray));
 });
+
+
+Route::get('/','AdminController@comming_soon');
+Route::get('admin','AdminController@index');
+Route::get('admin/login','AdminController@index');
+Route::get('logout','AdminController@logout');
+Route::get('admin/settings','AdminController@view_settings');
+
+Route::post('checklogin','AdminController@checklogin');
+Route::post('resetadmin','AdminController@resetadmin');
