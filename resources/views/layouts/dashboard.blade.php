@@ -216,12 +216,20 @@
                         <div class="toggle-button dark sidebar-toggle-first float-xs-left hidden-md-up">
                             <span class="hamburger"></span>
                         </div>
-                        <div class="toggle-button-second dark float-xs-right hidden-md-up">
+   <!--                      <div class="toggle-button-second dark float-xs-right hidden-md-up">
                                 <a href=" {{ url('logout') }} "  aria-expanded="false">
                                         <span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
                                 </a>
 
+                        </div> -->
+                        <div class="toggle-button dark float-xs-right hidden-md-up" data-toggle="collapse" data-target="#collapse2">
+                            <span class="more"></span>
                         </div>
+                        <ul class="dropdown-menu" id="collapse2" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
+                                    <li><a href="#"><span class="s-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>Change password</a></li>
+                                    <li><a href=" {{ url('logout') }} "><span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>Logout</a></li>
+                        </ul>
+
                      </div>
                     <div class="navbar-right navbar-toggleable-sm collapse" id="collapse-1" style="display:none">
                         <div class="toggle-button light sidebar-toggle-second float-xs-left hidden-sm-down">

@@ -46,6 +46,7 @@
 	<script src="{{ url("assets/scripts/app.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/demo.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/rating.js") }}" type="text/javascript"></script>
+	<script src="{{ url("assets/scripts/admin_custom.js") }}" type="text/javascript"></script>
 	<script type="text/javascript">
             $('.rating').rating();
         </script>
