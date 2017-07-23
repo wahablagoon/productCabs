@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Mail;
 use View;
+use File;
 use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
@@ -75,6 +77,60 @@ class AdminController extends Controller
 	public function view_settings()
 	{
 		return View::make('layouts/admin/view_settings');		
+	}
+
+	public function uploadlogo(Request $request)
+	{
+		$file = request()->file('file-upload');
+		$ext=$file->guessClientExtension();
+		$name=$file->getClientOriginalName();
+		$file->storeAs('images/',$name);
+		$oldfile=site_settings()->site_logo;
+		$filename = 'storage/app/images/'.$oldfile;
+		File::delete($filename);
+		$data['site_logo']=$name;
+		$update=DB::table('site_settings')->where('id',1)->update($data);
+		flash('Site Logo Updated Successfully')->success()->important();
+		return redirect('admin/settings');
+	}
+	public function uploadicon(Request $request)
+	{
+		$file = request()->file('file-upload');
+		$ext=$file->guessClientExtension();
+		$name=$file->getClientOriginalName();
+		$file->storeAs('images/',$name);
+		$oldfile=site_settings()->site_icon;
+		$filename = 'storage/app/images/'.$oldfile;
+		File::delete($filename);
+		$data['site_icon']=$name;
+		$update=DB::table('site_settings')->where('id',1)->update($data);
+		flash('Site Icon Updated Successfully')->success()->important();
+		return redirect('admin/settings');
+	}
+
+	public function set_sitecolor(Request $request)
+	{
+		$data['site_theme_color']=$request->color;
+		$update=DB::table('site_settings')->where('id',1)->update($data);
+		flash('Site Color Updated Successfully')->success()->important();
+		echo "success";
+	}
+
+	public function site_settings(Request $request)
+	{
+		$data['site_name']=$request->site_name;
+		$data['site_appstore_link']=$request->appstore_link;
+		$data['site_copyright']=$request->copyright;
+		$data['site_playstore_link']=$request->playstore_link;
+		$data['site_email']=$request->site_email;
+		$data['site_status']=$request->site_status;
+		$data['site_company_phone']=$request->contact_number;
+		$data['site_company_email']=$request->contact_email;
+		$data['site_currency']=$request->currency;
+		DB::table('site_settings')->where('id',1)->update($data);
+		flash('Site Settings Updated Successfully')->success()->important();
+		return redirect('admin/settings');
+
 	}
 
 }

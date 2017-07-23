@@ -5939,8 +5939,14 @@ table.focus-on tbody tr.focused th, table.focus-on tbody tr.focused td {
 
 /* Alert */
 .alert {
-  border-radius: 0;
-  border-color: rgba(0, 0, 0, 0.125);
+border-radius: 0;
+border-color: rgba(0, 0, 0, 0.125);
+position: absolute;
+z-index: 9;
+top: 65px;
+right: 10px;
+width: 30%;
+
 }
 
 .alert-success hr,
@@ -5951,8 +5957,10 @@ table.focus-on tbody tr.focused th, table.focus-on tbody tr.focused td {
 }
 
 .alert-success {
-  color: #43b968;
-  background-color: #d9f1e1;
+color: #fff;
+background-color: #31d467;
+font-weight: bold;
+
 }
 
 .alert-success .alert-link {
@@ -5978,8 +5986,10 @@ table.focus-on tbody tr.focused th, table.focus-on tbody tr.focused td {
 }
 
 .alert-danger {
-  color: #f44236;
-  background-color: #fdd9d7;
+  color: #fff;
+background-color: #d1564f;
+font-weight: bold;
+
 }
 
 .alert-danger .alert-link {
@@ -10277,7 +10287,19 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
     float: none !important;
     text-align: center !important;
     display: block;
-}
+  }
+
+.alert {
+border-radius: 0;
+border-color: rgba(0, 0, 0, 0.125);
+position: absolute;
+z-index: 9;
+top: 65px;
+right: 10px;
+width: 95%;
+
+}  
+
 }  
 
 

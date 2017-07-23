@@ -6,12 +6,12 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8"/>
-	<title>trippy - Admin Panel</title>
+	<title>{{ site_settings()->site_name }} - Admin Panel</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1" name="viewport"/>
 	<meta content="" name="description"/>
 	<meta content="" name="author"/>
-	<link rel="icon" href="images/favicon.png">
+	<link rel="icon" href="{{ url("storage/app/images/".site_settings()->site_icon) }}">
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/styles.css") }}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/bootstrap.min.css") }}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/themify-icons.css") }}" />
@@ -32,11 +32,13 @@
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
 	@yield('body')
+	@include('flash::message')
 <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 	
 
 	<script src="{{ url("assets/scripts/jquery-1.12.3.min.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/bootstrap.min.js") }}" type="text/javascript"></script>
+	<script src="{{ url("assets/scripts/jscolor.min.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/detectmobilebrowser.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/jquery.mousewheel.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/mwheelIntent.js") }}" type="text/javascript"></script>

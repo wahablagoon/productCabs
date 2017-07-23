@@ -27,6 +27,19 @@ function site_name()
 	}
 }
 
+function site_settings()
+{
+	$settings = DB::table('site_settings');
+	if($settings->count()>0)
+	{
+		return $settings->first();	
+	}
+	else
+	{
+		return false;	
+	}
+}
+
 function check_rider_id($userid)
 {
 	$users = DB::table('member')->where('role',1)->where('id',$userid);

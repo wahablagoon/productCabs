@@ -290,10 +290,58 @@ input:checked + .slider:before {
 }
 .o_site_icon
 {
-  text-align: center
+  text-align: center;
 }
 .o_site_icon img
 {
   height:100px;
   width:100px;
+}
+.n_site_logo,.n_site_icon
+{
+  text-align: center;
+}
+
+/*****************************************
+  upload button styles
+******************************************/
+.file-upload {
+  position: relative;
+  cursor:pointer;
+  display: inline-block;
+  text-align: center;
+  margin:20px 0;
+}
+
+.file-upload__label {
+  display: block;
+  cursor: pointer;
+}
+    
+.file-upload__input {
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1;
+    width:0;
+    height: 100%;
+    opacity: 0;
+}
+#site_color
+{
+   width: 100%;
+    border: 1px solid #ccc;
+    padding: 36px 10px;
+    margin: 10px 0;
+    border-radius: 2px;
+}
+.selectpicker
+{
+   width: 100%;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 5px 10px;
 }

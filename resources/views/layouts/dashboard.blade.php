@@ -211,7 +211,7 @@
                 <nav class="navbar navbar-light">
                     <div class="navbar-left">
                         <a class="navbar-brand" href="{{ url("admin/dashboard") }}">
-                            <div class="logo" style="background: url({{ url('assets/images/logo.png') }}) no-repeat;"></div>
+                            <div class="logo" style="background: url({{ url('storage/app/images/'.site_settings()->site_logo) }}) no-repeat;"></div>
                         </a>
                         <div class="toggle-button dark sidebar-toggle-first float-xs-left hidden-md-up">
                             <span class="hamburger"></span>
@@ -245,7 +245,7 @@
                         </ul>
                          <ul class="nav navbar-nav float-md">
                             <li class="nav-item  hidden-sm-down" style="font-family: Oleo Script; padding: 5px; font-size: 32px;">
-                                trippy
+                                {{ site_settings()->site_name }}
                             </li>
                         </ul>
                         <ul class="nav navbar-nav float-md-right">
