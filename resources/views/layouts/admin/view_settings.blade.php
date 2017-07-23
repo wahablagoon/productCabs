@@ -7,7 +7,7 @@
             @section ('pane2_panel_title', 'General')
             @section ('pane2_panel_body')
                     <!-- /.panel -->
-        <form  method="post" id="ul"  action="{{ url("admin/site_settings") }}">
+        <form  method="post" action="{{ url("admin/site_settings") }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">    
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-4 col-sm-4 col-xs-12 item_settings">Site Name</div>
