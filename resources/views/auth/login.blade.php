@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=Oleo+Script|Quicksand" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <style>
+
 .preloader {
    background-image: url('{{ url("assets/images/350.gif") }}');
    background-position: center center;
@@ -20,6 +21,19 @@
     color: #fff;
     margin: 10px 0;
     padding: 5px;
+}
+
+#error-note-reset {
+    background: #cf5757 none repeat scroll 0 0;
+    border-radius: 3px;
+    color: #fff;
+    margin: 10px 20px;
+    padding: 5px 15px;
+    
+}
+.reset-success
+{
+    background: #00cc00 none repeat scroll 0 0 !important;
 }
 
  img.login-logo{
@@ -101,7 +115,7 @@
                         </button>
                      </div>
       </div>
-      <a href="#" class="fgt-pwd">Forgot Password?</a>
+      <a href="#" class="fgt-pwd" type="button" id="mymodal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
                   
                </form>
              </div>
@@ -109,23 +123,49 @@
       </div>
    </div>
 </div>
+
+
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="{{ url("assets/scripts/bootstrap.min.js") }}" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ url("assets/js/material.js") }}"></script>
 <script>
+var seconds = 5; // seconds for HTML
+var foo; // variable for clearInterval() function
+
+function reset_redirect() {
+    document.location.href = "{{ url("admin/login") }}";
+}
+
+function updateSecs() {
+    document.getElementById("seconds").innerHTML = seconds;
+    seconds--;
+    if (seconds == -1) {
+        clearInterval(foo);
+        reset_redirect();
+    }
+}
+
+function countdownTimer() {
+    foo = setInterval(function () {
+        updateSecs()
+    }, 1000);
+}
+
+
 $(document).ready(function(){
    $("#loginbtn").click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
       if(username=="")
       {
-
+          
          $('#error-note').empty().append("Username is required");
          $('#error-note').show();
       }
       else if(password=="")
       {
-
+          
          $('#error-note').empty().append("Password required");
          $('#error-note').show();
       }
@@ -152,7 +192,7 @@ $(document).ready(function(){
                }
                else
                {
-
+                   
                   $('#error-note').empty().append("Invalid username or password");
                   $('#error-note').show();
                   $("#loginbtn").removeClass("preloader");
@@ -162,8 +202,92 @@ $(document).ready(function(){
          });
       }
    });
+
+  $("#resetbtn").click(function(){
+      var email = $('#email').val();
+      if(email=="")
+      {
+          
+         $('#error-note-reset').empty().append("email is required");
+         $('#error-note-reset').show();
+      }
+      else if(password=="")
+      {
+          
+         $('#error-note').empty().append("Password required");
+         $('#error-note').show();
+      }
+      else
+      {
+         $("#resetbtn").addClass("preloader");
+         document.getElementById("resetbtn").disabled = true;
+         var url="{{ url('resetadmin') }}";
+         $.ajax(
+         {
+            type:"POST",
+            cache:false,
+            url: url, 
+            data : {
+               "_token": "{{ csrf_token() }}",
+               "email":email,
+               "role":3
+            },
+            success: function(result){
+               if(result.trim()=="success")
+               {
+                  $('#error-note-reset').empty().append("Reset password mail is succesfully sent to your email.");
+                  $('#error-note-reset').addClass("reset-success");
+                  $('#error-note-reset').show();
+                  $('#timer').show();
+                  $("#resetbtn").removeClass("preloader");
+                  document.getElementById("resetbtn").disabled = false;
+                  countdownTimer();
+               }
+               else
+               {
+                  var sitename="<?php echo site_name(); ?>";
+                  $('#error-note-reset').empty().append(":( you're not in "+sitename);
+                  $('#error-note-reset').show();
+                  $("#resetbtn").removeClass("preloader");
+                  document.getElementById("resetbtn").disabled = false;
+               }
+            }
+         });
+      }
+   });
+
 });
 
 </script>
- 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Reset Password</h4>
+      </div>
+      <div class="modal-body">
+        <div id="error-note-reset" style="display:none"></div>
+               <form  class="form-horizontal home-login-form" role="form" method="POST"  name="login" action="login">
+                  <div class="form-group">
+                     <div class="col-md-12">
+                        <input id="email" name="email" type="text" autocomplete='off'><span class="highlight"></span><span class="bar"></span>
+                        <label class="material">Email</label>
+                     </div>
+                  </div>
+                  <div class="form-group form-footer">
+                     <div class="col-md-12">
+                        <button type="button" id="resetbtn" class="btn_custom button btn_blue">
+                           Reset Password
+                           <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+                        </button>
+                     </div>
+                  </div>
+               </form>
+     </div>
+      <div class="modal-footer">
+<p style="display:none" id="timer">You should be automatically redirected in <span id="seconds">5</span> seconds.
+</p>  </div>
+    </div> 
 @endsection
