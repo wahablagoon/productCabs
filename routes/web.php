@@ -61,12 +61,21 @@ Route::post('upload_document/{userid}', function (Request $request) {
 
 Route::get('/','AdminController@comming_soon');
 Route::get('admin','AdminController@index');
+Route::get('admin/dashboard','AdminController@index');
 Route::get('admin/login','AdminController@index');
 Route::get('logout','AdminController@logout');
 Route::get('admin/settings','AdminController@view_settings');
+Route::get('admin/user','AdminController@view_user');
+Route::get('admin/user/create','AdminController@view_create_user');
+Route::get('admin/provider','AdminController@view_provider');
+Route::get('admin/provider/create','AdminController@view_create_provider');
+
+
 Route::post('admin/upload_logo','AdminController@uploadlogo');
 Route::post('admin/upload_icon','AdminController@uploadicon');
 Route::post('admin/set_sitecolor','AdminController@set_sitecolor');
 Route::post('admin/site_settings','AdminController@site_settings');
 Route::post('checklogin','AdminController@checklogin');
 Route::post('resetadmin','AdminController@resetadmin');
+Route::post('admin/rider_signup','AdminController@rider_signup');
+Route::post('admin/provider_signup','AdminController@provider_signup');

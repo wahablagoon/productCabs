@@ -10,7 +10,7 @@ use Mail;
 use View;
 use File;
 use Illuminate\Support\Facades\DB;
-
+use App\member;
 
 class AdminController extends Controller
 {
@@ -79,6 +79,25 @@ class AdminController extends Controller
 		return View::make('layouts/admin/view_settings');		
 	}
 
+	public function view_user()
+	{
+		return View::make('layouts/admin/view_user');		
+	}
+
+	public function view_provider()
+	{
+		return View::make('layouts/admin/view_provider');		
+	}
+	public function view_create_user()
+	{
+		return View::make('	layouts/admin/view_user_create');			
+	}
+
+	public function view_create_provider()
+	{
+		return View::make('layouts/admin/view_driver_create');			
+	}
+
 	public function uploadlogo(Request $request)
 	{
 		$file = request()->file('file-upload');
@@ -131,6 +150,22 @@ class AdminController extends Controller
 		flash('Site Settings Updated Successfully')->success()->important();
 		return redirect('admin/settings');
 
+	}
+
+	public function rider_signup(Request $request)
+	{
+		unset($request['_token']);
+		$rider = member::create($request->all());
+		flash('Rider Added Successfully')->success()->important();
+		return redirect('admin/user');
+	}
+
+	public function provider_signup(Request $request)
+	{
+		unset($request['_token']);
+		$rider = member::create($request->all());
+		flash('Provider Added Successfully')->success()->important();
+		return redirect('admin/provider');
 	}
 
 }

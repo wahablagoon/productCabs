@@ -1,4 +1,13 @@
 $(document).ready(function(){
+	var user_listing_table = $('#user_listing').DataTable({
+    "bLengthChange": false,
+    "bInfo": false,
+});
+	 $('#search').on('keyup',function(){
+    user_listing_table.search($(this).val()).draw() ;
+});
+	
+	$( "#user_listing_filter" ).append('<span class="glyphicon glyphicon-search form-control-feedback"></span>');
 
 	$(".switch").change(function(){
 		var val=$(this).attr("data-value");

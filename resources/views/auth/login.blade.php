@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=Oleo+Script|Quicksand" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <style>
+
 .preloader {
    background-image: url('{{ url("assets/images/350.gif") }}');
    background-position: center center;

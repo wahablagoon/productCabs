@@ -80,7 +80,7 @@ body
 
 .btn_blue
 {
-	background-color:#3f51b5;
+	background-color:#3f51b5 !important;
 	color:#fff;
 	width:100%;
 	padding:10px;
@@ -133,42 +133,47 @@ background-color: #fcfcfc;
   This query will take effect for any screen smaller than 760px
   and also iPads specifically.
   */
-  @media
-  only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px)  {
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  
+{
 
     /* Force table to not be like tables anymore */
-    table.res_table, table.res_table thead, table.res_table tbody, table.res_table th, table.res_table td, table.res_table tr {
-      display: block;
-    }
+  table.res_table, table.res_table thead, table.res_table tbody, table.res_table th, table.res_table td, table.res_table tr {
+    display: block;
+  }
 
     /* Hide table headers (but not display: none;, for accessibility) */
-    table.res_table thead tr {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
+  table.res_table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 
-    table.res_table tr { border: 1px solid #ccc; }
+  table.res_table tr { 
+    border: 1px solid #ccc; 
+    margin-top: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  }
 
-    table.res_table td {
-      /* Behave  like a "row" */
-      border: none;
-      border-bottom: 1px solid #eee;
-      position: relative;
-      padding-left: 50%;
-    }
+  table.res_table td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
 
-    table.res_table td:before {
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 6px;
-      left: 6px;
-      width: 45%;
-      padding-right: 10px;
-      white-space: nowrap;
-    }
+  table.res_table td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
 
     /*
     Label the data
@@ -182,15 +187,13 @@ background-color: #fcfcfc;
     body {
       padding: 0;
       margin: 0;
-      width: 320px; }
+      }
+
+
     }
 
   /* iPads (portrait and landscape) ----------- */
-  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-    body {
-      width: 495px;
-    }
-  }
+ 
 
 
 .list_settings
@@ -344,4 +347,190 @@ input:checked + .slider:before {
     border: 1px solid #ccc;
     background: #fff;
     padding: 5px 10px;
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 970px)
+{
+
+  .res_table
+{
+  width:100%;
+} 
+  .res_table thead
+{
+  font-weight: bold;
+  font-size:13px;
+  padding: 10px;
+ 
+  text-align:left;
+  border-top: none !important;
+}
+}
+.res_table tr td a:hover{
+  color: #3b5998 !important;
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 980px)
+{
+  .search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 100% !important;
+  border-radius: 4px 25px 25px 4px;
+}
+
+        .floatbtn
+      {
+        left: 45% !important;
+      }
+.uhistory,.uedit,.udelete
+{
+  width:100%;
+   margin: 10px 2px !important;
+}
+
+.res_table
+{
+  width:72%;
+} 
+  .res_table thead
+{
+  font-weight: bold;
+  font-size:13px;
+  padding: 10px;
+ 
+  text-align:left;
+  border-top: none !important;
+}
+.res_table td, .res_table th, .res_table tr, .res_table tbody, .res_table thead, table.res_table
+     {
+        display: block;
+    }
+    .res_table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+   .res_table tr { border-left: 1px solid #d4d4d4; border-right: 1px solid #d4d4d4; }
+    .res_table td {
+        border: none;
+        border-bottom: 1px solid #d4d4d4;
+        position: relative;
+        padding-left: 50% !important;
+        word-wrap:break-word;
+    }
+    .res_table td:before {
+        position: absolute;
+        top: 14px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+/*        white-space: nowrap;*/
+    }
+}
+#user_listing_filter input
+{
+   border: 1px solid #ccc;
+ 
+    padding: 5px 10px;
+}
+
+
+
+
+.uhistory
+{
+  background: #00cca8;
+    padding: 5px 10px;
+    color: #fff;
+    box-shadow: 3px 3px 8px #adadad;
+    cursor:pointer;
+    margin:0 2px;
+}
+
+.uedit
+{
+  background: #5bd153;
+    padding: 5px 10px;
+    color: #fff;
+    box-shadow: 3px 3px 8px #adadad;
+    cursor:pointer;
+    margin:0 2px;
+}
+
+.udelete
+{
+  background: #e15e5e;
+    padding: 5px 10px;
+    color: #fff;
+    box-shadow: 3px 3px 8px #adadad;
+    cursor:pointer;
+    margin:0 2px;
+}
+
+.uhistory i, .uedit i, .udelete i
+{
+  padding:0 5px;
+}
+.uhistory:hover, .uedit:hover, .udelete:hover
+{
+  opacity: 0.8;
+}
+.panel-custom
+{
+  padding:15px 5px;
+  margin-top: 30px;
+  position:relative;
+}
+.search-form
+{
+  margin-top:40px;
+}
+
+
+
+.search-form .form-group input.form-control {
+  padding: 5px 30px 0px 10px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+  font-size: 16px;
+  color:#fff;
+}
+.search-form .form-group input.form-control::-webkit-input-placeholder {
+  display: none;
+}
+.search-form .form-group input.form-control:-moz-placeholder {
+  /* Firefox 18- */
+  display: none;
+}
+.search-form .form-group input.form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  display: none;
+}
+.search-form .form-group input.form-control:-ms-input-placeholder {
+  display: none;
+}
+.search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 25%;
+  border-radius: 4px 25px 25px 4px;
+}
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #fff;
+  left: initial;
+  font-size: 16px;
+}
+
+#user_listing_filter
+{
+  display:none;
 }

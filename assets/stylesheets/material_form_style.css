@@ -12,7 +12,7 @@ hgroup {
 	margin-top: 25px; 
 }
 
-input {
+.form-group input {
 	font-size: 18px;
 	padding: 10px 10px 0px 5px;
 	-webkit-appearance: none;
@@ -24,12 +24,12 @@ input {
 	border-bottom: 1px solid #ccc;
 }
 
-input:focus { outline: none; }
+.form-group input:focus { outline: none; }
 
 
 /* Label */
 
-label {
+.form-group label {
 	color: #999; 
 	font-size: 14px;
 	font-weight: normal;
@@ -45,7 +45,7 @@ label {
 
 /* active */
 
-input:focus ~ label, input.used ~ label {
+.form-group input:focus ~ label, input.used ~ label {
 	top: -20px;
   -webkit-transform: scale(.90);
           transform: scale(.90); left: 2px;
@@ -81,7 +81,7 @@ input:focus ~ label, input.used ~ label {
 
 /* active */
 
-input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
+.form-group input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 
 
 /* Highlight */
@@ -237,3 +237,8 @@ footer img {
 footer img:hover { opacity: .83; }
 
 footer img:focus , footer a:focus { outline: none; }
+
+
+.getmdl-select .mdl-icon-toggle__label{float:right;margin-top:-30px;color:rgba(0,0,0,0.4)}.getmdl-select.is-focused .mdl-icon-toggle__label{color:#3f51b5}.getmdl-select .mdl-menu__container{width:100% !important;overflow:hidden}.getmdl-select .mdl-menu__container .mdl-menu .mdl-menu__item{font-size:16px}.getmdl-select__fullwidth .mdl-menu{width:100%}.getmdl-select__fix-height .mdl-menu__container{overflow-y:auto;max-height:300px !important}.getmdl-select__fix-height .mdl-menu.mdl-menu--top-left{bottom:auto;top:0}
+
+/*# sourceMappingURL=getmdl-select.min.css.map */
