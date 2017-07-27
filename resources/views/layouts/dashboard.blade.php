@@ -211,7 +211,10 @@
                 <nav class="navbar navbar-light">
                     <div class="navbar-left">
                         <a class="navbar-brand" href="{{ url("admin/dashboard") }}">
-                            <div class="logo" style="background: url({{ url('storage/app/images/'.site_settings()->site_logo) }}) no-repeat;"></div>
+                            <div class="logo" style="display:none;background: url({{ url('storage/app/images/'.site_settings()->site_logo) }}) no-repeat;"></div>
+                            <div class="logo_title" style="font-family: Oleo Script; padding: 5px; font-size: 32px;">
+                                {{ site_settings()->site_name }}
+                            </div>
                         </a>
                         <div class="toggle-button dark sidebar-toggle-first float-xs-left hidden-md-up">
                             <span class="hamburger"></span>
@@ -337,6 +340,7 @@
 			<div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">@yield('page_heading')</h1>
+                    
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

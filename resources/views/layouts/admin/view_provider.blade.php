@@ -4,15 +4,16 @@
 <div class="col-sm-12">            <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-         <div class="panel panel-default panel-custom">
-<a class="floatbtn waves-effect waves-light" href="{{ url("admin/provider/create") }}"><i class="fa fa-plus"></i></a>
-
-<div class="search-form">
+          <div class="search-form">
     <div class="form-group has-feedback">
     <input type="text" class="form-control" name="search" id="search" placeholder="">
-      <span class="glyphicon glyphicon-search form-control-feedback"></span>
+      <span class="glyphicon glyphicon-search form-control-feedback plus"></span>
   </div>
 </div>
+         <div class="panel panel-default panel-custom">
+ <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/provider/create") }}"><span class="plus">+</span>
+            <img class="edit" src="{{ url('assets/images/edit.png') }}">
+            </a>
 <table id="user_listing" class="display res_table">
     <thead>
         <tr>

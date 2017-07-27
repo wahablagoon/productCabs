@@ -90,7 +90,13 @@ class AdminController extends Controller
 	}
 	public function view_create_user()
 	{
-		return View::make('	layouts/admin/view_user_create');			
+		$cc=DB::table('country_code')->get();
+		foreach($cc as $c)
+		{
+			$country_code[]=$c;
+		}
+		$data['country_code']=$country_code;
+		return View::make('layouts/admin/view_user_create',$data);			
 	}
 
 	public function view_create_provider()

@@ -1,18 +1,32 @@
 @extends('layouts.dashboard')
 @section('page_heading','Users')
 @section('section')
-<div class="col-sm-12">            <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-12">
-         <div class="panel panel-default panel-custom">
-<a class="floatbtn waves-effect waves-light" href="{{ url("admin/user/create") }}"><i class="fa fa-plus"></i></a>
 
-<div class="search-form">
-    <div class="form-group has-feedback">
-    <input type="text" class="form-control" name="search" id="search" placeholder="">
-      <span class="glyphicon glyphicon-search form-control-feedback"></span>
+    <div class="row">
+<div class="col-sm-12">
+<div class="fixed-action-btn horizontal click-to-toggle spin-close relative-action-btn float_right">
+    <a class="btn-floating btn-large red">
+<i class="fa fa-cloud-download" aria-hidden="true"></i>
+    </a>
+    <ul>
+      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
+  </div>
+       
+
+        <div class="col-lg-12">
+          <div class="search-form">
+    <div class="form-group-search has-feedback">
+    <input type="user_search" class="form-control" name="search" id="search" placeholder="">
+      <span class="glyphicon glyphicon-search form-control-feedback plus"></span>
   </div>
 </div>
+         <div class="panel panel-default panel-custom">
+            <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/user/create") }}"><span class="plus">+</span>
+            <img class="edit" src="{{ url('assets/images/edit.png') }}">
+            </a>
 <table id="user_listing" class="display res_table">
     <thead>
         <tr>
@@ -21,7 +35,6 @@
             <th>Lastname</th>
             <th>Email</th>
             <th>Mobile</th>
-            <th>Wallet</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -37,7 +50,6 @@ foreach($user as $users)
         <td>{{ $users->lastname }}</td>
         <td>{{ $users->email }}</td>
         <td>{{ $users->phone }}</td>
-        <td>{{ $users->wallet }}</td>
         <td><label class="uhistory"><i class="fa fa-history" aria-hidden="true"></i>History</label>
             <label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</label>
             <label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i>Delete</label>
@@ -68,5 +80,7 @@ word-break: break-all;
 
 </div>
         </div>
-            
+
+
+
 @stop
