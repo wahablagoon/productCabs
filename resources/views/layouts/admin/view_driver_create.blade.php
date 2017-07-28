@@ -13,11 +13,11 @@
         <input type="hidden" name="role" value="2">
           <div class="row">
             <div class="input-field col s12">
-              <input id="icon_prefix" type="text" value="" name="firstname" class="validate">
+              <input id="icon_prefix" type="text" value="" name="firstname" class="validate" autocomplete="off">
               <label for="icon_prefix">First Name</label>
             </div>
             <div class="input-field col s12">
-              <input id="lastname" type="text" name="lastname" value="" class="validate">
+              <input id="lastname" type="text" name="lastname" value="" class="validate" autocomplete="off">
               <label for="lastname">Last Name</label>
             </div>
             <div class="input-field col s12">
@@ -32,19 +32,19 @@
             </div>
             <div class="input-field col s12">
 
-              <input id="phone" type="tel" value="" name="phone" class="validate">
+              <input id="phone" type="tel" value="" name="phone" class="validate" autocomplete="off">
               <label for="phone">Phone</label>
             </div>
             <div class="input-field col s12">
-              <input id="email" type="email" value="" name="email" class="validate">
+              <input id="email" type="email" value="" name="email" class="validate" autocomplete="off">
               <label for="email">Email</label>
             </div>
             <div class="input-field col s12">
-              <input id="password" type="password" name="password" value="" class="validate">
+              <input id="password" type="password" name="password" value="" class="validate" autocomplete="off">
               <label for="password">Password</label>
             </div>
             <div class="input-field col s12">
-              <input id="city" type="text" name="city" value="" class="validate">
+              <input id="city" type="text" name="city" value="" class="validate" autocomplete="off">
               <label for="city">City</label>
             </div>
 

@@ -11,7 +11,7 @@
             </div>
           </div>
          <div class="panel panel-default panel-custom">
- <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/provider/create") }}"><span class="plus">+</span>
+ <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/driver/create") }}"><span class="plus">+</span>
             <img class="edit" src="{{ url('assets/images/edit.png') }}">
             </a>
 <table id="user_listing" class="display res_table">
