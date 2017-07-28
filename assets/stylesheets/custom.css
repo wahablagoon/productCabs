@@ -374,7 +374,7 @@ input:checked + .slider:before {
 {
   .search-form .form-group-search:hover,
 .search-form .form-group-search.hover {
-  width: 100% !important;
+  width: 80% !important;
   border-radius: 4px 25px 25px 4px;
 }
 
