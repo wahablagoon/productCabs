@@ -459,7 +459,7 @@ a:active {
 .compact-sidebar .site-header .navbar-brand .logo {
   background-size: cover!important;
   background-position: left!important;
-  width: 35px!important;
+  width: 40px !important;
 }
 
 @media (min-width: 768px) {

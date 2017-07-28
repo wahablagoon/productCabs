@@ -629,9 +629,10 @@ input:checked + .slider:before {
 
 .relative-action-btn
 {
-top:12% !important;
-height: 65px;
+   position: relative !important;
+   margin: 10px;
 }
+
 .float_right
 {
   float:right;
