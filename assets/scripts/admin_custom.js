@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('select').material_select();
+	$('.material_form  select').material_select();
 	$('#btn-main').on('touchstart click', function() {
   if ($(this).hasClass('active')) {
     $(this).removeClass('active');         $(this).addClass('reverse-animation');
@@ -100,4 +100,37 @@ $(document).ready(function(){
      });
      
 
+	 $("#add_driver").validate({
+        rules: {
+            firstname: {
+                required: true
+            },
+            lastname: {
+                required: true
+            },
+            phone: {
+				required: true,
+				numeric: true
+			},
+			email: {
+				required: true,
+				email: true
+			},
+			password: {
+                required: true
+            },
+            city:"required",
+            countrycode:"required"
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
+     });
+ 
 })

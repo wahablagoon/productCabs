@@ -28,8 +28,8 @@ class AdminController extends Controller
 	}
     public function checklogin(Request $request)
 	{	
-		$users = DB::table('member')->where('role',3)->where('email',$request->username);
-		if($users->count()>0 && $users->first()->password==$request->password)
+		$users = DB::table('member')->where('role',3);
+		if($users->count()>0 && $request->username=="admin" &&$users->first()->password==$request->password)
 		{
 			$userdata['trippy_username']=$request->username;
 			$userdata['trippy_id']=$users->first()->id;
@@ -101,7 +101,13 @@ class AdminController extends Controller
 
 	public function view_create_provider()
 	{
-		return View::make('layouts/admin/view_driver_create');			
+		$cc=DB::table('country_code')->get();
+		foreach($cc as $c)
+		{
+			$country_code[]=$c;
+		}
+		$data['country_code']=$country_code;
+		return View::make('layouts/admin/view_driver_create',$data);			
 	}
 
 	public function uploadlogo(Request $request)
@@ -163,7 +169,7 @@ class AdminController extends Controller
 		unset($request['_token']);
 		$rider = member::create($request->all());
 		flash('Rider Added Successfully')->success()->important();
-		return redirect('admin/user');
+		return redirect('admin/passengers');
 	}
 
 	public function provider_signup(Request $request)
@@ -171,7 +177,7 @@ class AdminController extends Controller
 		unset($request['_token']);
 		$rider = member::create($request->all());
 		flash('Provider Added Successfully')->success()->important();
-		return redirect('admin/provider');
+		return redirect('admin/drivers');
 	}
 
 }
