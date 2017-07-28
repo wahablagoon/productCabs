@@ -24,39 +24,24 @@
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
                                 <span class="s-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                <span class="s-text">Users</span>
+                                <span class="s-text">Passengers</span>
                             </a>
                             <ul>
-                                <li><a href="{{ url("admin/user") }}">List Users</a></li>
-                                <li><a href="{{ url("admin/user/create") }}">Add New User</a></li>
+                                <li><a href="{{ url("admin/passengers") }}">List Passengers</a></li>
+                                <li><a href="{{ url("admin/passenger/create") }}">Add New Passenger</a></li>
                             </ul>
                         </li>
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
                                 <span class="s-caret"><i class="fa fa-angle-down"></i></span>
                                 <span class="s-icon"><i class="fa fa-taxi" aria-hidden="true"></i></span>
-                                <span class="s-text">Providers</span>
+                                <span class="s-text">Driver</span>
                             </a>
                             <ul>
-                                <li><a href="{{ url("admin/provider") }}">List Providers</a></li>
-                                <li><a href="{{ url("admin/provider/create") }}">Add New Provider</a></li>
+                                <li><a href="{{ url("admin/drivers") }}">List Drivers</a></li>
+                                <li><a href="{{ url("admin/driver/create") }}">Add New Driver</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                <span class="s-text">Ride Later</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
-                                <span class="s-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
-                                <span class="s-text">Peak Hour pricing</span>
-                            </a>
-                        </li>
-
-                        
-
                         <li class="menu-title">Accounts</li>
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
@@ -103,6 +88,13 @@
                                 <span class="s-text">Scheduled Rides</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
+                                <span class="s-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                <span class="s-text">Ride Later</span>
+                            </a>
+                        </li>
+
                         <li class="menu-title">General</li>
                         <li class="with-sub">
                             <a href="#" class="waves-effect  waves-light">
@@ -138,7 +130,13 @@
                                 <li><a href="{{ url("admin/promocode/create") }}">Add New Promocode</a></li>
                             </ul>
                         </li>
-                        
+                                                <li>
+                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
+                                <span class="s-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+                                <span class="s-text">Peak Hour pricing</span>
+                            </a>
+                        </li>
+
                         <li class="menu-title">Payment Details</li>
                         <li>
                             <a href="{{ url("admin/payment") }}" class="waves-effect  waves-light">
@@ -211,10 +209,7 @@
                 <nav class="navbar navbar-light">
                     <div class="navbar-left">
                         <a class="navbar-brand" href="{{ url("admin/dashboard") }}">
-                            <div class="logo" style="display:none;background: url({{ url('storage/app/images/'.site_settings()->site_logo) }}) no-repeat;"></div>
-                            <div class="logo_title" style="font-family: Oleo Script; padding: 5px; font-size: 32px;">
-                                {{ site_settings()->site_name }}
-                            </div>
+                            <div class="logo" style="background: url({{ url('storage/app/images/'.site_settings()->site_logo) }}) no-repeat;"></div>
                         </a>
                         <div class="toggle-button dark sidebar-toggle-first float-xs-left hidden-md-up">
                             <span class="hamburger"></span>
