@@ -4,27 +4,16 @@
 
     <div class="row">
 <div class="col-sm-12">
-<div class="fixed-action-btn horizontal click-to-toggle spin-close relative-action-btn float_right">
-    <a class="btn-floating btn-large red">
-<i class="fa fa-cloud-download" aria-hidden="true"></i>
-    </a>
-    <ul>
-      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-    </ul>
-  </div>
-       
-
         <div class="col-lg-12">
           <div class="search-form">
-    <div class="form-group-search has-feedback">
-    <input type="user_search" class="form-control" name="search" id="search" placeholder="">
-      <span class="glyphicon glyphicon-search form-control-feedback plus"></span>
-  </div>
-</div>
+              <div class="form-group-search has-feedback">
+              <input type="user_search" class="form-control" name="search" id="search" placeholder="">
+                <span class="glyphicon glyphicon-search form-control-feedback plus"></span>
+            </div>
+          </div>
          <div class="panel panel-default panel-custom">
-            <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/user/create") }}"><span class="plus">+</span>
+
+         <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/passenger/create") }}"><span class="plus">+</span>
             <img class="edit" src="{{ url('assets/images/edit.png') }}">
             </a>
 <table id="user_listing" class="display res_table">
@@ -79,7 +68,19 @@ word-break: break-all;
 </style>
 
 </div>
-        </div>
+
+</div>
+<div class="fixed-action-btn horizontal click-to-toggle spin-close relative-action-btn float_right">
+    <a class="btn-floating btn-large red tooltipped" data-tooltip="Export users">
+<i class="fa fa-cloud-download" aria-hidden="true"></i>
+    </a>
+    <ul>
+      <li><a class="btn-floating yellow darken-1 tooltipped " data-tooltip="Excel"><i class="material-icons">format_quote</i></a></li>
+      <li><a class="btn-floating green"><i class="material-icons tooltipped " data-tooltip="Pdf">publish</i></a></li>
+      <li><a class="btn-floating blue"><i class="material-icons tooltipped " data-tooltip="Print" >attach_file</i></a></li>
+    </ul>
+</div>   
+
 
 
 

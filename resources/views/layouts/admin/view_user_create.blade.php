@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','Add Users')
+@section('page_heading','Add Passengers')
 @section('section')
 
 
@@ -8,7 +8,7 @@
     <div class="col-lg-6 col-md-offset-3">
       <div class="panel panel-default panel-custom add_form">
        <div class="row">
-        <form  id="add_user" class="form-horizontal home-login-form" role="form" method="POST"  name="login" action="{{ url("admin/rider_signup") }} ">
+        <form  id="add_user" class="material_form form-horizontal home-login-form" role="form" method="POST"  name="login" action="{{ url("admin/rider_signup") }} ">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="role" value="1">
           <div class="row">
