@@ -69,7 +69,11 @@ Route::get('admin/passenger/create','AdminController@view_create_user');
 Route::get('admin/drivers','AdminController@view_provider');
 Route::get('admin/driver/create','AdminController@view_create_provider');
 Route::get('admin/settings/api','AdminController@view_api');
+Route::get('admin/map','AdminController@view_map');
 
+
+
+Route::post('getMap','UserController@getMap');
 Route::post('admin/upload_logo','AdminController@uploadlogo');
 Route::post('admin/upload_icon','AdminController@uploadicon');
 Route::post('admin/set_sitecolor','AdminController@set_sitecolor');

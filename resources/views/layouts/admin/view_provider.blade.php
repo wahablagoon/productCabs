@@ -12,7 +12,7 @@
           </div>
          <div class="panel panel-default panel-custom">
  <a class="floatbtn floating-button waves-effect waves-light" href="{{ url("admin/driver/create") }}"><span class="plus">+</span>
-            <img class="edit" src="{{ url('assets/images/edit.png') }}">
+            <img class="edit" src="{{ url('assets/images/add.png') }}">
             </a>
 <table id="user_listing" class="display res_table">
     <thead>
