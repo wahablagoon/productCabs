@@ -59,6 +59,11 @@ class AdminController extends Controller
 		return View::make('layouts/admin/view_api',$api);		
 	}
 
+	public function view_map()
+	{
+		return View::make('layouts/admin/view_map');			
+	}
+
 	public function resetadmin(Request $request)
 	{
 		$users = member::where('role',3)->where('email',$request->email);
