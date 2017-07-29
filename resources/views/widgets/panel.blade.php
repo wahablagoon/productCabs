@@ -9,6 +9,10 @@
 		<a class="panelButton"><i class="fa fa-remove"></i></a>
 	</div>
 	@endif
+	@if( isset($icon))  
+	<i class="fa  @yield ($icon . '_panel_icon')"></i>
+	@endif
+
 	</h3>
 	
 	</div>
