@@ -2,8 +2,7 @@
 use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-
+use Illuminate\Foundation\Exceptions\Handler;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,7 +68,7 @@ Route::get('admin/passengers','AdminController@view_user');
 Route::get('admin/passenger/create','AdminController@view_create_user');
 Route::get('admin/drivers','AdminController@view_provider');
 Route::get('admin/driver/create','AdminController@view_create_provider');
-
+Route::get('admin/settings/api','AdminController@view_api');
 
 Route::post('admin/upload_logo','AdminController@uploadlogo');
 Route::post('admin/upload_icon','AdminController@uploadicon');
@@ -79,3 +78,4 @@ Route::post('checklogin','AdminController@checklogin');
 Route::post('resetadmin','AdminController@resetadmin');
 Route::post('admin/rider_signup','AdminController@rider_signup');
 Route::post('admin/provider_signup','AdminController@provider_signup');
+Route::post('admin/api_settings','AdminController@api_settings');
