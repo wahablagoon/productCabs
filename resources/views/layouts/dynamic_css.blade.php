@@ -131,4 +131,11 @@ textarea.materialize-textarea:focus.valid {
     color:#fff !important;
 
 }
+.demo-ribbon {
+  background-color: #3f71b5;
+}
+.demo-content
+{
+    background:#fff;
+}
 </style>

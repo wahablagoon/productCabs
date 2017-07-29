@@ -157,6 +157,12 @@
                                 <span class="s-text">Site Settings</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url("admin/settings/api") }}" class="waves-effect  waves-light">
+                                <span class="s-icon"><i class="fa fa-ticket" aria-hidden="true"></i></span>
+                                <span class="s-text">API Settings</span>
+                            </a>
+                        </li>
                         
                         <li class="menu-title">Others</li>
                         <li>
