@@ -6,9 +6,7 @@ use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
-use Firebase\Token\TokenException;
-use Firebase\Token\TokenGenerator;
-
+use App\Models\Firebase;
 class UserController extends Controller
 {
 	public function rider_signup(Request $request )
@@ -387,37 +385,13 @@ class UserController extends Controller
 
 	public function firebase_connect()
 	{
+		$firebase = new Firebase();
+		$path="/firebase/drivers/1506993752/";
+		$data['online_status']=1;
+		$data['username']="al";
+		$res=$firebase->setdata($path,$data);
+		print_r($res);
 
-try {
-    $generator = new TokenGenerator('FIEkY1M4jGsJ8SyIu1unAyBPLdJvI9QgxbCpzuxG');
-    $token = $generator
-        ->setData(array('uid' => 'firebase-adminsdk-xtjd4@productcab.iam.gserviceaccount.com'))
-        ->create();
-} catch (TokenException $e) {
-    echo "Error: ".$e->getMessage();
-}
-
-
-
-		 $DEFAULT_URL = 'https://productcab.firebaseio.com/';
-		 $DEFAULT_TOKEN = $token;
-		 $DEFAULT_PATH = '/drivers_data';
-
-		$firebase = new \Firebase\FirebaseLib($DEFAULT_URL, $DEFAULT_TOKEN);
-
-		// --- storing an array ---
-		$test = array(
-		    "foo" => "bar",
-		    "i_love" => "lamp",
-		    "id" => 42
-		);
-
-		// --- storing a string ---
-		$firebase->set($DEFAULT_PATH . '/58dfb254192d2e5256234fde/online_status', "2");
-
-		// --- reading the stored string ---
-		$name = $firebase->get($DEFAULT_PATH . '/58dfb254192d2e5256234fde');
-		print_r($name);
 	}
 
 }

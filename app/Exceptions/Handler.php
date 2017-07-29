@@ -32,7 +32,16 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        parent::report($exception);
+        if ($exception instanceof NotFoundHttpException) {
+            // ajax 404 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+
+            // normal 404 view page feedback
+            return response()->view('errors.missing', [], 404);
+        }
+        return parent::report($exception);
     }
 
     /**

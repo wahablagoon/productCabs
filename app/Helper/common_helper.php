@@ -13,6 +13,19 @@ function is_loggedin()
 }
 
 
+function api_settings($code)
+{
+	$settings = DB::table('api')->where("code",$code);
+	if($settings->count()>0)
+	{
+		return $settings->first()->value;	
+	}
+	else
+	{
+		return false;	
+	}
+}
+
 
 function site_name()
 {

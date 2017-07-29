@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Input;
 use Mail;
 use View;
 use File;
-use Illuminate\Support\Facades\DB;
-use App\member;
+use App\Models\member;
+use App\Models\SiteSettings;
+use App\Models\CountryCode;
+use App\Models\Api;
 
 class AdminController extends Controller
 {
@@ -28,7 +30,7 @@ class AdminController extends Controller
 	}
     public function checklogin(Request $request)
 	{	
-		$users = DB::table('member')->where('role',3);
+		$users = member::where('role',3);
 		if($users->count()>0 && $request->username=="admin" &&$users->first()->password==$request->password)
 		{
 			$userdata['trippy_username']=$request->username;
@@ -48,9 +50,18 @@ class AdminController extends Controller
 		return View::make('comming_soon');	
 	}
 
+	public function view_api()
+	{
+		$data=Api::all();
+		foreach ($data as $key => $value) {
+			$api[$value->code]=$value->value;
+		}
+		return View::make('layouts/admin/view_api',$api);		
+	}
+
 	public function resetadmin(Request $request)
 	{
-		$users = DB::table('member')->where('role',3)->where('email',$request->email);
+		$users = member::where('role',3)->where('email',$request->email);
 		if($users->count()>0)
 		{
 			$data['email']=$request->email;
@@ -65,6 +76,25 @@ class AdminController extends Controller
 		{
 			echo "fail";
 		}
+	}
+
+	public function api_settings(Request $request)
+	{
+		$data=Api::all();
+		foreach ($data as $key => $value) {
+			if($request[$value->code]!="")
+			{
+				$update_date['value']=$request[$value->code];
+			}
+			else
+			{
+				$update_date['value']="";	
+			}
+			
+			Api::where('code',$value->code)->update($update_date);
+		}
+		flash('Api Settings Updated Successfully')->success()->important();
+		return redirect('admin/settings/api');
 	}
 
 	public function logout()
@@ -90,7 +120,7 @@ class AdminController extends Controller
 	}
 	public function view_create_user()
 	{
-		$cc=DB::table('country_code')->get();
+		$cc=CountryCode::all();
 		foreach($cc as $c)
 		{
 			$country_code[]=$c;
@@ -101,7 +131,7 @@ class AdminController extends Controller
 
 	public function view_create_provider()
 	{
-		$cc=DB::table('country_code')->get();
+		$cc=CountryCode::all();
 		foreach($cc as $c)
 		{
 			$country_code[]=$c;
@@ -120,7 +150,7 @@ class AdminController extends Controller
 		$filename = 'storage/app/images/'.$oldfile;
 		File::delete($filename);
 		$data['site_logo']=$name;
-		$update=DB::table('site_settings')->where('id',1)->update($data);
+		$update=SiteSettings::where('id',1)->update($data);
 		flash('Site Logo Updated Successfully')->success()->important();
 		return redirect('admin/settings');
 	}
@@ -134,7 +164,7 @@ class AdminController extends Controller
 		$filename = 'storage/app/images/'.$oldfile;
 		File::delete($filename);
 		$data['site_icon']=$name;
-		$update=DB::table('site_settings')->where('id',1)->update($data);
+		$update=SiteSettings::where('id',1)->update($data);
 		flash('Site Icon Updated Successfully')->success()->important();
 		return redirect('admin/settings');
 	}
@@ -142,23 +172,15 @@ class AdminController extends Controller
 	public function set_sitecolor(Request $request)
 	{
 		$data['site_theme_color']=$request->color;
-		$update=DB::table('site_settings')->where('id',1)->update($data);
+		$update=SiteSettings::where('id',1)->update($data);
 		flash('Site Color Updated Successfully')->success()->important();
 		echo "success";
 	}
 
 	public function site_settings(Request $request)
 	{
-		$data['site_name']=$request->site_name;
-		$data['site_appstore_link']=$request->appstore_link;
-		$data['site_copyright']=$request->copyright;
-		$data['site_playstore_link']=$request->playstore_link;
-		$data['site_email']=$request->site_email;
-		$data['site_status']=$request->site_status;
-		$data['site_company_phone']=$request->contact_number;
-		$data['site_company_email']=$request->contact_email;
-		$data['site_currency']=$request->currency;
-		DB::table('site_settings')->where('id',1)->update($data);
+
+		SiteSettings::where('id',1)->update($request->all());
 		flash('Site Settings Updated Successfully')->success()->important();
 		return redirect('admin/settings');
 

@@ -7,8 +7,9 @@ use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
-
-
+use App\Models\RequestModel;
+use App\Models\member;
+use App\Models\Firebase;
 class RequestController extends Controller
 {
 	public function setRequest(Request $request)    // For Rider
@@ -47,7 +48,7 @@ class RequestController extends Controller
 		$data['driver_category'] = "";
 		$data['created'] = time();
 		$data['status'] = "Success";
-		$res_corp = DB::table('member')->where('role',1)->where('id',$data['rider_id'])->get();
+		$res_corp = member::where('role',1)->where('id',$data['rider_id'])->get();
 		foreach($res_corp as $row_corp)
 		{
             if(isset($row_corp->c_id) && $row_corp->c_id != null && $row_corp->c_id!= "")
@@ -60,8 +61,8 @@ class RequestController extends Controller
 			}
 		}	
 		//echo"<pre>";print_r($data);exit;
-		$id=DB::table('request')->insertGetId($data);
-		$data['request_id'] = $id;
+		$id=RequestModel::create($data);
+		$data['request_id'] = $id->id;
 		return response()->json(array($data));
 	}
 
@@ -82,8 +83,8 @@ class RequestController extends Controller
 		$data1['driver_location']['lat'] = $request->lat;	
 		$data1['driver_location']['long'] = $request->long;	
 		$data['driver_location']=json_encode($data1);
-		$update=DB::table('request')->where('id',$request_id)->update($data);
-		$result=DB::table('request')->where('id',$request_id)->get();
+		$update=RequestModel::where('id',$request_id)->update($data);
+		$result=RequestModel::where('id',$request_id)->get();
 		foreach($result as $getRequestData){}
 		return response()->json(array($getRequestData));
 	}
@@ -91,96 +92,53 @@ class RequestController extends Controller
 
 	public function updatereq(Request $request)
 	{
-			require_once APPPATH.'vendor/firebase-php/firebase_config.php';
-			$request_id = $request->r_id;
-			$did = $request_id=$request->d_id;
-						$firebase->update(array(
-					'request/status' => 1,
-					'request/eta' => "12 minutes",
-					'request/estFare' => '',
-					'request/distance' => 0,
-					'request/pickupAddress' => '',
-					'request/dropAddress' => '',
-					'request/req_id' => $request_id,
-					'accept/status' => 1,
-					'request/rider_id' => '',
-					),'drivers_data/'.$did); // Update driver req status in fb
-					exit;
-	}
-
-
-	public function insertreq(Request $request)
-	{
+		$firebase = new Firebase();
+		$path='drivers_data/58dfb254192d2e5256234fde/request/';
 		$data=array(
-			'request/status' => 1,
-			'request/eta' => "12 minutes",
-			'request/estFare' => '',
-			'request/distance' => 0,
-			'request/pickupAddress' => '',
-			'request/dropAddress' => '',
-			'request/req_id' => '',
-			'accept/status' => 1,
-			'request/rider_id' => '',
-			); // Update driver req status in fb
-	//	Firebase::create($request->all());
-		Firebase::create(array(
-				'request/status' => 1,
-				'request/eta' => "12 minutes",
-				'request/estFare' => '',
-				'request/distance' => 0,
-				'request/pickupAddress' => '',
-				'request/dropAddress' => '',
-				'request/req_id' => '',
-				'accept/status' => 1,
-				),'drivers_data/');
-			exit;
+			'status' => 2,
+			'eta' => "12 minutes",
+			'estFare' => '',
+			'distance' => 0,
+			'pickupAddress' => '',
+			'dropAddress' => '',
+			'req_id' => '',
+			'rider_id' => ''
+			);
+		$res=$firebase->setdata($path,$data);
+		print_r($res);				// Update driver req status in fb
 	}
 
 
-	public function processRequest_get()   // For Rider
-	{
-		
+	public function processRequest(Request $request)   // For Rider
+	{		
+		$request_id = $request->request_id;	
+		$fareEST = $request->est_fare;	
+		$response_array = array();
+		$result=RequestModel::where("id",$request_id)->get();
+		foreach($result as $getRequestData){}
 
-			if(checkisEmpty($this->get()))
+		$lat  = $getRequestData['pickup']['lat'] ;
+		$long = $getRequestData['pickup']['long'] ;
+		$rider_id_fb =  $getRequestData['rider_id'] ;
+		$category= $getRequestData['category'];
+		$pickup_address= $getRequestData['pickup_address'];
+		$drop_address= $getRequestData['drop_address'];
+		$ride_type= $getRequestData['ride_type'] ; // ride type (normal,shared, ride_later)
+		if(isset($getRequestData['ride_type']))
 		{
-				$request_id = $this->get('request_id');	
-				$fareEST = $this->get('est_fare');	
-				$response_array = array();
-				
-			if($this->get('request_id') === NULL) //Check whether params are passed
-       		{
-			$final['status']="Fail";
-			$final['message']="Missing Parameter.";
-			array_push($response_array,$final);
-			}
-			else
-			{
-			
-			require_once APPPATH.'libraries/firebase-php/firebase_config.php';
-				
-					$result=$this->Request_model->find_data('request',array("_id" => new MongoId($request_id) ) );
-					
-					foreach($result as $getRequestData){}
-					$lat  = $getRequestData['pickup']['lat'] ;
-					 $long= $getRequestData['pickup']['long'] ;
-					 $rider_id_fb =  $getRequestData['rider_id'] ;
-					 $category= $getRequestData['category'];
-					 $pickup_address= $getRequestData['pickup_address'];
-					 $drop_address= $getRequestData['drop_address'];
-					 $ride_type= $getRequestData['ride_type'] ; // ride type (normal,shared, ride_later)
-					 if(isset($getRequestData['ride_type']))
-					 {
-					 	 $ride_type = $getRequestData['ride_type'] ;	
-					 }else{
-						 $ride_type = 'normal' ; 	
-					 }
-				
-					 if(isset($getRequestData['max_share']))
-					 {
-					 	 $max_share = $getRequestData['max_share'] ;	
-					 }else{
-						 $max_share = 0 ; 	
-					 }
+			 $ride_type = $getRequestData['ride_type'] ;	
+		}else{
+		 $ride_type = 'normal' ; 	
+		}
+
+		if(isset($getRequestData['max_share']))
+		{
+			 $max_share = $getRequestData['max_share'] ;	
+		}
+		else
+		{
+		 $max_share = 0 ; 	
+		}
 				
 				//	get_nearby_drivers( $lat , $long );
 				$get_config = GetLimitConfig();
