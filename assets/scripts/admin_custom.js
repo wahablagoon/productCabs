@@ -1,15 +1,68 @@
 $(document).ready(function(){
+	$.ajax(
+   	{
+		type: "POST",
+		dataType: "json",
+		url: APP_URL+"/getMap",
+		data: { name: "mappage" },
+		success: function(data) 
+		{ 
+			redimage = APP_URL+"/assets/images/maps/red.png";
+			goldimage = APP_URL+"/assets/images/maps/gold.png";
+			greenimage = APP_URL+"/assets/images/maps/green.png";
+			for(var ml=0;ml<data.length;ml++)
+			{
+				var mapimage;
+				if(data[ml].status=="0")
+				{
+					mapimage=goldimage;
+				}
+				else
+				{
+					if(data[ml].online_status=="0")
+					{
+						mapimage=redimage;
+					}
+					else
+					{
+						mapimage=greenimage;
+					}	
+				}
+				var latLng = new google.maps.LatLng(data[ml].lat, data[ml].long);
+           		marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                icon: mapimage,
+       			title: data[ml].firstname,
+            	});
+           		google.maps.event.addListener(marker, 'click', (function(marker, ml) {
+				    return function() {
+				      infowindow.setContent(data[ml].infowindow);
+				      infowindow.open(map, marker);
+				    }
+				  })(marker, ml));
+            	bounds.extend(marker.position);
+			}
+			map.fitBounds(bounds);
+		}
+   	});
+
+
 	$('.material_form  select').material_select();
-	$('#btn-main').on('touchstart click', function() {
-  if ($(this).hasClass('active')) {
-    $(this).removeClass('active');         $(this).addClass('reverse-animation');
-  } else {
-    $(this).removeClass('reverse-animation');
-    $(this).addClass('active');
-  }
-  
-  return false;
-});
+	$('#btn-main').on('touchstart click', function() 
+	{
+  		if ($(this).hasClass('active')) 
+  		{
+    		$(this).removeClass('active');         
+    		$(this).addClass('reverse-animation');
+  		} 
+  		else 
+  		{
+    	$(this).removeClass('reverse-animation');
+    	$(this).addClass('active');
+  		} 	
+  		return false;
+	});
 
 	var user_listing_table = $('#user_listing').DataTable({
     "bLengthChange": false,
