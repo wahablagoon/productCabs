@@ -35,6 +35,9 @@
 @extends('layouts.dynamic_css')
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
+	<script
+    src="https://maps.googleapis.com/maps/api/js?key=<?php echo api_settings('GOOGLE_API_KEY');?>">
+    </script>
 	@yield('body')
 	@include('flash::message')
 	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
@@ -58,6 +61,11 @@
             $('.rating').rating();
         </script>
 	<script src="{{ url("assets/scripts/dropdown.js") }}" type="text/javascript"></script>
+	    
+    <script>
+    var APP_URL="{{ url("/") }}";
+    </script>
+
 </body>
 </html>
 
