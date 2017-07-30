@@ -57,21 +57,53 @@ class MonoController extends Controller
 
 	public function sendOTP(Request $request)
 	{
-		$otp=generatePIN(4);
-		$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
-		$data['verifycode']=$otp;
-		DB::table('member')->where('id',$request->userid)->update($data);
-		$myArray = ['status'=>'Success','message_status'=>$s->status];
-		return response()->json(array($myArray));
+		$user=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+		if($user->count())
+		{
+			$verifycode=$user->first()->verifycode;
+			$last_verified=$user->first()->last_verified;
+			$current_time=time();
+			if($verifycode=="")
+			{
+				$otp=generatePIN(4);
+				$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
+				$data['verifycode']=$otp;
+				$data['last_verified']=time();
+				DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+			}
+			else
+			{
+				$diff=round(abs($current_time - $last_verified) / 60,2);
+				if($diff<=15)
+				{
+					$s=sendSms("+".$request->countrycode.$request->mobile,$verifycode.' is your trippy OTP to login');
+				}
+				else
+				{
+					$otp=generatePIN(4);
+					$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
+					$data['verifycode']=$otp;
+					$data['last_verified']=time();
+					DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+				}
+			}
+			$myArray = ['status'=>'Success','message_status'=>$s->status];
+			return response()->json(array($myArray));
+		}
+		else
+		{
+			$myArray = ['status'=>'fail'];
+			return response()->json(array($myArray));	
+		}
 	}
 
 	public function updateOTP(Request $request)
 	{
-		$ifuser=DB::table('member')->where('id',$request->userid)->where('verifycode',$request->verifycode);
+		$ifuser=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->where('verifycode',$request->verifycode);
 		if($ifuser->count()>0)
 		{
 			$data['phone_verify']=1;
-			$update=DB::table('member')->where('id',$request->userid)->update($data);
+			$update=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
 			$myArray = ['status'=>'Success'];
 			return response()->json(array($myArray));
 		}

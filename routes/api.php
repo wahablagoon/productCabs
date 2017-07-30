@@ -45,8 +45,8 @@ Route::get('driver/updateProfile/{userid}/{firstname}/{lastname}/{mobile}/{count
 //common API's
 Route::get('updateLocation/{userid}/{lat}/{long}', 'MonoController@updateLocation');
 Route::get('getCategory/', 'MonoController@getCategory');
-Route::get('sentOTP/{userid}/{countrycode}/{mobile}', 'MonoController@sendOTP');
-Route::get('updateOTP/{userid}/{verifycode}', 'MonoController@updateOTP');
+Route::get('sentOTP/{countrycode}/{mobile}', 'MonoController@sendOTP');
+Route::get('updateOTP/{countrycode}/{mobile}/{verifycode}', 'MonoController@updateOTP');
 
 
 
