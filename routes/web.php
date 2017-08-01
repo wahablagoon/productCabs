@@ -70,9 +70,13 @@ Route::get('admin/drivers','AdminController@view_provider');
 Route::get('admin/driver/create','AdminController@view_create_provider');
 Route::get('admin/settings/api','AdminController@view_api');
 Route::get('admin/map','AdminController@view_map');
+Route::get('admin/service','AdminController@view_service');
+Route::get('admin/service/create','AdminController@view_create_service');
+Route::get('admin/delete_service/{id}','AdminController@delete_service');
+Route::get('admin/service/edit/{id}','AdminController@view_edit_service');
 
-
-
+Route::post('admin/edit_service','AdminController@edit_service');
+Route::post('admin/add_service','AdminController@add_service');
 Route::post('getMap','UserController@getMap');
 Route::post('admin/upload_logo','AdminController@uploadlogo');
 Route::post('admin/upload_icon','AdminController@uploadicon');

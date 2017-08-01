@@ -687,3 +687,34 @@ input:checked + .slider:before {
 .demo-footer .mdl-mini-footer--link-list a {
   font-size: 13px;
 }
+
+.google .panel-body, .facebook .panel-body,.firebase .panel-body,.twilio .panel-body
+{
+padding: 15px 30px 30px;
+} 
+
+.google .panel-heading
+{
+  background-color: #EA4335;
+  color:#fff;
+}
+
+.facebook .panel-heading
+{
+  background-color: #3B5998;
+  color:#fff;
+}
+.firebase .panel-heading
+{
+  background-color: #FFCA2A;
+  color:#fff;
+}
+.twilio .panel-heading
+{
+  background-color: #5cb85c;
+  color:#fff;
+}
+form div.error
+{
+  color:#cc0000;
+}

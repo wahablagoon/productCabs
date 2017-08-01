@@ -13,6 +13,7 @@ use App\Models\member;
 use App\Models\SiteSettings;
 use App\Models\CountryCode;
 use App\Models\Api;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -63,6 +64,16 @@ class AdminController extends Controller
 	{
 		return View::make('layouts/admin/view_map');			
 	}
+
+	public function view_service()
+	{
+		$data['services']=Category::all();
+		return View::make('layouts/admin/view_service',$data);		
+	}
+	public function view_create_service()
+	{
+		return View::make('layouts/admin/view_service_create');		
+	}	
 
 	public function resetadmin(Request $request)
 	{
@@ -172,6 +183,88 @@ class AdminController extends Controller
 		$update=SiteSettings::where('id',1)->update($data);
 		flash('Site Icon Updated Successfully')->success()->important();
 		return redirect('admin/settings');
+	}
+
+
+	public function add_service(Request $request)
+	{
+		unset($request['_token']);
+		$category=Category::create($request->all());
+		$categoryid=$category->id;
+		$marker = request()->file('marker');
+		$logo = request()->file('logo');
+		$marker_ext=$marker->guessClientExtension();
+		$marker_name=$marker->getClientOriginalName();
+		$marker->storeAs('images/category/'.$categoryid.'/',$marker_name);
+		$logo_ext=$logo->guessClientExtension();
+		$logo_name=$logo->getClientOriginalName();
+		$logo->storeAs('images/category/'.$categoryid.'/',$logo_name);
+		
+		$up['marker']=$marker_name;
+		$up['logo']=$logo_name;
+		Category::where('id',$category->id)->update($up);
+
+		flash('Service Added Successfully')->success()->important();
+		return redirect('admin/service');
+	}	
+
+	public function edit_service(Request $request)
+	{
+		unset($request['_token']);
+		$categoryid=$request->id;
+		if($_FILES['marker']['name']!="")
+		{
+			$marker = request()->file('marker');
+			$marker_ext=$marker->guessClientExtension();
+			$marker_name=$marker->getClientOriginalName();
+			$marker->storeAs('images/category/'.$categoryid.'/',$marker_name);
+			$request['marker']=$marker_name;
+		}
+		else
+		{
+			unset($request['marker']);
+		}
+		
+		if($_FILES['logo']['name']!="")
+		{
+			$logo = request()->file('logo');
+			$logo_ext=$logo->guessClientExtension();
+			$logo_name=$logo->getClientOriginalName();
+			$logo->storeAs('images/category/'.$categoryid.'/',$logo_name);
+			$request['logo']=$logo_name;
+		}
+		else
+		{
+			unset($request['logo']);
+		}
+
+		$category=Category::where('id',$request->id)->update($request->all());
+		
+		flash('Service Updated Successfully')->success()->important();
+		return redirect('admin/service');
+	}	
+
+	public function view_edit_service(Request $request)
+	{
+		$category=Category::where('id',$request->id);
+		if($category->count()>0)
+		{
+			$data['category']=$category->get()->first();
+			return View::make('layouts/admin/view_edit_service',$data);						
+		}
+		else
+		{
+			flash('Service Not available')->error()->important();
+			return redirect('admin/service');	
+		}
+			
+	}
+
+	public function delete_service(Request $request)
+	{
+		Category::where('id',$request->id)->delete();
+		flash('Service Deleted Successfully')->success()->important();
+		return redirect('admin/service');
 	}
 
 	public function set_sitecolor(Request $request)

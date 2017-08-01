@@ -6,7 +6,7 @@
     <div class="row">
     <form  method="post" action="{{ url("admin/api_settings") }}">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">    
-        <div class="col-lg-6">
+        <div class="col-lg-6 google">
             @section ('pane2_panel_title', 'Google')
             @section ('pane2_panel_icon', 'fa-google float_right')
             @section ('pane2_panel_body')
@@ -30,7 +30,7 @@
         @include('widgets.panel', array('header'=>true, 'as'=>'pane2', 'icon' => 'pane2'))
         </div>
         <!-- /.col-lg-8 -->
-        <div class="col-lg-6">
+        <div class="col-lg-6 firebase">
             @section ('pane1_panel_title', 'Firebase')
             @section ('pane1_panel_icon', 'fa-fire float_right')
             @section ('pane1_panel_body')
@@ -51,7 +51,7 @@
             @endsection
             @include('widgets.panel', array('header'=>true, 'as'=>'pane1','icon' =>'pane1' ))
         </div>
-         <div class="col-lg-12">
+         <div class="col-lg-6 facebook">
             @section ('pane3_panel_title','Facebook')
             @section ('pane3_panel_icon', 'fa-facebook float_right')
             @section ('pane3_panel_body')
@@ -71,6 +71,30 @@
             @endsection
             @include('widgets.panel', array('header'=>true, 'as'=>'pane3' ,'icon'=>'pane3'))
         </div>
+         <div class="col-lg-6 twilio">
+            @section ('pane4_panel_title','Twilio')
+            @section ('pane4_panel_icon', 'fa-phone float_right')
+            @section ('pane4_panel_body')
+                                    <!-- /.panel-body -->
+                    <!-- /.panel -->
+            <div class="list_settings">
+                <div class="item_settings">Twilio SID</div>
+                <div class=""><input type="text" class="text_box"  name="TWILIO_SID" value="{{ $TWILIO_SID }}" /></div>
+            </div>
+            <div class="list_settings">
+                <div class="item_settings">Twilio Auth Token</div>
+                <div class=""><input type="text" class="text_box"  name="TWILIO_TOKEN" value="{{ $TWILIO_TOKEN }}" /></div>
+            </div>
+            <div class="list_settings">
+                <div class="item_settings">Twilio Number</div>
+                <div class=""><input type="text" class="text_box"  name="TWILIO_FROM" value="{{ $TWILIO_FROM }}" /></div>
+            </div>
+
+
+            @endsection
+            @include('widgets.panel', array('header'=>true, 'as'=>'pane4' ,'icon'=>'pane4'))
+        </div>
+
         <div class="col-lg-12">
         <div class="col-md-4 col-xs-12 col-sm-12 list_settings">
         <input type="submit" class="btn_custom button btn_blue"  name="submit" value="Update settings" />

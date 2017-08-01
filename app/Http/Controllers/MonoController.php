@@ -104,7 +104,26 @@ class MonoController extends Controller
 		{
 			$data['phone_verify']=1;
 			$update=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
-			$myArray = ['status'=>'Success'];
+		
+			$users = DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+			foreach ($users->get() as $user) 
+			{
+		 	 	$myArray['status']='Success';				
+				$myArray['userid'] = $user->id;
+				$myArray['first_name']=$user->firstname;
+				$myArray['last_name']=$user->lastname;
+				$myArray['email']=$user->email;
+				$myArray['mobile']=$user->phone;
+				$myArray['country_code']=$user->countrycode;
+				if(empty($user->profile))
+				{
+					$myArray['profile']=url("assets/images/avatar.png");	
+				}
+				else
+				{
+					$myArray['profile']=$user->profile;
+				}
+			}
 			return response()->json(array($myArray));
 		}
 		else

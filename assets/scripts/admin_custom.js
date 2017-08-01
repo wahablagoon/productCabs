@@ -1,4 +1,7 @@
 $(document).ready(function(){
+
+function map()
+{
 	$.ajax(
    	{
 		type: "POST",
@@ -46,7 +49,7 @@ $(document).ready(function(){
 			map.fitBounds(bounds);
 		}
    	});
-
+}
 
 	$('.material_form  select').material_select();
 	$('#btn-main').on('touchstart click', function() 
@@ -185,5 +188,66 @@ $(document).ready(function(){
           }
         }
      });
+
+    $("#add_service").validate({
+        rules: {
+            category_name: {
+                required: true
+            },
+            price_km: {
+                required: true
+            },
+            price_minute: {
+				required: true
+			},
+			max_size: {
+				required: true
+			},
+			price_fare: {
+                required: true
+            },
+            logo:"required",
+            marker:"required"
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
+     });
+
+	$("#edit_service").validate({
+        rules: {
+            category_name: {
+                required: true
+            },
+            price_km: {
+                required: true
+            },
+            price_minute: {
+				required: true
+			},
+			max_size: {
+				required: true
+			},
+			price_fare: {
+                required: true
+            }
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
+     });
+
  
 })
