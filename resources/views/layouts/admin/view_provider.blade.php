@@ -28,7 +28,7 @@
     </thead>
     <tbody>
 <?php
-$user=DB::table('member')->where('role',2)->get();
+$user=DB::table('users')->where('role',2)->get();
 foreach($user as $users)
 {
 ?>

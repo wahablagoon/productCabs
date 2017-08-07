@@ -34,7 +34,7 @@
 				<div class="col-md-12  col-sm-12 col-xs-12"><input type="text" class="text_box"  name="price_fare" value="{{ $category->price_fare }}" autocomplete="off" /></div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
-				<div class="col-md-12  col-sm-12 col-xs-12"><input type="submit" class="btn_custom button btn_blue"  name="submit" value="Update Service" /></div>
+				<div class="col-md-12  col-sm-12 col-xs-12"><input type="submit" class="btn_custom button btn_blue"  value="Update Service" /></div>
             </div>
         
 
