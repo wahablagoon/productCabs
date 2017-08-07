@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\Models\RequestModel;
-use App\Models\member;
+use App\User;
 use App\Models\Firebase;
 class RequestController extends Controller
 {
@@ -20,35 +20,7 @@ class RequestController extends Controller
 		$data1['destination']['lat'] = $request->end_lat;	
 		$data1['destination']['long'] = $request->end_long;
 		$data['destination']=json_encode($data1['destination']);	
-		$data['payment_mode'] = $request->payment_mode;	
-		$data['rider_id'] = $request->userid;	
-		$data['category'] = urldecode(utf8_encode($request->category));	
-		$data['pickup_address'] = urldecode(utf8_encode($request->pickup_address));	
-		$data['drop_address'] = urldecode(utf8_decode($request->drop_address));				
-
-		if($request->request_type)
-		{
-			$data['request_type']= $request->request_type;
-		}
-		else
-		{
-			$data['request_type']= "normal";					
-		}
-		
-		$data['trip_id'] = "" ; 
-		//for version 1.0 only normal	
-		$data['ride_type'] = $request->ride_type; // shared // normal // ride_later
-		//$data['max_share'] = $request->max_share;
-			
-		$data['request_status'] = "processing";
-		$data['driver_id'] = "";
-		$data['payment_mode'] =$data['payment_mode'];
-		$data['eta'] = "";
-		$data['driver_location'] = "";
-		$data['driver_category'] = "";
-		$data['created'] = time();
-		$data['status'] = "Success";
-		$res_corp = member::where('role',1)->where('id',$data['rider_id'])->get();
+		$res_corp = User::where('role',1)->where('id',$request->passenger_id)->get();
 		foreach($res_corp as $row_corp)
 		{
             if(isset($row_corp->c_id) && $row_corp->c_id != null && $row_corp->c_id!= "")
@@ -59,18 +31,22 @@ class RequestController extends Controller
 			{
 				$data['c_id'] = '' ;	
 			}
-		}	
-		//echo"<pre>";print_r($data);exit;
-		$id=RequestModel::create($data);
-		$data['request_id'] = $id->id;
-		return response()->json(array($data));
+		}
+
+		unset($request['start_lat'],$request['start_long'],$request['end_lat'],$request['end_long']);
+		//dd($request->all());
+		$id=RequestModel::create($request->all());
+		RequestModel::where('id',$id->id)->update($data);
+		$result=RequestModel::where('id',$id->id)->get();
+		foreach($result as $getRequestData){}
+		return response()->json(array($getRequestData));
 	}
 
 
 	public function getRequest(Request $request)   // For Rider
   	{
-		$request_id = $request->request_id;	
-		$result=DB::table('request')->where('id',$request_id)->get();
+		$request_id = $request->id;	
+		$result=RequestModel::where('id',$request_id)->get();
 		foreach($result as $getRequestData){}
 		return response()->json(array($getRequestData));
 	}
@@ -80,7 +56,7 @@ class RequestController extends Controller
 		$request_id = $request->request_id;	
 		$data['request_status'] = $request->request_status;	 // "accept" , "no_driver" , "cancel"
 		$data['driver_id'] = $request->driver_id;	
-		$data1['driver_location']['lat'] = $request->lat;	
+		$data1['driver_location']['lat'] = $request->lat;		
 		$data1['driver_location']['long'] = $request->long;	
 		$data['driver_location']=json_encode($data1);
 		$update=RequestModel::where('id',$request_id)->update($data);

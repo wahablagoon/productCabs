@@ -5,189 +5,56 @@ namespace App\Http\Controllers;
 use App\Http\Requests ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Firebase;
-use App\Models\member;
+use App\User;
 
 class UserController extends Controller
 {
-	public function rider_signup(Request $request )
-	{
-		
-		if(check_rider_email($request->email))
+	public function signup(Request $request)
+	{		
+		if(check_email($request->role,$request->email,$request->own))
 		{
 			$myArray = ['status'=>'fail','reason'=>'Email already exists'];
 			return response()->json(array($myArray));
 		}
-		elseif(check_rider_mobile($request->mobile,$request->countrycode))
+		elseif(check_mobile($request->role,$request->mobile,$request->countrycode,$request->own))
 		{
 			$myArray = ['status'=>'fail','reason'=>'Mobile Number already exists'];
 			return response()->json(array($myArray));
 		}
 		else
 		{
-			$data['firstname']=urldecode($request->firstname);
-			$data['lastname']=urldecode($request->lastname);	
-			$data['email']=$request->email;
-			$data['phone'] =$request->mobile;
-			$data['city'] =$request->city;
-			$data['password'] =$request->password;
-			$data['countrycode'] =$request->countrycode;
-			$data['role']='1';
-			$data['wallet']=0;
-			$data['status']=1; //0 for not approved by admin // 1 approved
-			$data['created']=time();
-			$data['created_by']="user";
-
-			//print_r($data);exit;
-			$id=DB::table('member')->insertGetId($data);
+			if($request->own=="1")
+			{
+				unset($request['own']);
+				$user=User::where('id',$request->userid)->update($request->all());
+				$id=$request->userid;
+			}
+			else
+			{
+				unset($request['own'],$request['user_id']);
+				$user=User::create($request->all());
+				$id=$user->id;
+			}
 			$myArray['status']='Success';				
 			$myArray['userid'] = $id;
-			$myArray['first_name']=$data['firstname'];
-			$myArray['last_name']=$data['lastname'];
-			$myArray['email']=$data['email'];
-			$myArray['mobile']=$data['phone'];
-			$myArray['country_code']=$data['countrycode'];
-			return response()->json(array($myArray));
+			return response()->json(array(array_merge($request->all(),$myArray)));
 		}
 	}
 	
-	public function rider_google_signup(Request $request )
+	public function signin(Request $request)
 	{
-		if(check_rider_google($request->google_id))
+		if(check_email($request->role,$request->email))
 		{
-			$users = DB::table('member')->where('role',1)->where('google_id',$request->google_id);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-				$myArray['profile_pic']=$user->profile;				
-				return response()->json(array($myArray));
-			}
-		}
-		elseif(check_rider_email($request->email))
-		{
-			$myArray = ['status'=>'fail','reason'=>'Email already exists'];
-			return response()->json(array($myArray));
-		}
-		elseif(check_rider_mobile($request->mobile,$request->countrycode))
-		{
-			$myArray = ['status'=>'fail','reason'=>'Mobile Number already exists'];
-			return response()->json(array($myArray));
-		}
-		else
-		{
-			$data['firstname']=urldecode($request->firstname);
-			$data['lastname']=urldecode($request->lastname);	
-			$data['email']=$request->email;
-			$data['phone'] =$request->mobile;
-			$data['city'] =$request->city;
-			$data['password'] =null;
-			$data['countrycode']=$request->countrycode;
-			$data['role']='1';
-			$data['wallet']=0;
-			$data['status']=1; //0 for not approved by admin // 1 approved
-			$data['created']=time();
-			$data['created_by']="user";
-			$data['password']=null;
-			$data['google_id']=$request->google_id;
-			//print_r($data);exit;
-			$id=DB::table('member')->insertGetId($data);
-			$myArray['status']='Success';				
-			$myArray['userid'] = $id;
-			$myArray['first_name']=$data['firstname'];
-			$myArray['last_name']=$data['lastname'];
-			$myArray['email']=$data['email'];
-			$myArray['mobile']=$data['phone'];
-			$myArray['country_code']=$data['countrycode'];
-			$myArray['profile_pic']="";
-			return response()->json(array($myArray));
-		}
-	}
-	
-	public function rider_fbsignup(Request $request )
-	{
-		if(check_rider_facebook($request->fb_id))
-		{
-			$users = DB::table('member')->where('role',1)->where('facebook_id',$request->fb_id);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-				$myArray['profile_pic']=$user->profile;				
-				return response()->json(array($myArray));
-			}
-		}
-		elseif(check_rider_email($request->email))
-		{
-			$myArray = ['status'=>'fail','reason'=>'Email already exists'];
-			return response()->json(array($myArray));
-		}
-		elseif(check_rider_mobile($request->mobile,$request->countrycode))
-		{
-			$myArray = ['status'=>'fail','reason'=>'Mobile Number already exists'];
-			return response()->json(array($myArray));
-		}
-		else
-		{
-			$data['firstname']=urldecode($request->firstname);
-			$data['lastname']=urldecode($request->lastname);	
-			$data['email']=$request->email;
-			$data['phone'] =$request->mobile;
-			$data['city'] =$request->city;
-			$data['password'] =null;
-			$data['countrycode'] =$request->countrycode;
-			$data['role']='1';
-			$data['wallet']=0;
-			$data['status']=1; //0 for not approved by admin // 1 approved
-			$data['created']=time();
-			$data['created_by']="user";
-			$data['password']=null;
-			$data['facebook_id']=$request->fb_id;
-			$data['profile']="http://graph.facebook.com/".$request->fb_id."/picture?type=large";
-			//print_r($data);exit;
-			$id=DB::table('member')->insertGetId($data);
-			$myArray['status']='Success';				
-			$myArray['userid'] = $id;
-			$myArray['first_name']=$data['firstname'];
-			$myArray['last_name']=$data['lastname'];
-			$myArray['email']=$data['email'];
-			$myArray['mobile']=$data['phone'];
-			$myArray['country_code']=$data['countrycode'];
-			$myArray['profile_pic']=$data['profile'];
-			return response()->json(array($myArray));
-		}
-	}
-
-
-	public function rider_signin(Request $request)
-	{
-		if(check_rider_email($request->email))
-		{
-			$users = DB::table('member')->where('role',1)->where('email',$request->email)->where('password',$request->password);
+			$users = User::where('role',$request->role)->where('email',$request->email)->where('password',$request->password);
 			if($users->count()>0)
 			{			
 				foreach ($users->get() as $user) 
-				{
-			 	 	$myArray['status']='Success';				
-					$myArray['userid'] = $user->id;
-					$myArray['first_name']=$user->firstname;
-					$myArray['last_name']=$user->lastname;
-					$myArray['email']=$user->email;
-					$myArray['mobile']=$user->phone;
-					$myArray['country_code']=$user->countrycode;
-				}
-				return response()->json(array($myArray));
+				{}
+				unset($user['created_at']);
+				$user['status']='Success';
+				return response()->json(array($user));
 			}
 			else
 			{
@@ -202,188 +69,43 @@ class UserController extends Controller
 		}
 	}
 
-	public function rider_email_exist(Request $request)
-	{
-		$email=$request->email;
-		$check=check_rider_email($email);
-		if($check)
-		{
-			$users = DB::table('member')->where('role',1)->where('email',$email);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-			}
-			return response()->json(array($myArray));
-
-		}
-		else
-		{
-			$myArray = ['status'=>'fail','reason'=>'New User'];
-			return response()->json(array($myArray));	
-		}
-	}
-
-	public function rider_mobile_exist(Request $request)
-	{
-		$mobile=$request->mobile;
-		$check=check_rider_mobile($mobile,$request->countrycode);
-		if($check)
-		{
-			$users = DB::table('member')->where('role',1)->where('phone',$mobile);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-			}
-			return response()->json(array($myArray));
-
-		}
-		else
-		{
-			$myArray = ['status'=>'fail','reason'=>'New User'];
-			return response()->json(array($myArray));	
-		}
-	}
-
-	public function rider_fb_exist(Request $request)
-	{
-		$fbid=$request->fbid;
-		$check=check_rider_facebook($fbid);
-		if($check)
-		{
-			$users = DB::table('member')->where('role',1)->where('facebook_id',$fbid);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-			}
-			return response()->json(array($myArray));
-
-		}
-		else
-		{
-			$myArray = ['status'=>'fail','reason'=>'New User'];
-			return response()->json(array($myArray));	
-		}
-	}
-	
-	public function rider_google_exist(Request $request)
-	{
-		$googleid=$request->googleid;
-		$check=check_rider_google($googleid);
-		if($check)
-		{
-			$users = DB::table('member')->where('role',1)->where('google_id',$googleid);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-			}
-			return response()->json(array($myArray));
-
-		}
-		else
-		{
-			$myArray = ['status'=>'fail','reason'=>'New User'];
-			return response()->json(array($myArray));	
-		}
-	}
-
-	public function edit_profile(Request $request)
-	{
-		$userid=$request->userid;
-		$check=check_rider_id($userid);
-		if($check)
-		{
-			$users = DB::table('member')->where('role',1)->where('id',$userid);
-			foreach ($users->get() as $user) 
-			{
-		 	 	$myArray['status']='Success';				
-				$myArray['userid'] = $user->id;
-				$myArray['first_name']=$user->firstname;
-				$myArray['last_name']=$user->lastname;
-				$myArray['email']=$user->email;
-				$myArray['city']=$user->city;
-				$myArray['password']=$user->password;
-				$myArray['mobile']=$user->phone;
-				$myArray['country_code']=$user->countrycode;
-				$myArray['profile_pic']=$user->profile;
-			}
-			return response()->json(array($myArray));
-
-		}
-		else
-		{
-			$myArray = ['status'=>'fail','reason'=>'New User'];
-			return response()->json(array($myArray));	
-		}	
-	}
-
-
-	public function update_profile(Request $request )
+	public function email_exist(Request $request)
 	{
 		
-		if(check_rider_email($request->email,$request->userid))
+		if(check_email($request->role,$request->email))
 		{
-			$myArray = ['status'=>'fail','reason'=>'Email already exists'];
-			return response()->json(array($myArray));
+			$users = User::where('role',$request->role)->where('email',$request->email);
+			foreach ($users->get() as $user) 
+			{}
+			$user['status']='Success';
+			return response()->json(array($user));
+
 		}
-		elseif(check_rider_mobile($request->mobile,$request->countrycode,$request->userid))
+		else
 		{
-			$myArray = ['status'=>'fail','reason'=>'Mobile Number already exists'];
+			$myArray = ['status'=>'fail','reason'=>'New User'];
+			return response()->json(array($myArray));	
+		}
+	}
+
+	public function mobile_exist(Request $request)
+	{
+		
+		if(check_rider_mobile($request->role,$request->mobile,$request->countrycode))
+		{
+			$users = User::where('role',$request->role)->where('phone',$mobile)->where('countrycode',$request->countrycode);
+			foreach ($users->get() as $user) 
+			{}
+			$user['status']='Success';
 			return response()->json(array($myArray));
 		}
 		else
 		{
-			$data['firstname']=urldecode($request->firstname);
-			$data['lastname']=urldecode($request->lastname);	
-			$data['email']=$request->email;
-			$data['phone'] =$request->mobile;
-			$data['city'] =$request->city;
-			$data['password'] =$request->password;
-			$data['countrycode'] =$request->countrycode;
-			$data['role']='1';
-			//$data['wallet']=0;
-			//$data['status']=1; //0 for not approved by admin // 1 approved
-			$data['modified']=time();
-			$data['modified_by']="user";
-			$data['profile']=$request->profile_pic;
-			//print_r($data);exit;
-			DB::table('member')->where('id',$request->userid)->update($data);
-			$myArray['status']='Success';				
-			$myArray['userid'] = $request->userid;
-			$myArray['first_name']=$data['firstname'];
-			$myArray['last_name']=$data['lastname'];
-			$myArray['password']=$data['password'];
-			$myArray['email']=$data['email'];
-			$myArray['city']=$data['city'];
-			$myArray['mobile']=$data['phone'];
-			$myArray['country_code']=$data['countrycode'];
-			$myArray['profile_pic']=$data['profile'];
-			return response()->json(array($myArray));
+			$myArray = ['status'=>'fail','reason'=>'New User'];
+			return response()->json(array($myArray));	
 		}
 	}
+
 
 	public function firebase_connect()
 	{
@@ -399,7 +121,7 @@ class UserController extends Controller
 	public function getMap()
 	{
 		$final=array();
-		$drivers=member::where("role",2)->where("lat",'<>',null)->where("long",'<>',null)->get();
+		$drivers=User::where("role",2)->where("lat",'<>',null)->where("long",'<>',null)->get();
 		foreach ($drivers as $key => $value) {
 
 			if($value->status=="1")
@@ -442,6 +164,125 @@ class UserController extends Controller
 		}
 
 		echo json_encode($final);
+	}
+
+	public function updatelocation(Request $request)
+	{
+		$data['lat']=$request->lat;
+		$data['long']=$request->long;
+		$ifuser=User::where('id',$request->user_id);
+		if($ifuser->count()>0)
+		{
+			$update=User::where('id',$request->user_id)->update($data);
+			$myArray = ['status'=>'Success'];
+			return response()->json(array($myArray));
+		}
+		else
+		{
+			$myArray = ['status'=>'fail'];
+			return response()->json(array($myArray));
+		}	
+	}
+
+	public function updateOnlineStatus(Request $request)
+	{
+		$data['online_status']=$request->status;
+		$ifuser=User::where('id',$request->user_id);
+		if($ifuser->count()>0)
+		{
+			$update=User::where('id',$request->user_id)->update($data);
+			$myArray = ['status'=>'Success'];
+			return response()->json(array($myArray));
+		}
+		else
+		{
+			$myArray = ['status'=>'fail'];
+			return response()->json(array($myArray));
+		}
+	}
+
+	public function sendOTP(Request $request)
+	{
+		$user=User::where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+		if($user->count())
+		{
+			$verifycode=$user->first()->verifycode;
+			$last_verified=$user->first()->last_verified;
+			$current_time=time();
+			if($verifycode=="")
+			{
+				$otp=generatePIN(4);
+				$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
+				$data['verifycode']=$owntp;
+				$data['last_verified']=time();
+				User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+			}
+			else
+			{
+				$diff=round(abs($current_time - $last_verified) / 60,2);
+				if($diff<=15)
+				{
+					$s=sendSms("+".$request->countrycode.$request->mobile,$verifycode.' is your trippy OTP to login');
+				}
+				else
+				{
+					$otp=generatePIN(4);
+					$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
+					$data['verifycode']=$otp;
+					$data['last_verified']=time();
+					User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+				}
+			}
+			$myArray = ['status'=>'Success','message_status'=>$s->status];
+			return response()->json(array($myArray));
+		}
+		else
+		{
+			$myArray = ['status'=>'fail'];
+			return response()->json(array($myArray));	
+		}
+	}
+
+	public function updateOTP(Request $request)
+	{
+		$ifuser=User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->where('verifycode',$request->verifycode);
+		if($ifuser->count()>0)
+		{
+			$data['phone_verify']=1;
+			$update=User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+		
+			$users = User::where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+			foreach ($users->get() as $user) 
+			{}
+			if(empty($user->profile))
+			{
+				$myArray['profile']=url("assets/images/avatar.png");	
+			}
+			else
+			{
+				$myArray['profile']=$user->profile;
+			}
+
+	 	 	$myArray['status']='Success';				
+			$myArray['userid'] = $user->id;
+			return response()->json(array($myArray));
+		}
+		else
+		{
+			$myArray = ['status'=>'fail'];
+			return response()->json(array($myArray));
+		}
+	}
+	public function sendEmailReminder(Request $request)
+	{
+	//dd(env('MAIL_HOST'));exit;
+		$user['name'] ="Praveen";
+		$user['email']="praveenak4286@gmail.com";
+		Mail::send('emails.remainder', ['user' => $user], function ($m) use ($user) {
+		    $m->from('praveenak.bsc@gmail.com', 'Your Application');
+		
+		    $m->to($user['email'], $user['name'])->subject('Your Reminder!');
+		});
 	}
 
 }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Mail;
 use View;
 use File;
-use App\Models\member;
+use App\User;
 use App\Models\SiteSettings;
 use App\Models\CountryCode;
 use App\Models\Api;
@@ -31,7 +31,7 @@ class AdminController extends Controller
 	}
     public function checklogin(Request $request)
 	{	
-		$users = member::where('role',3);
+		$users = User::where('role',3);
 		if($users->count()>0 && $request->username=="admin" &&$users->first()->password==$request->password)
 		{
 			$userdata['trippy_username']=$request->username;
@@ -77,7 +77,7 @@ class AdminController extends Controller
 
 	public function resetadmin(Request $request)
 	{
-		$users = member::where('role',3)->where('email',$request->email);
+		$users = User::where('role',3)->where('email',$request->email);
 		if($users->count()>0)
 		{
 			$data['email']=$request->email;
@@ -218,11 +218,12 @@ class AdminController extends Controller
 			$marker_ext=$marker->guessClientExtension();
 			$marker_name=$marker->getClientOriginalName();
 			$marker->storeAs('images/category/'.$categoryid.'/',$marker_name);
-			$request['marker']=$marker_name;
+			$request1['marker']=$marker_name;
 		}
 		else
 		{
 			unset($request['marker']);
+			$request1['marker']="";
 		}
 		
 		if($_FILES['logo']['name']!="")
@@ -231,15 +232,17 @@ class AdminController extends Controller
 			$logo_ext=$logo->guessClientExtension();
 			$logo_name=$logo->getClientOriginalName();
 			$logo->storeAs('images/category/'.$categoryid.'/',$logo_name);
-			$request['logo']=$logo_name;
+			$request1['logo']=$logo_name;
 		}
 		else
 		{
 			unset($request['logo']);
+			$request1['logo']="";
 		}
-
 		$category=Category::where('id',$request->id)->update($request->all());
 		
+		$category=Category::where('id',$request->id)->update($request1);
+
 		flash('Service Updated Successfully')->success()->important();
 		return redirect('admin/service');
 	}	
@@ -287,7 +290,7 @@ class AdminController extends Controller
 	public function rider_signup(Request $request)
 	{
 		unset($request['_token']);
-		$rider = member::create($request->all());
+		$rider = User::create($request->all());
 		flash('Rider Added Successfully')->success()->important();
 		return redirect('admin/passengers');
 	}
@@ -295,9 +298,19 @@ class AdminController extends Controller
 	public function provider_signup(Request $request)
 	{
 		unset($request['_token']);
-		$rider = member::create($request->all());
+		$rider = User::create($request->all());
 		flash('Provider Added Successfully')->success()->important();
 		return redirect('admin/drivers');
+	}
+
+	public function getCategory(Request $request)
+	{
+		$cat=Category::all();
+		foreach ($cat as $value) {
+			$myArray[]=$value;
+		}
+	    return response()->json($myArray);
+
 	}
 
 }

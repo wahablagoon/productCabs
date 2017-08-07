@@ -21,7 +21,7 @@ class MonoController extends Controller
 
 	public function getCategory(Request $request)
 	{
-		$cat=DB::table('car_category')->get();
+		$cat=DB::table('category')->get();
 		foreach ($cat as $key => $value) {
 			$array['category_name']=$value->category_name;
 			$array['price_km']=$value->price_km;
@@ -40,10 +40,10 @@ class MonoController extends Controller
 		$userid=$request->userid;
 		$data['lat']=$request->lat;
 		$data['long']=$request->long;
-		$ifuser=DB::table('member')->where('id',$userid);
+		$ifuser=DB::table('users')->where('id',$userid);
 		if($ifuser->count()>0)
 		{
-			$update=DB::table('member')->where('id',$userid)->update($data);
+			$update=DB::table('users')->where('id',$userid)->update($data);
 			$myArray = ['status'=>'Success'];
 			return response()->json(array($myArray));
 		}
@@ -57,7 +57,7 @@ class MonoController extends Controller
 
 	public function sendOTP(Request $request)
 	{
-		$user=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+		$user=DB::table('users')->where('phone',$request->mobile)->where('countrycode',$request->countrycode);
 		if($user->count())
 		{
 			$verifycode=$user->first()->verifycode;
@@ -69,7 +69,7 @@ class MonoController extends Controller
 				$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
 				$data['verifycode']=$otp;
 				$data['last_verified']=time();
-				DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+				DB::table('users')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
 			}
 			else
 			{
@@ -84,7 +84,7 @@ class MonoController extends Controller
 					$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
 					$data['verifycode']=$otp;
 					$data['last_verified']=time();
-					DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+					DB::table('users')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
 				}
 			}
 			$myArray = ['status'=>'Success','message_status'=>$s->status];
@@ -99,13 +99,13 @@ class MonoController extends Controller
 
 	public function updateOTP(Request $request)
 	{
-		$ifuser=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->where('verifycode',$request->verifycode);
+		$ifuser=DB::table('users')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->where('verifycode',$request->verifycode);
 		if($ifuser->count()>0)
 		{
 			$data['phone_verify']=1;
-			$update=DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+			$update=DB::table('users')->where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
 		
-			$users = DB::table('member')->where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+			$users = DB::table('users')->where('phone',$request->mobile)->where('countrycode',$request->countrycode);
 			foreach ($users->get() as $user) 
 			{
 		 	 	$myArray['status']='Success';				
