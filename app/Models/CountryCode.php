@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CountryCode extends Model
 {
-    protected $table = 'country_code';
+    protected $table = 'country';
     const CREATED_AT = 'created_by';
     const UPDATED_AT = 'modified_by';
     protected $fillable = ['name','iso','isd'];

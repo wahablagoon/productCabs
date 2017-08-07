@@ -7,7 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class RequestModel extends Model
 {
     protected $table = 'request';
-    const CREATED_AT = 'created_by';
-    const UPDATED_AT = 'modified_by';
-    protected $fillable = ['pickup','destination'];
+    protected $fillable = ['pickup','destination','payment_mode','passenger_id','driver_id','category','pickup_address','drop_address','request_type','trip_id','ride_type','request_status','eta','status','c_id'];
 }
