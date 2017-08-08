@@ -41,6 +41,10 @@
     width:35%;
     border-radius: 50%;
 }
+#legend img
+{
+   padding: 10px 0px;
+}
 </style>
 <div class="col-sm-12">            <!-- /.row -->
     <div class="row">
@@ -58,23 +62,6 @@
 
             <!-- /.panel-body -->
 
-<script>
-var map;
-var redimage;
-
-var greenimage;
-var goldimage;
-var bounds = new google.maps.LatLngBounds();
-var infowindow = new google.maps.InfoWindow();    
-
-function Mappage() {
-     map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: {lat: -33.9, lng: 151.2}
-    });
-    }
-    Mappage();
-</script>           
             <!-- /.panel -->
         @endsection
         @include('widgets.panel', array('header'=>true, 'as'=>'pane2','icon'=>'pane2', 'class'=>'sd'))

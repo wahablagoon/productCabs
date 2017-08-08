@@ -13,12 +13,8 @@
         <input type="hidden" name="role" value="1">
           <div class="row">
             <div class="input-field col s12">
-              <input id="icon_prefix" type="text" value="" name="firstname" class="validate" autocomplete="off">
-              <label for="icon_prefix">First Name</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="lastname" type="text" name="lastname" value="" class="validate" autocomplete="off">
-              <label for="lastname">Last Name</label>
+              <input id="icon_prefix" type="text" value="" name="name" class="validate" autocomplete="off">
+              <label for="icon_prefix">Name</label>
             </div>
             <div class="input-field col s12">
                 <select name="countrycode">

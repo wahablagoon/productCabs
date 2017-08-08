@@ -12,13 +12,10 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="role" value="2">
           <div class="row">
+            
             <div class="input-field col s12">
-              <input id="icon_prefix" type="text" value="" name="firstname" class="validate" autocomplete="off">
-              <label for="icon_prefix">First Name</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="lastname" type="text" name="lastname" value="" class="validate" autocomplete="off">
-              <label for="lastname">Last Name</label>
+              <input id="lastname" type="text" name="name" value="" class="validate" autocomplete="off">
+              <label for="lastname">Name</label>
             </div>
             <div class="input-field col s12">
                 <select name="countrycode">
@@ -44,6 +41,8 @@
               <label for="password">Password</label>
             </div>
             <div class="input-field col s12">
+              <input type="hidden" id="driver_lat" name="lat" value="" />
+              <input type="hidden" id="driver_long" name="lang" value="" />
               <input id="city" type="text" name="city" value="" class="validate" autocomplete="off">
               <label for="city">City</label>
             </div>

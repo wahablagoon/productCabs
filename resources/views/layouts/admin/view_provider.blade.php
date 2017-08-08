@@ -18,30 +18,29 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Name</th>
             <th>Email</th>
             <th>Mobile</th>
-            <th>Wallet</th>
+            <th>Online Status</th>
+            <th>Proof Status</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
 <?php
-$user=DB::table('users')->where('role',2)->get();
 foreach($user as $users)
 {
 ?>
     <tr>
         <td>{{ $users->id }}</td>
-        <td>{{ $users->firstname }}</td>
-        <td>{{ $users->lastname }}</td>
+        <td>{{ $users->name }}</td>
         <td>{{ $users->email }}</td>
         <td>{{ $users->phone }}</td>
-        <td>{{ $users->wallet }}</td>
+        <td>{{ $users->online_status }}</td>
+        <td>{{ $users->proof_status }}</td>
         <td><label class="uhistory"><i class="fa fa-history" aria-hidden="true"></i>History</label>
             <label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</label>
-            <label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i>Delete</label>
+            <a href="delete_user/{{ $users->id }}/2"><label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i>Delete</label></a>
         </td>
     </tr>
 <?php

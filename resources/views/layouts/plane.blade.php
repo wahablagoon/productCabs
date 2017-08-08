@@ -36,7 +36,7 @@
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
 	<script
-    src="https://maps.googleapis.com/maps/api/js?key=<?php echo api_settings('GOOGLE_API_KEY');?>">
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<?php echo api_settings('GOOGLE_API_KEY');?>">
     </script>
 	@yield('body')
 	@include('flash::message')
