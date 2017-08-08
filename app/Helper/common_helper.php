@@ -91,7 +91,7 @@ function check_mobile($role,$mobile,$countrycode,$own="0")
 {
 	if($own!=0)
 	{
-		$users = DB::table('users')->where('role',$role)->where('phone',$mobile)->where('id', '<>', $own);
+		$users = DB::table('users')->where('role',$role)->where('phone',$mobile)->where('countrycode',$countrycode)->where('id', '<>', $own);
 	}
 	else
 	{

@@ -15,18 +15,11 @@ use Illuminate\Http\Request;
 
 
 //Rider API's
-Route::get('rider/signup', 'UserController@signup');
-
-
-//Drivers API's
-
-Route::get('driver/updateOnlineStatus/{userid}/{online_status}', 'UserController@updateOnlineStatus');
-
-//common API's User controller
+Route::get('signup', 'UserController@signup');
 Route::get('signin', 'UserController@signin');
 Route::get('emailExist', 'UserController@email_exist');
 Route::get('mobileExist', 'UserController@mobile_exist');
-
+Route::get('updateOnlineStatus/{userid}/{online_status}', 'UserController@updateOnlineStatus');
 Route::get('updateLocation', 'UserController@updateLocation');
 Route::get('sentOTP', 'UserController@sendOTP');
 Route::get('updateOTP', 'UserController@updateOTP');

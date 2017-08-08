@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Firebase;
+use App\Models\Twilio;
 use App\User;
 
 class UserController extends Controller
@@ -17,61 +18,95 @@ class UserController extends Controller
 		{
 			$myArray = ['status'=>'fail','reason'=>'Email already exists'];
 			return response()->json(array($myArray));
+			exit;
 		}
-		elseif(check_mobile($request->role,$request->mobile,$request->countrycode,$request->own))
+		if(check_mobile($request->role,$request->phone,$request->countrycode,$request->own))
 		{
 			$myArray = ['status'=>'fail','reason'=>'Mobile Number already exists'];
 			return response()->json(array($myArray));
+			exit;
+		}
+		if($request->own!="0")
+		{
+			$userid=$request['own'];
+			unset($request['own']);
+			$user=User::where('id',$userid)->update($request->all());
+			$id=$userid;
 		}
 		else
 		{
-			if($request->own=="1")
-			{
-				unset($request['own']);
-				$user=User::where('id',$request->userid)->update($request->all());
-				$id=$request->userid;
-			}
-			else
-			{
-				unset($request['own'],$request['user_id']);
-				$user=User::create($request->all());
-				$id=$user->id;
-			}
-			$myArray['status']='Success';				
-			$myArray['userid'] = $id;
-			return response()->json(array(array_merge($request->all(),$myArray)));
+			unset($request['own']);
+			$user=User::create($request->all());
+			$id=$user->id;
 		}
+		$myArray['status']='Success';				
+		$myArray['userid'] = $id;
+		return response()->json(array(array_merge($request->all(),$myArray)));
 	}
 	
 	public function signin(Request $request)
 	{
-		if(check_email($request->role,$request->email))
+		$emailPattern = '/^\w{2,}@\w{2,}\.\w{2,4}$/'; 
+		$mobilePattern ="/^[7-9][0-9]{9}$/"; 
+		if(preg_match($emailPattern, $request->username))
 		{
-			$users = User::where('role',$request->role)->where('email',$request->email)->where('password',$request->password);
-			if($users->count()>0)
-			{			
-				foreach ($users->get() as $user) 
-				{}
-				unset($user['created_at']);
-				$user['status']='Success';
-				return response()->json(array($user));
+			if(check_email($request->role,$request->username))
+			{
+				$users = User::where('role',$request->role)->where('email',$request->username)->where('password',$request->password);
+				if($users->count()>0)
+				{			
+					foreach ($users->get() as $user) 
+					{}
+					unset($user['created_at']);
+					$user['status']='Success';
+					return response()->json(array($user));
+				}
+				else
+				{
+					$myArray = ['status'=>'fail','reason'=>'Invalid password'];
+					return response()->json(array($myArray));			
+				}	
 			}
 			else
 			{
-				$myArray = ['status'=>'fail','reason'=>'Invalid password'];
-				return response()->json(array($myArray));			
-			}	
+				$myArray = ['status'=>'fail','reason'=>'Invalid Mail id'];
+				return response()->json(array($myArray));
+			}
 		}
-		else
+		elseif(preg_match($mobilePattern, $request->username))
 		{
-			$myArray = ['status'=>'fail','reason'=>'Invalid Mail id'];
+			if(check_mobile($request->role,$request->username,$request->countrycode))
+			{
+				$users = User::where('role',$request->role)->where('countrycode',$request->countrycode)->where('phone',$request->username)->where('password',$request->password);
+				if($users->count()>0)
+				{			
+					foreach ($users->get() as $user) 
+					{}
+					unset($user['created_at']);
+					$user['status']='Success';
+					return response()->json(array($user));
+				}
+				else
+				{
+					$myArray = ['status'=>'fail','reason'=>'Invalid password'];
+					return response()->json(array($myArray));			
+				}	
+			}
+			else
+			{
+				$myArray = ['status'=>'fail','reason'=>'Invalid Phone number'];
+				return response()->json(array($myArray));
+			}
+		}
+		else 
+		{
+		    $myArray = ['status'=>'Fail','reason'=>'Invalid'];
 			return response()->json(array($myArray));
 		}
 	}
 
 	public function email_exist(Request $request)
-	{
-		
+	{		
 		if(check_email($request->role,$request->email))
 		{
 			$users = User::where('role',$request->role)->where('email',$request->email);
@@ -91,13 +126,13 @@ class UserController extends Controller
 	public function mobile_exist(Request $request)
 	{
 		
-		if(check_rider_mobile($request->role,$request->mobile,$request->countrycode))
+		if(check_mobile($request->role,$request->phone,$request->countrycode))
 		{
-			$users = User::where('role',$request->role)->where('phone',$mobile)->where('countrycode',$request->countrycode);
+			$users = User::where('role',$request->role)->where('phone',$request->phone)->where('countrycode',$request->countrycode);
 			foreach ($users->get() as $user) 
 			{}
 			$user['status']='Success';
-			return response()->json(array($myArray));
+			return response()->json(array($user));
 		}
 		else
 		{
@@ -203,7 +238,8 @@ class UserController extends Controller
 
 	public function sendOTP(Request $request)
 	{
-		$user=User::where('phone',$request->mobile)->where('countrycode',$request->countrycode);
+		$twilio = new Twilio();
+		$user=User::where('phone',$request->phone)->where('countrycode',$request->countrycode);
 		if($user->count())
 		{
 			$verifycode=$user->first()->verifycode;
@@ -212,25 +248,25 @@ class UserController extends Controller
 			if($verifycode=="")
 			{
 				$otp=generatePIN(4);
-				$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
-				$data['verifycode']=$owntp;
+				$s=$twilio->sendSms("+".$request->countrycode.$request->phone,$otp.' is your trippy OTP to login');
+				$data['verifycode']=$otp;
 				$data['last_verified']=time();
-				User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+				User::where('phone',$request->phone)->where('countrycode',$request->countrycode)->update($data);
 			}
 			else
 			{
 				$diff=round(abs($current_time - $last_verified) / 60,2);
 				if($diff<=15)
 				{
-					$s=sendSms("+".$request->countrycode.$request->mobile,$verifycode.' is your trippy OTP to login');
+					$s=$twilio->sendSms("+".$request->countrycode.$request->phone,$verifycode.' is your trippy OTP to login');
 				}
 				else
 				{
 					$otp=generatePIN(4);
-					$s=sendSms("+".$request->countrycode.$request->mobile,$otp.' is your trippy OTP to login');
+					$s=$twilio->sendSms("+".$request->countrycode.$request->phone,$otp.' is your trippy OTP to login');
 					$data['verifycode']=$otp;
 					$data['last_verified']=time();
-					User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+					User::where('phone',$request->phone)->where('countrycode',$request->countrycode)->update($data);
 				}
 			}
 			$myArray = ['status'=>'Success','message_status'=>$s->status];
@@ -238,34 +274,40 @@ class UserController extends Controller
 		}
 		else
 		{
-			$myArray = ['status'=>'fail'];
+			$otp=generatePIN(4);
+			$s=$twilio->sendSms("+".$request->countrycode.$request->phone,$otp.' is your trippy OTP to login');
+			$data['verifycode']=$otp;
+			$data['last_verified']=time();
+			$data['phone']=$request->phone;
+			$data['countrycode']=$request->countrycode;
+			User::create($data);
+			$myArray = ['status'=>'Success'];
 			return response()->json(array($myArray));	
 		}
 	}
 
 	public function updateOTP(Request $request)
 	{
-		$ifuser=User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->where('verifycode',$request->verifycode);
+		$ifuser=User::where('phone',$request->phone)->where('countrycode',$request->countrycode)->where('verifycode',$request->verifycode);
 		if($ifuser->count()>0)
 		{
 			$data['phone_verify']=1;
-			$update=User::where('phone',$request->mobile)->where('countrycode',$request->countrycode)->update($data);
+			$update=User::where('phone',$request->phone)->where('countrycode',$request->countrycode)->update($data);
 		
-			$users = User::where('phone',$request->mobile)->where('countrycode',$request->countrycode);
-			foreach ($users->get() as $user) 
-			{}
-			if(empty($user->profile))
+			$users = User::where('phone',$request->phone)->where('countrycode',$request->countrycode)->where('role','<>',NULL);
+			if($users->count()>0)
 			{
-				$myArray['profile']=url("assets/images/avatar.png");	
+				foreach ($users->get() as $user) 
+				{}
+		 	 	$user['status']='Success';				
+				$user['userid'] = $user->id;
+				return response()->json(array($user));
 			}
 			else
 			{
-				$myArray['profile']=$user->profile;
+				$myArray = ['status'=>'newUser'];
+				return response()->json(array($myArray));
 			}
-
-	 	 	$myArray['status']='Success';				
-			$myArray['userid'] = $user->id;
-			return response()->json(array($myArray));
 		}
 		else
 		{
