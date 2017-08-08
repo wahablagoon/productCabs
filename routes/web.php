@@ -74,6 +74,8 @@ Route::get('admin/service','AdminController@view_service');
 Route::get('admin/service/create','AdminController@view_create_service');
 Route::get('admin/delete_service/{id}','AdminController@delete_service');
 Route::get('admin/service/edit/{id}','AdminController@view_edit_service');
+Route::get('admin/delete_user/{id}/{role}','AdminController@delete_user');
+
 
 Route::post('admin/edit_service','AdminController@edit_service');
 Route::post('admin/add_service','AdminController@add_service');

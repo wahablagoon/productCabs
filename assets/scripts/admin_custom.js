@@ -1,55 +1,83 @@
 $(document).ready(function(){
 
+//autocomplete for driver city field
+driver_city_autocomplete = new google.maps.places.Autocomplete((document.getElementById('city')),
+            {types: ['geocode']});
+driver_city_autocomplete.addListener('place_changed', fillInAddress);
+
+function fillInAddress()
+{
+  var place = driver_city_autocomplete.getPlace();
+  $("#driver_lat").val(place.geometry.location.lat());
+  $("#driver_long").val(place.geometry.location.lng());
+
+}
+
+var map;
+var redimage;
+
+var greenimage;
+var goldimage;
+var bounds = new google.maps.LatLngBounds();
+var infowindow = new google.maps.InfoWindow();    
 function map()
 {
-	$.ajax(
-   	{
-		type: "POST",
-		dataType: "json",
-		url: APP_URL+"/getMap",
-		data: { name: "mappage" },
-		success: function(data) 
-		{ 
-			redimage = APP_URL+"/assets/images/maps/red.png";
-			goldimage = APP_URL+"/assets/images/maps/gold.png";
-			greenimage = APP_URL+"/assets/images/maps/green.png";
-			for(var ml=0;ml<data.length;ml++)
-			{
-				var mapimage;
-				if(data[ml].status=="0")
-				{
-					mapimage=goldimage;
-				}
-				else
-				{
-					if(data[ml].online_status=="0")
-					{
-						mapimage=redimage;
-					}
-					else
-					{
-						mapimage=greenimage;
-					}	
-				}
-				var latLng = new google.maps.LatLng(data[ml].lat, data[ml].long);
-           		marker = new google.maps.Marker({
+     map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: {lat: -33.9, lng: 151.2}
+    });
+  $.ajax(
+    {
+    type: "POST",
+    dataType: "json",
+    url: APP_URL+"/getMap",
+    data: { name: "mappage" },
+    success: function(data) 
+    { 
+      redimage = APP_URL+"/assets/images/maps/red.png";
+      goldimage = APP_URL+"/assets/images/maps/gold.png";
+      greenimage = APP_URL+"/assets/images/maps/green.png";
+      for(var ml=0;ml<data.length;ml++)
+      {
+        var mapimage;
+        if(data[ml].status=="0")
+        {
+          mapimage=goldimage;
+        }
+        else
+        {
+          if(data[ml].online_status=="0")
+          {
+            mapimage=redimage;
+          }
+          else
+          {
+            mapimage=greenimage;
+          } 
+        }
+        var latLng = new google.maps.LatLng(data[ml].lat, data[ml].long);
+              marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
                 icon: mapimage,
-       			title: data[ml].firstname,
-            	});
-           		google.maps.event.addListener(marker, 'click', (function(marker, ml) {
-				    return function() {
-				      infowindow.setContent(data[ml].infowindow);
-				      infowindow.open(map, marker);
-				    }
-				  })(marker, ml));
-            	bounds.extend(marker.position);
-			}
-			map.fitBounds(bounds);
-		}
-   	});
+            title: data[ml].firstname,
+              });
+              google.maps.event.addListener(marker, 'click', (function(marker, ml) {
+            return function() {
+              infowindow.setContent(data[ml].infowindow);
+              infowindow.open(map, marker);
+            }
+          })(marker, ml));
+              bounds.extend(marker.position);
+      }
+      map.fitBounds(bounds);
+    }
+    });
 }
+if(window.location.href.indexOf("map") > -1) {
+map();
+    }
+
 
 	$('.material_form  select').material_select();
 	$('#btn-main').on('touchstart click', function() 
@@ -124,10 +152,7 @@ function map()
 
 	 $("#add_user").validate({
         rules: {
-            firstname: {
-                required: true
-            },
-            lastname: {
+            name: {
                 required: true
             },
             phone: {
@@ -158,10 +183,7 @@ function map()
 
 	 $("#add_driver").validate({
         rules: {
-            firstname: {
-                required: true
-            },
-            lastname: {
+            name: {
                 required: true
             },
             phone: {
