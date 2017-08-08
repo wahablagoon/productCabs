@@ -127,12 +127,14 @@ class AdminController extends Controller
 
 	public function view_user()
 	{
-		return View::make('layouts/admin/view_user');		
+		$data['user']=User::where('role',1)->where('role','<>',null)->get();
+		return View::make('layouts/admin/view_user',$data);		
 	}
 
 	public function view_provider()
 	{
-		return View::make('layouts/admin/view_provider');		
+		$data['user']=User::where('role',2)->where('role','<>',null)->get();
+		return View::make('layouts/admin/view_provider',$data);		
 	}
 	public function view_create_user()
 	{
@@ -298,9 +300,26 @@ class AdminController extends Controller
 	public function provider_signup(Request $request)
 	{
 		unset($request['_token']);
+
 		$rider = User::create($request->all());
 		flash('Provider Added Successfully')->success()->important();
 		return redirect('admin/drivers');
+	}
+
+	public function delete_user(Request $request)
+	{
+		$rider = User::where('id',$request->id)->delete();
+		if($request->role==1)
+		{
+			flash('Passenger Deleted Successfully')->success()->important();
+			return redirect('admin/passengers');			
+		}
+		else
+		{
+			flash('Driver Deleted Successfully')->success()->important();
+			return redirect('admin/drivers');
+		}
+	
 	}
 
 	public function getCategory(Request $request)

@@ -156,7 +156,7 @@ class UserController extends Controller
 	public function getMap()
 	{
 		$final=array();
-		$drivers=User::where("role",2)->where("lat",'<>',null)->where("long",'<>',null)->get();
+		$drivers=User::where("role",2)->where("lat",'<>',null)->where("lang",'<>',null)->get();
 		foreach ($drivers as $key => $value) {
 
 			if($value->status=="1")
@@ -188,7 +188,7 @@ class UserController extends Controller
 			$data['online_status']=$value->online_status;
 			$data['status']=$value->status;
 			$data['lat']=$value->lat;
-			$data['long']=$value->long;
+			$data['long']=$value->lang;
 			$data['infowindow']='<div class="info_container">
 			<img src="'.$profile.'">
 			<p><i class="fa fa-user" aria-hidden="true"></i>'.$value->firstname.'</p>
