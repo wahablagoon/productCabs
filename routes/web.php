@@ -89,3 +89,5 @@ Route::post('resetadmin','AdminController@resetadmin');
 Route::post('admin/rider_signup','AdminController@rider_signup');
 Route::post('admin/provider_signup','AdminController@provider_signup');
 Route::post('admin/api_settings','AdminController@api_settings');
+Route::get('admin/export/{role}/{type}/{title}','AdminController@export');
+

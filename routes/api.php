@@ -35,3 +35,5 @@ Route::get('requests/updateRequest/{request_id}/{driver_id}/{request_status}', '
 
 //Admin Controller
 Route::get('getCategory/', 'AdminController@getCategory');
+
+Route::get('firebase_get','UserController@firebase_get');
