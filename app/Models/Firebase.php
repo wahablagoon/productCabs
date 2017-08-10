@@ -39,7 +39,7 @@ class Firebase extends Model
 		$firebase = new \Firebase\FirebaseLib($this->FIREBASE_URL, $token);
 
 		// --- reading the stored string ---
-		$name = $firebase->get($DEFAULT_PATH . '/58dfb254192d2e5256234fde');
+		$name = $firebase->get($path);
 		return $name;
 	}
 
