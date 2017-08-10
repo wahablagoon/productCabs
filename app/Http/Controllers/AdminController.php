@@ -10,11 +10,12 @@ use Mail;
 use View;
 use File;
 use App\User;
+use App\Models\Export;
 use App\Models\SiteSettings;
 use App\Models\CountryCode;
 use App\Models\Api;
 use App\Models\Category;
-
+use Excel;
 class AdminController extends Controller
 {
 	public function index()
@@ -331,5 +332,40 @@ class AdminController extends Controller
 	    return response()->json($myArray);
 
 	}
+
+	public function excel()
+	{
+		Excel::create('Filename', function($excel) {
+
+    $excel->sheet('Sheetname', function($sheet) {
+
+        $sheet->fromArray(array(
+            array('data1', 'data2'),
+            array('data3', 'data4')
+        ));
+
+    });
+		})->export('xls');
+	}
+
+	public function export(Request $request)
+	{
+		$users=User::where('role',$request->role)->where('role','<>',null)->get();
+		$data_header=array("Id","Name","Email","Phone","Proof Status","Created");
+		$data=array();
+		foreach($users as $key => $value){
+			$data[]=array(
+				$value->id,
+				$value->name,
+				$value->email,
+				$value->countrycode." ".$value->phone,
+				$value->proof_status,
+				$value->created_at,
+				);
+		}
+		$export=new Export();
+		$export->generate($data,$data_header,$request->type,$request->title);
+	}
+
 
 }
