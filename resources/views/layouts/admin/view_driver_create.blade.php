@@ -44,7 +44,7 @@
               <input type="hidden" id="driver_lat" name="lat" value="" />
               <input type="hidden" id="driver_long" name="lang" value="" />
               <input id="city" type="text" name="city" value="" class="validate" autocomplete="off">
-              <label for="city">City</label>
+
             </div>
 
             <button class="btn waves-effect waves-light" type="submit" name="action">Submit

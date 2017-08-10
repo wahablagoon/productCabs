@@ -7,7 +7,7 @@
             @section ('pane2_panel_title', '')
             @section ('pane2_panel_body')
                     <!-- /.panel -->
-        <form  id="add_service" method="post" action="{{ url("admin/add_service") }}"  enctype="multipart/form-data">
+        <form class="" id="add_service" method="post" action="{{ url("admin/add_service") }}"  enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">    
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-12 col-sm-12 col-xs-12 item_settings">Service Name</div>

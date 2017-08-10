@@ -38,9 +38,9 @@ foreach($user as $users)
         <td>{{ $users->phone }}</td>
         <td>{{ $users->online_status }}</td>
         <td>{{ $users->proof_status }}</td>
-        <td><label class="uhistory"><i class="fa fa-history" aria-hidden="true"></i>History</label>
-            <label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</label>
-            <a href="delete_user/{{ $users->id }}/2"><label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i>Delete</label></a>
+        <td><label class="uhistory"><i class="fa fa-history" aria-hidden="true"></i></label>
+            <label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></label>
+            <a href="delete_user/{{ $users->id }}/2"><label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i></label></a>
         </td>
     </tr>
 <?php
@@ -74,9 +74,11 @@ word-break: break-all;
 <i class="fa fa-cloud-download" aria-hidden="true"></i>
     </a>
     <ul>
-      <li><a class="btn-floating yellow darken-1 tooltipped " data-tooltip="Excel"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons tooltipped " data-tooltip="Pdf">publish</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons tooltipped " data-tooltip="Print" >attach_file</i></a></li>
+      <li><a href="{{ url('admin/export/2/xls/Driver details') }}" class="btn-floating yellow darken-1 tooltipped " data-tooltip="Excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+</a></li>
+      <li><a href="{{ url('admin/export/2/pdf/Driver details') }}" class="btn-floating green tooltipped " data-tooltip="PDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+</a></li>
+      <li><a href="{{ url('admin/export/2/csv/Driver details') }}" class="btn-floating blue tooltipped " data-tooltip="CSV"><i class="fa fa-file" aria-hidden="true"></i></a></li>
     </ul>
 </div>   
 

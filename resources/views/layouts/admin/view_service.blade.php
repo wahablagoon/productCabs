@@ -38,8 +38,8 @@ foreach($services as $service)
         <td>{{ $service->price_km }}</td>
         <td>{{ $service->price_minute }}</td>
         <td>{{ $service->max_size }}</td>
-        <td><img width="50px" height="40px" src="{{ url("storage/app/images/category/$service->id/$service->logo") }}"></img></td>
-        <td><img width="30px" height="30px" src="{{ url("storage/app/images/category/$service->id/$service->marker") }}"></img></td>
+        <td><img width="50px" height="40px" onerror="this.src='{{ url("assets/images/no.png") }}'" src="{{ url("storage/app/images/category/$service->id/$service->logo") }}"></img></td>
+        <td><img width="30px" height="30px" onerror="this.src='{{ url("assets/images/no.png") }}'" src="{{ url("storage/app/images/category/$service->id/$service->marker") }}"></img></td>
         <td>
             <a href="{{ url("admin/service/edit/$service->id") }}"><label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></label></a>
             <a href="{{ url("admin/delete_service/$service->id") }}"><label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i></label></a>
@@ -71,16 +71,6 @@ word-break: break-all;
 </div>
 
 </div>
-<div class="fixed-action-btn horizontal click-to-toggle spin-close relative-action-btn float_right">
-    <a class="btn-floating btn-large red tooltipped" data-tooltip="Export users">
-<i class="fa fa-cloud-download" aria-hidden="true"></i>
-    </a>
-    <ul>
-      <li><a class="btn-floating yellow darken-1 tooltipped " data-tooltip="Excel"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons tooltipped " data-tooltip="Pdf">publish</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons tooltipped " data-tooltip="Print" >attach_file</i></a></li>
-    </ul>
-</div>   
 
 
 
