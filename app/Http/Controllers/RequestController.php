@@ -109,6 +109,7 @@ class RequestController extends Controller
 				'request/req_id' => $request_id,
 				'request/rider_id' => $passengerId,
 				),'drivers_data/'.$row->id);
+			}	
 		}
 	}
 
@@ -133,7 +134,7 @@ class RequestController extends Controller
 	
 
 
-//calculate miles
+	//calculate miles
 
 	function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 	
@@ -153,6 +154,6 @@ class RequestController extends Controller
 	      }
 	}
 
-//calculate miles
+	//calculate miles
 }
 
