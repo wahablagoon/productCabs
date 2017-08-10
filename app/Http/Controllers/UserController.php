@@ -153,6 +153,13 @@ class UserController extends Controller
 
 	}
 
+	public function firebase_get(Request $request)
+	{
+		$firebase = new Firebase();
+		$path=$request->path;
+		$res=$firebase->getdata($path);
+		print_r($res);
+	}
 	public function getMap()
 	{
 		$final=array();
