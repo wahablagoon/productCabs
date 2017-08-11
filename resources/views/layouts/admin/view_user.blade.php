@@ -69,7 +69,7 @@ word-break: break-all;
 </div>
 
 </div>
-<div class="fixed-action-btn horizontal click-to-toggle spin-close relative-action-btn float_right">
+<!-- <div class="fixed-action-btn horizontal click-to-toggle spin-close relative-action-btn float_right">
     <a class="btn-floating btn-large red tooltipped" data-tooltip="Export users">
 <i class="fa fa-cloud-download" aria-hidden="true"></i>
     </a>
@@ -81,7 +81,7 @@ word-break: break-all;
       <li><a href="{{ url('admin/export/1/csv/Passenger details') }}" class="btn-floating blue tooltipped " data-tooltip="CSV"><i class="fa fa-file" aria-hidden="true"></i></a></li>
     </ul>
 </div>   
-
+ -->
 
 
 

@@ -10,12 +10,10 @@ use Mail;
 use View;
 use File;
 use App\User;
-use App\Models\Export;
 use App\Models\SiteSettings;
 use App\Models\CountryCode;
 use App\Models\Api;
 use App\Models\Category;
-use Excel;
 class AdminController extends Controller
 {
 	public function index()
