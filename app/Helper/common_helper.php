@@ -26,6 +26,12 @@ function api_settings($code)
 	}
 }
 
+function get_users($role)
+{
+	$users = DB::table('users')->where("role",$role);
+	return $users->count();
+}
+
 
 function site_name()
 {
