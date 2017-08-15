@@ -37,17 +37,26 @@ class Firebase extends Model
 	{
 		$token=$this->generate_token();
 		$firebase = new \Firebase\FirebaseLib($this->FIREBASE_URL, $token);
-
+		return $firebase->get($path);
 		// --- reading the stored string ---
-		$name = $firebase->get($path);
-		return $name;
+		//$name = $firebase->get($DEFAULT_PATH . '/58dfb254192d2e5256234fde');
+		//return $name;
 	}
 
 	public function setdata($path,$data)
 	{
+		//echo $this->FIREBASE_URL;
 		$token=$this->generate_token();
 		$firebase = new \Firebase\FirebaseLib($this->FIREBASE_URL, $token);
 
 		$firebase->set($path,$data);
 	}
+    public function updatedata($path,$data)
+    {
+            //echo $this->FIREBASE_URL;
+            $token=$this->generate_token();
+            $firebase = new \Firebase\FirebaseLib($this->FIREBASE_URL, $token);
+
+            $firebase->update($path,$data);
+    }
 }
