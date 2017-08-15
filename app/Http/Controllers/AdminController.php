@@ -299,7 +299,7 @@ class AdminController extends Controller
 
 	public function site_settings(Request $request)
 	{
-
+		unset($request['_token'],$request['submit']);
 		SiteSettings::where('id',1)->update($request->all());
 		flash('Site Settings Updated Successfully')->success()->important();
 		return redirect('admin/settings');

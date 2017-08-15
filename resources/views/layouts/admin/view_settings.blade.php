@@ -49,29 +49,29 @@
 
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-4 col-sm-4 col-xs-12 item_settings">Copyright content</div>
-				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="copyright" value="{{ site_settings()->site_copyright }}" /></div>
+				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="site_copyright" value="{{ site_settings()->site_copyright }}" /></div>
             </div>
 
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-4 col-sm-4 col-xs-12 item_settings">Playstore Link</div>
-				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="playstore_link" value="{{ site_settings()->site_playstore_link }}" /></div>
+				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="site_playstore_link" value="{{ site_settings()->site_playstore_link }}" /></div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-4 col-sm-4 col-xs-12 item_settings">Appstore Link</div>
-				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="appstore_link" value="{{ site_settings()->site_appstore_link }}" /></div>
+				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="site_appstore_link" value="{{ site_settings()->site_appstore_link }}" /></div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-4 col-sm-4 col-xs-12 item_settings">Contact Number</div>
-				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="contact_number" value="{{ site_settings()->site_company_phone }}" /></div>
+				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="site_company_phone" value="{{ site_settings()->site_company_phone }}" /></div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
 				<div class="col-md-4 col-sm-4 col-xs-12 item_settings">Contact Email</div>
-				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="contact_email" value="{{ site_settings()->site_company_email }}" /></div>
+				<div class="col-md-8  col-sm-8 col-xs-12"><input type="text" class="text_box"  name="site_company_email" value="{{ site_settings()->site_company_email }}" /></div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12 list_settings">
                 <div class="col-md-4 col-sm-4 col-xs-12 item_settings">Site currency</div>
                 <div class="col-md-8  col-sm-8 col-xs-12">
-                    <select class="selectpicker" name="currency">
+                    <select class="selectpicker" name="site_currency">
                       
                       <option>INR</option>
                       

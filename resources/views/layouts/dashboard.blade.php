@@ -233,7 +233,7 @@
                             </li>
                         </ul>
                          <ul class="nav navbar-nav float-md">
-                            <li class="nav-item  hidden-sm-down" style="font-family: Oleo Script; padding: 5px; font-size: 32px;">
+                            <li class="nav-item  hidden-sm-down" style="color: rgba(0,0,0,0.7) !important;font-family: Oleo Script; padding: 5px; font-size: 32px;">
                                 {{ site_settings()->site_name }}
                             </li>
                         </ul>

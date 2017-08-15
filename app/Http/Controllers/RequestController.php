@@ -8,8 +8,8 @@
     use Illuminate\Support\Facades\Input;
     use Illuminate\Support\Facades\DB;
     use App\Models\RequestModel;
-    use App\Models\member;
     use App\Models\Firebase;
+    use App\User;
     class RequestController extends Controller
     {
         public function setRequest(Request $request)    // For Rider
@@ -48,7 +48,7 @@
             $data['driver_category'] = "";
             $data['created'] = time();
             $data['status'] = "Success";
-            $res_corp = member::where('role',1)->where('id',$data['rider_id'])->get();
+            $res_corp = User::where('role',1)->where('id',$data['rider_id'])->get();
             foreach($res_corp as $row_corp)
             {
                 if(isset($row_corp->c_id) && $row_corp->c_id != null && $row_corp->c_id!= "")
@@ -78,7 +78,7 @@
         public function updateRequest(Request $request)   //For Driver
         {
             $request_id = $request->request_id;
-            $data['request_status'] = $request->request_status;	 // "accept" , "no_driver" , "cancel"
+            $data['request_status'] = $request->request_status;  // "accept" , "no_driver" , "cancel"
             $data['driver_id'] = $request->driver_id;
             $data1['driver_location']['lat'] = $request->lat;
             $data1['driver_location']['long'] = $request->long;
@@ -104,10 +104,10 @@
                         'rider_id' => ''
                         );
             $res=$firebase->setdata($path,$data);
-            print_r($res);				// Update driver req status in fb
+            print_r($res);              // Update driver req status in fb
         }
-	public function processRequest(Request $request)
-	{ 
+    public function processRequest(Request $request)
+    { 
                 $request_id = $request['request_id'];
                 $resultRequest=DB::table('request')->where('id',$request_id)->get(); 
                 //$resultRequest=RequestModel::where('id',$request_id)->get(); 
@@ -134,80 +134,80 @@
                 WHERE distance < ' . $max_distance . ' 
                 ORDER BY distance; 
                ');
-		//print_r($nearDrivers); 
-		$numberofdrivers = sizeof($nearDrivers) ; 
-		$i = 0 ;
-		if($getRequestData->request_status != 'cancel') { // Don't process if cancelled		
-		if($numberofdrivers >=1 ){
+        //print_r($nearDrivers); 
+        $numberofdrivers = sizeof($nearDrivers) ; 
+        $i = 0 ;
+        if($getRequestData->request_status != 'cancel') { // Don't process if cancelled     
+        if($numberofdrivers >=1 ){
                 $firebase = new Firebase();
-		foreach($nearDrivers as $row)
-		{
-			$path='drivers_data/'.$row->id;
-			//echo $path;
-			$currentStatus = json_decode($firebase->getdata($path));
+        foreach($nearDrivers as $row)
+        {
+            $path='drivers_data/'.$row->id;
+            //echo $path;
+            $currentStatus = json_decode($firebase->getdata($path));
                         //print_r($currentStatus);exit;
-			if($currentStatus->request->status == 0 && $currentStatus->accept->status == 0)
-			{
-            			$path='drivers_data/'.$row->id;
-				$data=array(
-                        	'request/status' => 1,
-                        	'request/eta' => "10 minutes",
-                        	'request/estFare' => '5',
-                        	'request/distance' => 10,
-                        	'request/pickupAddress' => $pickupAddress,
-                        	'request/dropAddress' => $dropAddress,
-                        	'request/req_id' => $request_id,
-                        	'request/rider_id' => $passengerId
-                        	);
-            			$res=$firebase->updatedata($path,$data);
-				for($timer=0; $timer<5; $timer++) 
-				{
-					$currentStatus = json_decode($firebase->getdata('drivers_data/'.$row->id));
-					//print_r($current_status);exit;
-					if ($currentStatus->accept->status != 1 ) {
-			 		sleep(1);
-					}
-					else {
-					break;	
-					}
-				}
-				$currentStatus = json_decode($firebase->getdata('drivers_data/'.$row->id));
-				if($currentStatus->request->status == 1 && $currentStatus->accept->status == 1 && $currentStatus->request->req_id == $request_id)
-				{	
-					$pickupLatLong  = json_decode($getRequestData->pickup);
-                			$pickupLat = $jsonLatLong->lat;
-                			$pickupLong = $jsonLatLong->long;
-                			$pickupAddress = $getRequestData->pickup_address;
-                			$dropAddress = $getRequestData->drop_address;
-                			$passengerId = $getRequestData->passenger_id;
-					//Need to update everyting into trips table
+            if($currentStatus->request->status == 0 && $currentStatus->accept->status == 0)
+            {
+                        $path='drivers_data/'.$row->id;
+                $data=array(
+                            'request/status' => 1,
+                            'request/eta' => "10 minutes",
+                            'request/estFare' => '5',
+                            'request/distance' => 10,
+                            'request/pickupAddress' => $pickupAddress,
+                            'request/dropAddress' => $dropAddress,
+                            'request/req_id' => $request_id,
+                            'request/rider_id' => $passengerId
+                            );
+                        $res=$firebase->updatedata($path,$data);
+                for($timer=0; $timer<5; $timer++) 
+                {
+                    $currentStatus = json_decode($firebase->getdata('drivers_data/'.$row->id));
+                    //print_r($current_status);exit;
+                    if ($currentStatus->accept->status != 1 ) {
+                    sleep(1);
+                    }
+                    else {
+                    break;  
+                    }
+                }
+                $currentStatus = json_decode($firebase->getdata('drivers_data/'.$row->id));
+                if($currentStatus->request->status == 1 && $currentStatus->accept->status == 1 && $currentStatus->request->req_id == $request_id)
+                {   
+                    $pickupLatLong  = json_decode($getRequestData->pickup);
+                            $pickupLat = $jsonLatLong->lat;
+                            $pickupLong = $jsonLatLong->long;
+                            $pickupAddress = $getRequestData->pickup_address;
+                            $dropAddress = $getRequestData->drop_address;
+                            $passengerId = $getRequestData->passenger_id;
+                    //Need to update everyting into trips table
 
-				}else{
-					$pathNA='drivers_data/'.$row->id;//Not accepted
-	                                $dataNA=array(
-	                                'request/status' => 0,
-	                                'request/eta' => "",
-        	                        'request/estFare' => '',
-                	                'request/distance' => 0,
-                        	        'request/pickupAddress' => '',
-                                	'request/dropAddress' => '',
-                                	'request/req_id' => '',
-                                	'request/rider_id' => ''
-                                	);
-                                	$firebase->updatedata($pathNA,$dataNA);			
-					if ($i == $numberofdrivers - 1) {
-						//Need to update "no_driver" in request table => where request_id
-					}
-				}
-			}$i++;
-		}
-		}else{
-			//Need to update "no_driver" in request table => where request_id
-		}
-		}else{
-			//Neet to get the value from request table => where request_id
-		}
-		print_r($nearDrivers); 
+                }else{
+                    $pathNA='drivers_data/'.$row->id;//Not accepted
+                                    $dataNA=array(
+                                    'request/status' => 0,
+                                    'request/eta' => "",
+                                    'request/estFare' => '',
+                                    'request/distance' => 0,
+                                    'request/pickupAddress' => '',
+                                    'request/dropAddress' => '',
+                                    'request/req_id' => '',
+                                    'request/rider_id' => ''
+                                    );
+                                    $firebase->updatedata($pathNA,$dataNA);         
+                    if ($i == $numberofdrivers - 1) {
+                        //Need to update "no_driver" in request table => where request_id
+                    }
+                }
+            }$i++;
+        }
+        }else{
+            //Need to update "no_driver" in request table => where request_id
+        }
+        }else{
+            //Neet to get the value from request table => where request_id
+        }
+        print_r($nearDrivers); 
         }
         public function getTrips_get()   // For Rider
         {
@@ -436,7 +436,7 @@
             {
                 $trip_id = $this->get('trip_id');
                 $user_id = $this->get('user_id');
-                $data['trip_status'] = $this->get('trip_status');	// on,off,end
+                $data['trip_status'] = $this->get('trip_status');   // on,off,end
                 $data['accept_status'] = $this->get('accept_status'); // 2=> Arrive ,3=> Begin, 4 => End, 5 => Cancel
                 $data['total_distance'] = $this->get('distance');
                 
@@ -559,7 +559,7 @@
                                                 'accept/status' => 0,
                                                 'request/rider_id' => '',
                                                 'accept/trip_id' => ''
-                                                ),'drivers_data/'.$getTripsData['driver_id']);	// Update driver req status as not accepted fb
+                                                ),'drivers_data/'.$getTripsData['driver_id']);  // Update driver req status as not accepted fb
                         
                         $data_finance['total_price']  = ($total_price/100);
                         $data_finance['total_distance'] = $data['total_distance'];
@@ -949,7 +949,7 @@
                         
                         if($this->get('end_lat'))
                         {
-                            $data_finance['destination']['lat'] = $this->get('end_lat');	
+                            $data_finance['destination']['lat'] = $this->get('end_lat');    
                         }
                         if($this->get('end_long'))
                         {
@@ -957,7 +957,7 @@
                         }
                         if($this->get('drop_address'))
                         {
-                            $data_finance['drop_address'] = urldecode(utf8_decode($this->get('drop_address')));						
+                            $data_finance['drop_address'] = urldecode(utf8_decode($this->get('drop_address')));                     
                         }
                         
                         $this->Request_model->update_trips($updatekey, $data_finance);
@@ -967,12 +967,12 @@
                         if(isset($getData['referral_code_used']))
                         {
                             $ref_code_rider = $getData['referral_code_used'] ;
-                            updateRefAmount($trip_id,$data_finance['total_price'],$ref_code_rider);							
+                            updateRefAmount($trip_id,$data_finance['total_price'],$ref_code_rider);                         
                         } /// rider
                         if(isset($getTripsData_driver['referral_code_used']))
                         {
                             $ref_code_driver = $getTripsData_driver['referral_code_used'] ;
-                            updateRefAmount($trip_id,$data_finance['total_price'],$ref_code_driver);							
+                            updateRefAmount($trip_id,$data_finance['total_price'],$ref_code_driver);                            
                         } // driver
                         
                         /// end update referral amount ///
@@ -997,7 +997,7 @@
             }else{
                 $response_array = array();
                 $final['status']="Fail";
-                $final['message']="Missing Parameter value.";	
+                $final['message']="Missing Parameter value.";   
                 array_push($response_array,$final);
             }
             $this->response($response_array, REST_Controller::HTTP_OK);
@@ -1034,15 +1034,15 @@
             {
                 $response_array = array();
                 
-                $data['pickup']['lat'] = $this->get('start_lat');	
-                $data['pickup']['long'] = $this->get('start_long');	
-                $data['destination']['lat'] = $this->get('end_lat');	
-                $data['destination']['long'] = $this->get('end_long');	
-                $data['payment_mode'] = $this->get('payment_mode');	
-                $data['rider_id'] = $this->get('userid');	
-                $data['category'] = $this->get('category');	
-                $data['pickup_address'] = urldecode(utf8_encode($this->get('pickup_address')));	
-                $data['drop_address'] = urldecode(utf8_decode($this->get('drop_address')));	
+                $data['pickup']['lat'] = $this->get('start_lat');   
+                $data['pickup']['long'] = $this->get('start_long'); 
+                $data['destination']['lat'] = $this->get('end_lat');    
+                $data['destination']['long'] = $this->get('end_long');  
+                $data['payment_mode'] = $this->get('payment_mode'); 
+                $data['rider_id'] = $this->get('userid');   
+                $data['category'] = $this->get('category'); 
+                $data['pickup_address'] = urldecode(utf8_encode($this->get('pickup_address'))); 
+                $data['drop_address'] = urldecode(utf8_decode($this->get('drop_address'))); 
                 $data['trip_id'] = "" ; 
                 $data['ride_type'] = "ride_later";
                 //echo strtotime(urldecode(utf8_encode($this->get('date_time'))));
@@ -1054,10 +1054,10 @@
                 {
                     $final['status']="Fail";
                     $final['message']="Already added the ride on this time.";
-                    array_push($response_array,$final);	
+                    array_push($response_array,$final); 
                     $this->response($response_array, REST_Controller::HTTP_OK);
-                    exit;	
-                } 	
+                    exit;   
+                }   
                 
                 
                 if($this->get('category') === NULL || $this->get('userid') === NULL || $data['pickup']['lat'] === NULL || $data['pickup']['long']=== NULL || $data['destination']['lat'] === NULL || $data['destination']['long'] === NULL  || $data['payment_mode'] === NULL ) //Check whether params are passed
@@ -1079,8 +1079,8 @@
                     unset($data['_id']);
                     
                     $final['status']="Success";
-                    $final['request_id']=$data['request_id'];	
-                    $final['car_category']=$data['category'];	
+                    $final['request_id']=$data['request_id'];   
+                    $final['car_category']=$data['category'];   
                     array_push($response_array,$final);
                     
                 }
@@ -1088,7 +1088,7 @@
             }else
             {
                 $final['status']="Fail";
-                $final['message']="Missing Parameter value.";	
+                $final['message']="Missing Parameter value.";   
                 array_push($response_array,$final);
             }
             $this->response($response_array, REST_Controller::HTTP_OK);
@@ -1126,13 +1126,13 @@
                             $final[$i]['status']="success";
                             $final[$i]['request_id'] = $getTripsData['_id']->{'$id'};
                             $final[$i]['rider_id'] = $getTripsData['rider_id'];
-                            $final[$i]['pickup_location'] = $getTripsData['pickup_address'];					
+                            $final[$i]['pickup_location'] = $getTripsData['pickup_address'];                    
                             $final[$i]['dropup_location'] = $getTripsData['drop_address'];
                             $final[$i]['ride_date_time'] = date('d-m-Y H:i:s A',$getTripsData['ride_date_time']);
                             $final[$i]['category']= $getTripsData['category'];
                             $final[$i]['status']="Success";
                             unset($getTripsData['_id']);
-                            $i++;	
+                            $i++;   
                         }
                         print_r(json_encode(($final),JSON_UNESCAPED_SLASHES));exit;
                         
@@ -1140,7 +1140,7 @@
                     else
                     {
                         $final['status']="Fail";
-                        $final['message']="No record found";	
+                        $final['message']="No record found";    
                         array_push($response_array,$final);
                         $this->response($response_array, REST_Controller::HTTP_OK);
                     }
@@ -1150,7 +1150,7 @@
             }else
             {
                 $final['status']="Fail";
-                $final['message']="Missing Parameter value.";	
+                $final['message']="Missing Parameter value.";   
                 array_push($response_array,$final);
                 $this->response($response_array, REST_Controller::HTTP_OK);
             }
@@ -1162,7 +1162,7 @@
             $response_array = array();
             if(checkisEmpty($this->get()))
             {
-                $userid = $this->get('userid');	
+                $userid = $this->get('userid'); 
                 
                 if($userid === NULL ) //Check whether params are passed
                 {
@@ -1181,20 +1181,20 @@
                         foreach($result as $getTripsData){
                             $driverData  =  getUserData( 'drivers',  new MongoId($getTripsData['driver_id']) );
                             $driverProfile = $driverData['profile_pic'];
-                            $final[$i]['trip_id'] = $getTripsData['_id']->{'$id'};					
+                            $final[$i]['trip_id'] = $getTripsData['_id']->{'$id'};                  
                             $final[$i]['driver_profile'] = $driverProfile;
                             $final[$i]['driver_name'] = $driverData['first_name']." ".$driverData['last_name'];
                             
-                            $final[$i]['pickup_address'] = $getTripsData['pickup_address'];					
+                            $final[$i]['pickup_address'] = $getTripsData['pickup_address'];                 
                             $final[$i]['drop_address'] = $getTripsData['drop_address'];
                             
-                            $final[$i]['car_category'] = $getTripsData['car_category'];					
+                            $final[$i]['car_category'] = $getTripsData['car_category'];                 
                             $final[$i]['created'] = date("d-m-Y",$getTripsData['created']);
-                            $final[$i]['total_price'] = $getTripsData['total_price'];	
+                            $final[$i]['total_price'] = $getTripsData['total_price'];   
                             if(isset($getTripsData['payment_mode']))
                             {
-                                $final[$i]['payment_mode'] = $getTripsData['payment_mode'];	
-                            }					
+                                $final[$i]['payment_mode'] = $getTripsData['payment_mode']; 
+                            }                   
                             $final[$i]['status']="success";
                             unset($getTripsData['_id']);
                             
@@ -1205,8 +1205,8 @@
                     }else{
                         $final['status']="Fail";
                         $final['message']="No record found";
-                        array_push($response_array,$final);	
-                        $this->response($response_array, REST_Controller::HTTP_OK);		
+                        array_push($response_array,$final); 
+                        $this->response($response_array, REST_Controller::HTTP_OK);     
                     }
                     
                 }
@@ -1214,7 +1214,7 @@
             }else{
                 $final['status']="Fail";
                 $final['message']="Missing Parameter value.";
-                array_push($response_array,$final);	
+                array_push($response_array,$final); 
                 $this->response($response_array, REST_Controller::HTTP_OK);
             }
             
@@ -1227,7 +1227,7 @@
             $response_array = array();
             if(checkisEmpty($this->get()))
             {
-                $userid = $this->get('userid');	
+                $userid = $this->get('userid'); 
                 
                 if($userid === NULL ) //Check whether params are passed
                 {
@@ -1246,40 +1246,40 @@
                         foreach($result as $getTripsData){
                             $riderData  =  getUserData( 'riders',  new MongoId($getTripsData['rider_id']) );
                             $riderProfile = $riderData['profile_pic'];
-                            $final[$i]['trip_id'] = $getTripsData['_id']->{'$id'};					
+                            $final[$i]['trip_id'] = $getTripsData['_id']->{'$id'};                  
                             $final[$i]['rider_profile'] = $riderProfile;
                             $final[$i]['rider_name'] = $riderData['first_name']." ".$driverData['last_name'];
                             
-                            $final[$i]['pickup_address'] = $getTripsData['pickup_address'];					
+                            $final[$i]['pickup_address'] = $getTripsData['pickup_address'];                 
                             $final[$i]['drop_address'] = $getTripsData['drop_address'];
                             
-                            $final[$i]['car_category'] = $getTripsData['car_category'];					
+                            $final[$i]['car_category'] = $getTripsData['car_category'];                 
                             $final[$i]['created'] = date("d-m-Y",$getTripsData['created']);
                             $final[$i]['created_timestamp'] = $getTripsData['created'];
                             $final[$i]['update_created'] = $getTripsData['update_created'];
                             $final[$i]['admin_commission'] = $getTripsData['admin_commission'];
-                            $final[$i]['total_price'] = $getTripsData['total_price'];	
+                            $final[$i]['total_price'] = $getTripsData['total_price'];   
                             
                             if(isset($getTripsData['company_name']))
                             {
-                                $final[$i]['company_name'] = $getTripsData['company_name'];	
-                            }	
+                                $final[$i]['company_name'] = $getTripsData['company_name']; 
+                            }   
                             else {
                                 $final[$i]['company_name'] = "None";
                             }
                             
                             if(isset($getTripsData['company_fee']))
                             {
-                                $final[$i]['company_fee'] = $getTripsData['company_fee'];	
-                            }	
+                                $final[$i]['company_fee'] = $getTripsData['company_fee'];   
+                            }   
                             else {
                                 $final[$i]['company_fee'] = "0";
                             }
                             
                             if(isset($getTripsData['payment_mode']))
                             {
-                                $final[$i]['payment_mode'] = $getTripsData['payment_mode'];	
-                            }	
+                                $final[$i]['payment_mode'] = $getTripsData['payment_mode']; 
+                            }   
                             
                             
                             $final[$i]['status']="success";
@@ -1292,8 +1292,8 @@
                     }else{
                         $final['status']="Fail";
                         $final['message']="No record found";
-                        array_push($response_array,$final);	
-                        $this->response($response_array, REST_Controller::HTTP_OK);		
+                        array_push($response_array,$final); 
+                        $this->response($response_array, REST_Controller::HTTP_OK);     
                     }
                     
                 }
@@ -1301,7 +1301,7 @@
             }else{
                 $final['status']="Fail";
                 $final['message']="Missing Parameter value.";
-                array_push($response_array,$final);	
+                array_push($response_array,$final); 
                 $this->response($response_array, REST_Controller::HTTP_OK);
             }
             
@@ -1310,13 +1310,13 @@
         
         public function triggerRide_get()
         {
-            $response_array = array();				
-            $created_from = strtotime("00:00:00");	
+            $response_array = array();              
+            $created_from = strtotime("00:00:00");  
             $created_to = strtotime("+1 day",$created_from);
             
             $current_time = strtotime(date('d-m-Y H:i',time()));
             
-            $data_request = $this->Request_model->find_data('request',array("ride_type" => 'ride_later','ride_date_time'=> array('$gte'=>$created_from,'$lt'=>$created_to) ) );		
+            $data_request = $this->Request_model->find_data('request',array("ride_type" => 'ride_later','ride_date_time'=> array('$gte'=>$created_from,'$lt'=>$created_to) ) );     
             if($data_request->count()>0)
             {
                 require_once APPPATH.'libraries/firebase-php/firebase_config.php';
@@ -1333,8 +1333,8 @@
                         $firebase->update(array(
                                                 'status' => "ready_for_ride"
                                                 ),'ride_later/'.$rider_id.'/'.$request_id); 
-                        /// end			
-                    }		
+                        /// end         
+                    }       
                     
                     if($current_time == $timestamp)
                     {
@@ -1342,31 +1342,31 @@
                         $firebase->update(array(
                                                 'status' => "request"
                                                 ),'ride_later/'.$rider_id.'/'.$request_id); 
-                        /// end			
+                        /// end         
                     }
                     unset($getTripsData['_id']);
                     
                 }
                 $final['status']="success";
-                array_push($response_array,$final);			
+                array_push($response_array,$final);         
             }else{
                 $final['status']="Fail";
-                $final['message']="No data found";	
+                $final['message']="No data found";  
                 array_push($response_array,$final);
             }
             $this->response(array($response_array), REST_Controller::HTTP_OK);
             echo "<b>Cron executed successfully</b>";
             exit;
             
-        } 		
+        }       
         
         
         public function updateRideLater_get()
         {
-            $response_array = array();				
+            $response_array = array();              
             if(checkisEmpty($this->get()))
             {
-                $rider_id = $this->get('rider_id');	
+                $rider_id = $this->get('rider_id'); 
                 $request_id = $this->get('request_id');
                 
                 if($rider_id === NULL && $request_id === NULL) //Check whether params are passed
@@ -1376,7 +1376,7 @@
                 }
                 else
                 {
-                    $data_request = $this->Request_model->find_data('request',array("_id" => new MongoId($request_id)) );		
+                    $data_request = $this->Request_model->find_data('request',array("_id" => new MongoId($request_id)) );       
                     if($data_request->count()>0)
                     {
                         require_once APPPATH.'libraries/firebase-php/firebase_config.php';
@@ -1384,12 +1384,12 @@
                         $firebase->update(array(
                                                 'status' => ""
                                                 ),'ride_later/'.$rider_id.'/'.$request_id); 
-                        /// end	
+                        /// end 
                         $final['status']="Success";
-                        $final['message']="Updated";	
+                        $final['message']="Updated";    
                     }else{
                         $final['status']="Fail";
-                        $final['message']="No request found";	
+                        $final['message']="No request found";   
                     }
                     
                 }
@@ -1412,7 +1412,7 @@
         
         public function getReferralUserList_get(){
             
-            $response_array = array();	
+            $response_array = array();  
             
             if(checkisEmpty($this->get()))
             {
@@ -1437,8 +1437,8 @@
                     {
                         foreach($result as $document)
                         {
-                            //Referral Code Owner Details	
-                            $refdata['status']="Success";				 									
+                            //Referral Code Owner Details   
+                            $refdata['status']="Success";                                                   
                             $refdata['user_id']=$document["userid"];
                             $user_type=$document["user_type"];
                             
@@ -1467,9 +1467,9 @@
                                     $refdata['mobile']=$document["country_code"].$document["mobile"];
                                     $refdata['user_type']=$user_type;
                                     if($user_type=="Driver"){
-                                        $refdata['category']=$document["category"];	
+                                        $refdata['category']=$document["category"]; 
                                     }else{
-                                        $refdata['category']="Nill";	
+                                        $refdata['category']="Nill";    
                                     }
                                     
                                 }
@@ -1484,17 +1484,17 @@
                     }else{
                         
                         $final['status']="Fail";
-                        $final['message']="Your Referral Code Not used.";	
+                        $final['message']="Your Referral Code Not used.";   
                         array_push($response_array,$final);
                         
-                    }	
+                    }   
                 }
             }
             else
             {
                 
                 $final['status']="Fail";
-                $final['message']="Missing Parameter value.";	
+                $final['message']="Missing Parameter value.";   
                 array_push($response_array,$final);
                 
             }
@@ -1545,16 +1545,16 @@
                         
                         $splitedLatLng =explode('|', $splitedCoordinates[$x]);
                         
-                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['Coordinates']['lat'] = $splitedLatLng[0];	
-                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['Coordinates']['long'] = $splitedLatLng[1];	
-                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['CountryCode'] = $splitedcc[$x];	
-                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['Address'] = $splitedaddress[$x];	
+                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['Coordinates']['lat'] = $splitedLatLng[0];   
+                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['Coordinates']['long'] = $splitedLatLng[1];  
+                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['CountryCode'] = $splitedcc[$x]; 
+                        $waypoints['DestinationWaypoints']["WayPoint ".$count]['Address'] = $splitedaddress[$x];    
                         
                     }
                     
                     $this->mongo_db->db->trips->update(array("_id"=>new MongoId($tripid)),array('$set'=>$waypoints));
                     $final['status']="Success";
-                    $final['message']="Waypoints updated successfully.";	
+                    $final['message']="Waypoints updated successfully.";    
                     $this->response($final+$waypoints, REST_Controller::HTTP_OK);
                     exit;
                 }
@@ -1562,7 +1562,7 @@
             }
             else{
                 $final['status']="Fail";
-                $final['message']="Missing Parameter value.";	
+                $final['message']="Missing Parameter value.";   
                 array_push($response_array,$final);
             }
             $this->response($response_array, REST_Controller::HTTP_OK);

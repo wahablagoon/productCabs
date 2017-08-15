@@ -73,7 +73,7 @@ body {
    <div class="row">
       <div class="col-md-8 col-md-offset-2">
          <center>
-            <h1 class="title_login">trippy</h1>
+            <h1 class="title_login" style="color: rgba(0,0,0,0.7) !important;">trippy</h1>
             <img class="login-logo" src="{{ url("assets/images/logo-white.png") }}" width="20%" />
          </center>
          <center>
