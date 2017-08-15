@@ -14,6 +14,8 @@ use App\Models\SiteSettings;
 use App\Models\CountryCode;
 use App\Models\Api;
 use App\Models\Category;
+use App\Models\PeakHourPricing;
+use App\Models\PromoCode;
 class AdminController extends Controller
 {
 	public function index()
@@ -59,6 +61,15 @@ class AdminController extends Controller
 		return View::make('layouts/admin/view_api',$api);		
 	}
 
+	public function view_payment()
+	{
+		$data=Api::all();
+		foreach ($data as $key => $value) {
+			$api[$value->code]=$value->value;
+		}
+		return View::make('layouts/admin/payment',$api);		
+	}
+
 	public function view_map()
 	{
 		return View::make('layouts/admin/view_map');			
@@ -71,6 +82,7 @@ class AdminController extends Controller
 	}
 	public function view_create_service()
 	{
+		$data['services']=Category::all();
 		return View::make('layouts/admin/view_service_create');		
 	}	
 
@@ -128,6 +140,12 @@ class AdminController extends Controller
 	{
 		$data['user']=User::where('role',1)->where('role','<>',null)->get();
 		return View::make('layouts/admin/view_user',$data);		
+	}
+	public function view_surgeprice()
+	{
+		$data['surge']=PeakHourPricing::all();
+		$data['category']=Category::all();
+		return View::make('layouts/admin/view_surge',$data);	
 	}
 
 	public function view_provider()
@@ -288,21 +306,47 @@ class AdminController extends Controller
 
 	}
 
-	public function rider_signup(Request $request)
+	public function signup(Request $request)
 	{
-		unset($request['_token']);
-		$rider = User::create($request->all());
-		flash('Rider Added Successfully')->success()->important();
-		return redirect('admin/passengers');
-	}
+		 $this->validate($request, [
+        'name' => 'required',
+        'phone' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        'city' => 'required',
+    	]);
 
-	public function provider_signup(Request $request)
-	{
-		unset($request['_token']);
-
-		$rider = User::create($request->all());
-		flash('Provider Added Successfully')->success()->important();
-		return redirect('admin/drivers');
+		if($request['edit'])
+		{	
+			$userid=$request['edit'];
+			unset($request['_token'],$request['edit']);
+			User::where('id',$userid)->update($request->all());
+			if($request->role=="1")
+			{
+				flash('Passengers Updated Successfully')->success()->important();
+				return redirect('admin/passengers');
+			}
+			else
+			{
+				flash('Driver Updated Successfully')->success()->important();
+				return redirect('admin/drivers');	
+			}
+		}
+		else
+		{
+			unset($request['_token'],$request['edit']);
+			User::create($request->all());
+			if($request->role=="1")
+			{
+				flash('Passengers Added Successfully')->success()->important();
+				return redirect('admin/passengers');
+			}
+			else
+			{
+				flash('Driver Added Successfully')->success()->important();
+				return redirect('admin/drivers');	
+			}
+		}
 	}
 
 	public function delete_user(Request $request)
@@ -319,6 +363,57 @@ class AdminController extends Controller
 			return redirect('admin/drivers');
 		}
 	
+	}
+
+	public function delete_peak(Request $request)
+	{
+		$rider = PeakHourPricing::where('id',$request->id)->delete();
+		flash('Deleted Successfully')->success()->important();
+		return redirect('admin/surge');			
+	}
+	public function delete_promo(Request $request)
+	{
+		$rider = PromoCode::where('id',$request->id)->delete();
+		flash('Deleted Successfully')->success()->important();
+		return redirect('admin/promocode');			
+	}
+
+	public function edit_user(Request $request)
+	{
+		$cc=CountryCode::all();
+		foreach($cc as $c)
+		{
+			$country_code[]=$c;
+		}
+		$data['country_code']=$country_code;
+		if($request->role==1)
+		{
+			$user = User::where('id',$request->id)->where('role',$request->role);
+			if($user->count())
+			{
+				$data['users']=$user->get()->first();
+				return View::make('layouts/admin/view_user_create',$data);
+			}
+			else
+			{
+				flash('Invalid Passenger id')->error()->important();
+				return redirect('admin/passengers');
+			}			
+		}
+		else
+		{
+			$user = User::where('id',$request->id)->where('role',$request->role);
+			if($user->count())
+			{
+				$data['users']=$user->get()->first();
+				return View::make('layouts/admin/view_driver_create',$data);
+			}
+			else
+			{
+				flash('Invalid Driver id')->error()->important();
+				return redirect('admin/passengers');
+			}			
+		}	
 	}
 
 	public function getCategory(Request $request)
@@ -365,5 +460,152 @@ class AdminController extends Controller
 		$export->generate($data,$data_header,$request->type,$request->title);
 	}
 
+	public function view_promocode()
+	{
+		$data['coupon']=PromoCode::all();
+		return View::make('layouts/admin/view_coupon_code',$data);
+	}
+	public function addPeak(Request $request)
+	{
+		$response["errors"]="";
+		$response["stats"]="success";
+		if(strtotime($request['start_peak']) >= strtotime($request['end_peak']))
+		{
+			$response["errors"]="Invalid time selection";
+			$response["stats"]="fail";
+		}
+		else
+		{
+			$data['start_time']=$request['start_peak'];
+			$data['end_time']=$request['end_peak'];
+			$data['days']=$request['days'];
+			$data['type']=$request['type'];
+			$data['category']=$request['category'];
+			$data['amount']=$request['price'];
+			if(isset($request['edit']) && $request['edit']=="yes")
+			{
+				PeakHourPricing::where('id',$request['id'])->update($data);
+				flash('Peak hour added Successfully')->success()->important();
+			}
+			else
+			{
+				PeakHourPricing::create($data);
+				flash('Peak hour Updated Successfully')->success()->important();
+			}
+
+		}
+		echo json_encode(array($response));
+	}
+
+	public function addPromo(Request $request)
+	{
+		$response["errors"]="";
+		$response["stats"]="success";
+		if(strtotime($request['expired']) <= time())
+		{
+			$response["errors"]="Invalid time selection";
+			$response["stats"]="fail";
+		}
+		else
+		{
+			$data['expired_in']=$request['expired'];
+			$data['code']=$request['code'];
+			$data['status']=$request['status'];
+			$data['type']=$request['type'];
+			$data['amount']=$request['price'];
+			if(isset($request['edit']) && $request['edit']=="yes")
+			{
+				PromoCode::where('id',$request['id'])->update($data);
+				flash('Promo hour added Successfully')->success()->important();
+			}
+			else
+			{
+				PromoCode::create($data);
+				flash('Promo hour Updated Successfully')->success()->important();
+			}
+
+		}
+		echo json_encode(array($response));
+	}
+
+	public function view_tranlation()
+	{
+		$data['wait_page']="Translations";
+		$data['wait_title']="Comming Soon...";
+		$data['wait_message']="In this page we can select the language translation. We provide the two language selection providers.
+		one is Google language translation and other one is our inbuild language translation.";
+		$data['contact']="We'd like to thank you for deciding to use our script. We enjoyed creating it and hope you enjoy using it to achieve your goals :). If you want something changed to suit your venture's needs better, drop us a line: ak@bluelagoontechnologies.com ";
+		return View::make('errors/waiting',$data);					
+	}
+	public function view_help()
+	{
+		$data['wait_page']="Help";
+		$data['wait_title']="Comming Soon...";
+		$data['wait_message']="In this page manage the help contents.";
+		$data['contact']="We'd like to thank you for deciding to use our script. We enjoyed creating it and hope you enjoy using it to achieve your goals :). If you want something changed to suit your venture's needs better, drop us a line: ak@bluelagoontechnologies.com";
+		return View::make('errors/waiting',$data);					
+	}
+
+	public function view_add_document()
+	{
+		$data['wait_page']="Add Documents";
+		$data['wait_title']="Comming Soon...";
+		$data['wait_message']="In this page we add documents name for what things give from drivers";
+		$data['contact']="We'd like to thank you for deciding to use our script. We enjoyed creating it and hope you enjoy using it to achieve your goals :). If you want something changed to suit your venture's needs better, drop us a line: ak@bluelagoontechnologies.com";
+		return View::make('errors/waiting',$data);					
+	}
+	public function view_privacy()
+	{
+		return View::make('layouts/admin/privacy');					
+	}
+	public function view_payment_history()
+	{
+		return View::make('layouts/admin/payment_history');					
+	}
+	public function view_document()
+	{
+		return View::make('layouts/admin/documents');					
+	}
+
+	public function view_requests()
+	{
+		return View::make('layouts/admin/requests');					
+	}
+	public function view_scheduled()
+	{
+		return View::make('layouts/admin/scheduled');					
+	}
+	public function view_ridelater()
+	{
+		return View::make('layouts/admin/ridelater');					
+	}
+	public function view_review_passenger()
+	{
+		return View::make('layouts/admin/review_passenger');					
+	}
+	public function view_review_driver()
+	{
+		return View::make('layouts/admin/review_driver');					
+	}
+	public function view_overall_statement()
+	{
+		return View::make('layouts/admin/overall_statement');					
+	}
+	public function view_today_statement()
+	{
+		return View::make('layouts/admin/today_statement');					
+	}
+	public function view_monthly_statement()
+	{
+		return View::make('layouts/admin/monthly_statement');					
+	}
+	public function view_yearly_statement()
+	{
+		return View::make('layouts/admin/yearly_statement');					
+	}
+	public function view_driver_statement()
+	{
+		return View::make('layouts/admin/driver_statement');					
+	}
 
 }

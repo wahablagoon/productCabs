@@ -15,6 +15,8 @@ class VerifyCsrfToken extends BaseVerifier
         //
         'upload_image',
         'upload_document/*',
-        'getMap'
+        'getMap',
+        'addPeak',
+        'addPromo'
     ];
 }
