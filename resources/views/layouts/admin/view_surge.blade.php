@@ -159,7 +159,7 @@ word-break: break-all;
 
                 <div class="col-md-4 col-sm-4 col-xs-6 cp_nopad">
                   <div class="input-group clockpicker">
-                    <input type="text" class="form-control" id="start_peak" value="00:00">
+                    <input type="text" class="form-control" placeholder="Start time" id="start_peak" value="00:00">
                     <span class="input-group-addon">
                       <span class="glyphicon glyphicon-time"></span>
                     </span>
@@ -167,7 +167,7 @@ word-break: break-all;
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-6 cp_nopad">
                   <div class="input-group clockpicker">
-                    <input type="text" class="form-control" id="end_peak" value="00:00">
+                    <input type="text" class="form-control" placeholder="End time" id="end_peak" value="00:00">
                     <span class="input-group-addon">
                       <span class="glyphicon glyphicon-time"></span>
                     </span>
@@ -188,7 +188,7 @@ word-break: break-all;
                 </div>
                 <div class="col-md-4 col-sm-4 cp_nopad">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="price" value="" name="price">
+                    <input type="text" class="form-control" id="price" placeholder="Price or percentage" value="" name="price">
                     <span class="input-group-addon price_tag">
                       $
                     </span>

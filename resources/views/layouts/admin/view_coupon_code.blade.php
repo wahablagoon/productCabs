@@ -109,7 +109,7 @@ word-break: break-all;
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 cp_nopad">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="code" value="" name="code">
+                    <input type="text" class="form-control" id="code" placeholder="Coupon code" value="" name="code">
                     <span class="input-group-addon">
                       <i class="fa fa-clock-o" aria-hidden="true"></i>
                     </span>
@@ -119,7 +119,7 @@ word-break: break-all;
 
                 <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12 cp_nopad">
                   <div class="input-group date" data-provide="datepicker">
-                      <input type="text" class="form-control" id="expired">
+                      <input type="text" placeholder="Expired on" class="form-control" id="expired">
                       <div class="input-group-addon">
                           <span class="glyphicon glyphicon-th"></span>
                       </div>
@@ -127,7 +127,7 @@ word-break: break-all;
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-6 col-xs-12 cp_nopad">
                   <label class="cp_label">
-                    <input name="ptype" type="radio" id="ptype_price" value="Amount" checked/>
+                    <input name="ptype" type="radio" id="ptype_price"  value="Amount" checked/>
                     <label for="ptype_price">Amount</label>
                   </label>
                 </div>
@@ -140,7 +140,7 @@ word-break: break-all;
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 cp_nopad">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="price" value="" name="price">
+                    <input type="text" class="form-control" id="price" value="" placeholder="Price or percentage" name="price">
                     <span class="input-group-addon price_tag">
                       $
                     </span>

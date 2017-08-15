@@ -219,7 +219,7 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="timeline-title">Leena marsh</h4>
+                                    <h4 class="timeline-title">Peter Parker</h4>
                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> 8 hours ago via Facebook</small>
                                     </p>
                                 </div>
@@ -377,7 +377,7 @@
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Leena Marsh</strong>
+                                            <strong class="primary-font">Peter Parker</strong>
                                             <small class="pull-right text-muted">
                                                 <i class="fa fa-clock-o fa-fw"></i> 15 mins ago
                                             </small>
@@ -394,7 +394,7 @@
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Leena Marsh</strong>
+                                            <strong class="primary-font">Peter Parker</strong>
                                             <small class="pull-right text-muted">
                                                 <i class="fa fa-clock-o fa-fw"></i> 15 mins ago
                                             </small>
