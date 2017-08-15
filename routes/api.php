@@ -31,6 +31,7 @@ Route::get('firebase','RequestController@updatereq');
 Route::get('requests/setRequest', 'RequestController@setRequest');
 Route::get('requests/getRequest', 'RequestController@getRequest');
 Route::get('requests/updateRequest/{request_id}/{driver_id}/{request_status}', 'RequestController@updateRequest');
+Route::get('requests/processRequest', 'RequestController@processRequest');
 
 
 //Admin Controller
