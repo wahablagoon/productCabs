@@ -3122,7 +3122,7 @@ a {
     word-break: break-all;
     background-color: #323232;
     padding: 10px 25px;
-    font-size: 1.1rem;
+    font-size: 16px;
     font-weight: 300;
     color: #fff;
     display: -webkit-flex;
@@ -3289,7 +3289,7 @@ a {
     border-radius: 2px;
     display: inline-block;
     height: 36px;
-    line-height: 36px;
+/*    line-height: 36px;*/
     padding: 0 2rem;
     text-transform: uppercase;
     vertical-align: middle;
@@ -3690,23 +3690,10 @@ button.btn-floating {
 .waves-effect .waves-ripple {
     z-index: -1
 }
-.modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: #fafafa;
-    padding: 0;
-    max-height: 70%;
-    width: 55%;
-    margin: auto;
-    overflow-y: auto;
-    border-radius: 2px;
-    will-change: top, opacity
-}
+
 @media only screen and (max-width: 992px) {
     .modal {
-        width: 80%
+        width: 100%
     }
 }
 .modal h1,
@@ -3732,7 +3719,7 @@ button.btn-floating {
 .modal .modal-footer .btn-large,
 .modal .modal-footer .btn-flat {
     float: right;
-    margin: 6px 0
+    margin: 6px 2px
 }
 .modal-overlay {
     position: fixed;
@@ -4376,15 +4363,7 @@ textarea.materialize-textarea {
 [type="radio"]:checked+label:before {
     border: 2px solid transparent
 }
-[type="radio"]:checked+label:after,
-[type="radio"].with-gap:checked+label:before,
-[type="radio"].with-gap:checked+label:after {
-    border: 2px solid #26a69a
-}
-[type="radio"]:checked+label:after,
-[type="radio"].with-gap:checked+label:after {
-    background-color: #26a69a
-}
+
 [type="radio"]:checked+label:after {
     -webkit-transform: scale(1.02);
     transform: scale(1.02)
@@ -4559,14 +4538,7 @@ form p:last-child {
     -webkit-transform-origin: 100% 100%;
     transform-origin: 100% 100%
 }
-[type="checkbox"].filled-in:checked+label:after {
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #26a69a;
-    background-color: #26a69a;
-    z-index: 0
-}
+
 [type="checkbox"].filled-in.tabbed:focus+label:after {
     border-radius: 2px;
     border-color: #5a5a5a;
@@ -4606,13 +4578,8 @@ form p:last-child {
     width: 0;
     height: 0
 }
-.material_form .switch label input[type=checkbox]:checked+.lever {
-    background-color: #84c7c1
-}
-.material_form .switch label input[type=checkbox]:checked+.lever:after {
-    background-color: #26a69a;
-    left: 24px
-}
+
+
 .material_form .switch label .lever {
     content: "";
     display: inline-block;

@@ -129,74 +129,6 @@ background-color: #fcfcfc;
     color: #3f51b5;
 }
 
-/*
-  Max width before this PARTICULAR table gets nasty
-  This query will take effect for any screen smaller than 760px
-  and also iPads specifically.
-  */
-@media
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  
-{
-
-    /* Force table to not be like tables anymore */
-  table.res_table, table.res_table thead, table.res_table tbody, table.res_table th, table.res_table td, table.res_table tr {
-    display: block;
-  }
-
-    /* Hide table headers (but not display: none;, for accessibility) */
-  table.res_table thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  table.res_table tr { 
-    border: 1px solid #ccc; 
-    margin-top: 10px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  }
-
-  table.res_table td {
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  table.res_table td:before {
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
-
-    /*
-    Label the data
-    */
-  }
-
-  /* Smartphones (portrait and landscape) ----------- */
-  @media only screen
-  and (min-device-width : 320px)
-  and (max-device-width : 480px) {
-    body {
-      padding: 0;
-      margin: 0;
-      }
-
-
-    }
-
-  /* iPads (portrait and landscape) ----------- */
- 
-
-
 .list_settings
 {
   padding :15px 0;
@@ -350,26 +282,7 @@ input:checked + .slider:before {
     padding: 5px 10px;
 }
 
-@media only screen and (min-device-width : 768px) and (max-device-width : 970px)
-{
 
-  .res_table
-{
-  width:100%;
-} 
-  .res_table thead
-{
-  font-weight: bold;
-  font-size:13px;
-  padding: 10px;
- 
-  text-align:left;
-  border-top: none !important;
-}
-}
-.res_table tr td a:hover{
-  color: #3b5998 !important;
-}
 @media only screen and (min-device-width : 320px) and (max-device-width : 980px)
 {
   .search-form .form-group-search:hover,
@@ -382,44 +295,7 @@ input:checked + .slider:before {
     padding: 10px 5px !important;
 }
 
-.res_table
-{
-  width:72%;
-} 
-  .res_table thead
-{
-  font-weight: bold;
-  font-size:13px;
-  padding: 10px;
- 
-  text-align:left;
-  border-top: none !important;
-}
-.res_table td, .res_table th, .res_table tr, .res_table tbody, .res_table thead, table.res_table
-     {
-        display: block;
-    }
-    .res_table thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-   .res_table tr { border-left: 1px solid #d4d4d4; border-right: 1px solid #d4d4d4; }
-    .res_table td {
-        border: none;
-        border-bottom: 1px solid #d4d4d4;
-        position: relative;
-        padding-left: 50% !important;
-        word-wrap:break-word;
-    }
-    .res_table td:before {
-        position: absolute;
-        top: 14px;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
-/*        white-space: nowrap;*/
-    }
+
 }
 #user_listing_filter input
 {
@@ -712,3 +588,118 @@ form div.error
 {
   color:#cc0000;
 }
+.has-error
+{
+  border-bottom:2px solid #cc0000 !important;  
+}
+.clockpicker input,#price, .cp_nopad input
+{
+    font-size: 18px;
+    box-shadow: none;
+}
+
+.cp_label
+{
+    width: 100%;
+    background: #f1f1f1;
+    padding: 8px 0px 0px 9px;
+    border-radius: 3px;  
+}
+.cp_label label
+{
+      font-size: 16px !important;
+    font-weight: normal !important;
+}
+.cp_nopad
+{
+  padding: 0 3px !important;
+}
+.cp_label [type="checkbox"]+label
+{
+
+    padding-left: 25px !important;
+        line-height: 20px !important;
+}
+.cp_nopad .select-dropdown
+{
+  border: none !important;
+}
+.cp_nopad .select-wrapper span.caret
+{
+  right:20px !important;
+}
+.cp_nopad  input
+{
+  height: 38px;
+}
+.cp_nopad .clockpicker
+{
+  padding: 0px 0 7px 0;
+}
+.btn-normal
+{
+  background: #f1f1f1 !important;
+    color: #1c1c1c !important;
+}
+.btn-normal:hover
+{
+ color: #1c1c1c !important; 
+}
+.cp_label1 input
+{
+    margin: 0 !important;
+    margin-bottom: 5px !important;
+    background: #f1f1f1 !important;
+    padding: 4px 0px 3px 0px !important;
+    border-radius: 3px !important;
+}
+.preloader {
+   background-image: url('{{ url("assets/images/350.gif") }}');
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: 30px auto;
+   font-size: 0;
+}
+.btn
+{
+  line-height: 35px !important;
+}
+.pac-item
+{
+  padding:10px !important;
+}
+  @media  only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+    /* Force table to not be like tables anymore */
+    table.res_table, .res_table thead, .res_table tbody, .res_table th, .res_table td, .res_table tr {
+      display: block !important;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .res_table thead tr {
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+    }
+
+    .res_table tr { border: 1px solid #ccc !important; }
+
+    .res_table td {
+      /* Behave  like a "row" */
+      border: none !important;
+      border-bottom: 1px solid #eee !important;
+      position: relative !important;
+      padding-left: 50% !important;
+    }
+
+    .res_table td:before {
+      /* Now like a table header */
+      position: absolute !important;
+      /* Top/left values mimic padding */
+      top: 6px !important;
+      left: 6px !important;
+      width: 45% !important;
+      padding-right: 10px !important;
+      white-space: nowrap !important;
+    }
+  }
