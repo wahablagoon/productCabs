@@ -38,8 +38,8 @@ foreach($services as $service)
         <td>{{ $service->price_km }}</td>
         <td>{{ $service->price_minute }}</td>
         <td>{{ $service->max_size }}</td>
-        <td><img width="50px" height="40px" onerror="this.src='{{ url("assets/images/no.png") }}'" src="{{ url("storage/app/images/category/$service->id/$service->logo") }}"></img></td>
-        <td><img width="30px" height="30px" onerror="this.src='{{ url("assets/images/no.png") }}'" src="{{ url("storage/app/images/category/$service->id/$service->marker") }}"></img></td>
+        <td><img  class="materialboxed" width="50px" height="40px" onerror="this.src='{{ url("assets/images/no.png") }}'" src="{{ url("storage/app/images/category/$service->id/$service->logo") }}"></img></td>
+        <td><img  class="materialboxed" width="30px" height="30px" onerror="this.src='{{ url("assets/images/no.png") }}'" src="{{ url("storage/app/images/category/$service->id/$service->marker") }}"></img></td>
         <td>
             <a href="{{ url("admin/service/edit/$service->id") }}"><label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></label></a>
             <a href="{{ url("admin/delete_service/$service->id") }}"><label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i></label></a>

@@ -27,10 +27,13 @@
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/dropdown.css")}}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/animate.css")}}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/material.css")}}" />
+	<link rel="stylesheet" href="{{ url("assets/stylesheets/bootstrap-datepicker3.min.css")}}" />
 	<link rel="stylesheet" href="{{ url("assets/stylesheets/jquery.dataTables.min.css")}}" />
 	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="{{ url("assets/stylesheets/bootstrap-clockpicker.min.css")}}" />
+	<link rel="stylesheet" href="{{ url("assets/stylesheets/github.min.css")}}" />
 
 @extends('layouts.dynamic_css')
 </head>
@@ -57,11 +60,13 @@
 	<script src="{{ url("assets/scripts/demo.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/rating.js") }}" type="text/javascript"></script>
 	<script src="{{ url("assets/scripts/admin_custom.js") }}" type="text/javascript"></script>
+	<script type="text/javascript" src="{{ url("assets/scripts/bootstrap-clockpicker.min.js") }}"></script>
+	<script type="text/javascript" src="{{ url("assets/scripts/bootstrap-datepicker.min.js") }}"></script>
 	<script type="text/javascript">
             $('.rating').rating();
         </script>
 	<script src="{{ url("assets/scripts/dropdown.js") }}" type="text/javascript"></script>
-	    
+	   
     <script>
     var APP_URL="{{ url("/") }}";
     </script>

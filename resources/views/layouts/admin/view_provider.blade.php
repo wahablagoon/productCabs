@@ -17,10 +17,9 @@
 <table id="user_listing" class="display res_table">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Mobile</th>
+            <th>Phone</th>
             <th>Online Status</th>
             <th>Proof Status</th>
             <th>Action</th>
@@ -32,14 +31,13 @@ foreach($user as $users)
 {
 ?>
     <tr>
-        <td>{{ $users->id }}</td>
         <td>{{ $users->name }}</td>
         <td>{{ $users->email }}</td>
         <td>{{ $users->phone }}</td>
         <td>{{ $users->online_status }}</td>
         <td>{{ $users->proof_status }}</td>
         <td><label class="uhistory"><i class="fa fa-history" aria-hidden="true"></i></label>
-            <label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></label>
+            <a href="edit_user/{{ $users->id }}/2"><label class="uedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></label></a>
             <a href="delete_user/{{ $users->id }}/2"><label class="udelete"><i class="fa fa-trash" aria-hidden="true"></i></label></a>
         </td>
     </tr>
@@ -49,20 +47,18 @@ foreach($user as $users)
     </tbody>
 </table>
 <style>
-.res_table td {
-word-break: break-all;
-}
+  @media  only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
+    /*
+    Label the data
+    */
+  .res_table td:nth-of-type(1):before { content: "Name";}
+  .res_table td:nth-of-type(2):before { content: "Email";}
+  .res_table td:nth-of-type(3):before { content: "Phone";}
+  .res_table td:nth-of-type(4):before { content: "Online status";}
+  .res_table td:nth-of-type(5):before { content: "Proof Status";}
+  .res_table td:nth-of-type(6):before { content: "Action";}
+  }
 
-@media only screen and (min-width: 320px) and (max-width: 980px)  {
-
-  .res_table td:nth-of-type(1):before { content: "Id" ; }
-  .res_table td:nth-of-type(2):before { content: "Firstname";}
-  .res_table td:nth-of-type(3):before { content: "Lastname";}
-  .res_table td:nth-of-type(4):before { content: "Email";}
-  .res_table td:nth-of-type(5):before { content: "Mobile";}
-  .res_table td:nth-of-type(6):before { content: "Wallet";}
-  .res_table td:nth-of-type(7):before { content: "Action";}
-} 
 
 </style>
 

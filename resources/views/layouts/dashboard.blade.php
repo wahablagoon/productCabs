@@ -50,11 +50,11 @@
                                 <span class="s-text">Statements</span>
                             </a>
                             <ul>
-                                <li><a href="{{ url("admin/statement") }}">Overall Ride Statments</a></li>
-                                <li><a href="{{ url("admin/statement/provider") }}">Provider Statement</a></li>
-                                <li><a href="{{ url("admin/statement/today") }}">Daily Statement</a></li>
-                                <li><a href="{{ url("admin/statement/monthly") }}">Monthly Statement</a></li>
-                                <li><a href="{{ url("admin/statement/yearly") }}">Yearly Statement</a></li>
+                                <li><a href="{{ url("admin/overall_statement") }}">Overall Ride Statments</a></li>
+                                <li><a href="{{ url("admin/driver_statement") }}">Driver Statement</a></li>
+                                <li><a href="{{ url("admin/today_statement") }}">Daily Statement</a></li>
+                                <li><a href="{{ url("admin/monthly_statement") }}">Monthly Statement</a></li>
+                                <li><a href="{{ url("admin/yearly_statement") }}">Yearly Statement</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Details</li>
@@ -71,8 +71,8 @@
                                 <span class="s-text">Ratings &amp; Reviews</span>
                             </a>
                             <ul>
-                                <li><a href="{{ url("admin/review/user") }}">User Ratings</a></li>
-                                <li><a href="{{ url("admin/review/provider") }}">Provider Ratings</a></li>
+                                <li><a href="{{ url("admin/review_passenger") }}">Passenger Ratings</a></li>
+                                <li><a href="{{ url("admin/review_driver") }}">Driver Ratings</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Requests</li>
@@ -89,7 +89,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
+                            <a href="{{ url("admin/ridelater") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                 <span class="s-text">Ride Later</span>
                             </a>
@@ -115,23 +115,18 @@
                             </a>
                             <ul>
                                 <li><a href="{{ url("admin/document") }}">List Documents</a></li>
-                                <li><a href="{{ url("admin/document/create") }}">Add New Document</a></li>
+                                <li><a href="{{ url("admin/add_document") }}">Add New Document</a></li>
                             </ul>
                         </li>
                         
-                        <li class="with-sub">
-                            <a href="#" class="waves-effect  waves-light">
-                                <span class="s-caret"><i class="fa fa-angle-down"></i></span>
+                        <li>
+                            <a href="{{ url("admin/promocode") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-gift" aria-hidden="true"></i></span>
-                                <span class="s-text">Promocodes</span>
+                                <span class="s-text">Promo code</span>
                             </a>
-                            <ul>
-                                <li><a href="{{ url("admin/promocode") }}">List Promocodes</a></li>
-                                <li><a href="{{ url("admin/promocode/create") }}">Add New Promocode</a></li>
-                            </ul>
                         </li>
-                                                <li>
-                            <a href="{{ url("admin/dashboard") }}" class="waves-effect waves-light">
+                        <li>
+                            <a href="{{ url("admin/surge") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
                                 <span class="s-text">Peak Hour pricing</span>
                             </a>
@@ -139,13 +134,13 @@
 
                         <li class="menu-title">Payment Details</li>
                         <li>
-                            <a href="{{ url("admin/payment") }}" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/pay_history") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                                 <span class="s-text">Payment History</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url("admin/settings/payment") }}" class="waves-effect  waves-light">
+                            <a href="{{ url("admin/payment") }}" class="waves-effect  waves-light">
                                 <span class="s-icon"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                 <span class="s-text">Payment Settings</span>
                             </a>
@@ -178,24 +173,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url("translations") }}" class="waves-effect waves-light">
+                            <a href="{{ url("admin/translations") }}" class="waves-effect waves-light">
                                 <span class="s-icon"><i class="fa fa-language" aria-hidden="true"></i></span>
                                 <span class="s-text">Translations</span>
                             </a>
                         </li>
                         <li class="menu-title">Account</li>
-                        <li>
-                            <a href="{{ url("admin/profile") }}" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-user"></i></span>
-                                <span class="s-text">Account Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url("admin/password") }}" class="waves-effect  waves-light">
-                                <span class="s-icon"><i class="ti-exchange-vertical"></i></span>
-                                <span class="s-text">Change Password</span>
-                            </a>
-                        </li>
+                        
+                       
                         <li class="compact-hide">
                             <a href="{{ url("logout") }}">
                                 <span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
@@ -230,7 +215,7 @@
                             <span class="more"></span>
                         </div>
                         <ul class="dropdown-menu" id="collapse2" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
-                                    <li><a href="#"><span class="s-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>Change password</a></li>
+                                    
                                     <li><a href=" {{ url('logout') }} "><span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>Logout</a></li>
                         </ul>
 
@@ -260,7 +245,7 @@
                                             </span>
                                 </a>
                                 <ul class="dropdown-menu" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
-                                    <li><a href="#"><span class="s-icon"><i class="fa fa-lock" aria-hidden="true"></i></span>Change password</a></li>
+                                   
                                     <li><a href=" {{ url('logout') }} "><span class="s-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>Logout</a></li>
                                 </ul>
 
@@ -324,9 +309,7 @@
 
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#" class="btn btn-default btn-block">View All Alerts</a>
-                                    </li>
+                                    
                                 </ul>
 
                             </li>
@@ -340,7 +323,7 @@
         <div id="" class="site-content body_container">
 			<div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">@yield('page_heading')</h1>
+                    <h2 class="page-header">@yield('page_heading')</h2>
                     
                 </div>
                 <!-- /.col-lg-12 -->

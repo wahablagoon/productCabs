@@ -138,4 +138,29 @@ textarea.materialize-textarea:focus.valid {
 {
     background:#fff;
 }
+.material_form .switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #3f71b5;
+    left: 24px
+}
+.material_form .switch label input[type=checkbox]:checked+.lever {
+    background-color: #3f71b5;
+}
+
+[type="checkbox"].filled-in:checked+label:after {
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3f71b5;
+    background-color: #3f71b5;
+    z-index: 0
+}
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:before,
+[type="radio"].with-gap:checked+label:after {
+    border: 2px solid #3f71b5;
+}
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:after {
+    background-color: #3f71b5;
+}
 </style>

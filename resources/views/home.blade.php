@@ -10,11 +10,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-user fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
+                                    <div class="huge">{{ get_users(1) }}</div>
+                                    <div>Passengers</div>
                                 </div>
                             </div>
                         </div>
@@ -32,11 +32,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-taxi fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
+                                    <div class="huge">{{ get_users(2) }}</div>
+                                    <div>Drivers</div>
                                 </div>
                             </div>
                         </div>
@@ -54,11 +54,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge">5</div>
+                                    <div>Completed Rides</div>
                                 </div>
                             </div>
                         </div>
@@ -76,11 +76,104 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div>Pending Rides</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                @section ('cchart12_panel_title','Line chart')
+                @section ('cchart12_panel_icon', 'fa-line-chart float_right')
+                @section ('cchart12_panel_body')
+                <div id="canvas-line">
+                    <canvas id="chart-line" />
+                </div>
+                @endsection
+                @include('widgets.panel', array('header'=>true, 'as'=>'cchart12','icon' => 'cchart12', 'class'=>'d'))
+                </div>
+
+                <div class="col-lg-4">
+                @section ('cchart11_panel_title','Pie chart')
+                @section ('cchart11_panel_icon', 'fa-pie-chart float_right')
+                @section ('cchart11_panel_body')
+                <div id="canvas-holder">
+                    <canvas id="chart-area" />
+                </div>
+                @endsection
+                @include('widgets.panel', array('header'=>true, 'as'=>'cchart11','icon' => 'cchart11', 'class'=>'d'))
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-rocket fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">3</div>
+                                    <div>Total Rides</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-line-chart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">300</div>
+                                    <div>Revenue</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-usd fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">5000</div>
+                                    <div>Total Earns</div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +191,8 @@
             <div class="row">
                 <div class="col-lg-8">
                 
-                @section ('pane2_panel_title', 'Responsive Timeline')
+                @section ('pane2_panel_title', 'Timeline')
+                @section ('pane2_panel_icon', 'fa-comment float_right')
                 @section ('pane2_panel_body')
                     
                     <!-- /.panel -->
@@ -107,102 +201,45 @@
               
                     <ul class="timeline">
                         <li>
-                            <div class="timeline-badge"><i class="fa fa-check"></i>
+                            <div class="timeline-badge"><i class="fa fa-twitter"></i>
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                                    <h4 class="timeline-title">John David</h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 2 hours ago via Twitter</small>
                                     </p>
                                 </div>
                                 <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
+                                    <p>trippy is most beautiful UBER clone script. It is very reliability and superb designs with materials. I like very much</p>
                                 </div>
                             </div>
                         </li>
                         <li class="timeline-inverted">
-                            <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
+                            <div class="timeline-badge warning"><i class="fa fa-facebook"></i>
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                    <h4 class="timeline-title">Leena marsh</h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 8 hours ago via Facebook</small>
+                                    </p>
                                 </div>
                                 <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium maiores odit qui est tempora eos, nostrum provident explicabo dignissimos debitis vel! Adipisci eius voluptates, ad aut recusandae minus eaque facere.</p>
+                                    <p>I like so much. Because whatever I want that all in trippy.</p>
+                                    <p>Designs are so beautiful. I love so much.</p>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="timeline-badge danger"><i class="fa fa-bomb"></i>
+                            <div class="timeline-badge danger"><i class="fa fa-instagram"></i>
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                    <h4 class="timeline-title">Lara Craft</h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Instagram</small>
+                                    </p>
                                 </div>
                                 <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam facilis enim eaque, tenetur nam id qui vel velit similique nihil iure molestias aliquam, voluptatem totam quaerat, magni commodi quisquam.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est quaerat asperiores sapiente, eligendi, nihil. Itaque quos, alias sapiente rerum quas odit! Aperiam officiis quidem delectus libero, omnis ut debitis!</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-badge info"><i class="fa fa-save"></i>
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
-                                    <hr>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Action</a>
-                                            </li>
-                                            <li><a href="#">Another action</a>
-                                            </li>
-                                            <li><a href="#">Something else here</a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Separated link</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi fuga odio quibusdam. Iure expedita, incidunt unde quis nam! Quod, quisquam. Officia quam qui adipisci quas consequuntur nostrum sequi. Consequuntur, commodi.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati, quaerat tempore officia voluptas debitis consectetur culpa amet, accusamus dolorum fugiat, animi dicta aperiam, enim incidunt quisquam maxime neque eaque.</p>
+                                    <p>Designs are so beautiful. I love so much.</p>
                                 </div>
                             </div>
                         </li>
@@ -212,17 +249,12 @@
                    
                     <!-- /.panel -->
                 @endsection
-                @include('widgets.panel', array('header'=>true, 'as'=>'pane2'))
+                @include('widgets.panel', array('header'=>true, 'as'=>'pane2','icon' => 'pane2', 'class'=>'d'))
                 </div>
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-4">
-                    @section ('cchart11_panel_title','Line Chart')
-                    @section ('cchart11_panel_body')
-                    @include('widgets.charts.clinechart')
-                    @endsection
-                    @include('widgets.panel', array('header'=>true, 'as'=>'cchart11'))
-
                     @section ('pane1_panel_title', 'Notifications Panel')
+                    @section ('pane1_panel_icon', 'fa-bell float_right')
                     @section ('pane1_panel_body')
                      
                         
@@ -274,12 +306,12 @@
                                 </a>
                             </div>
                             <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                            
                         
                         <!-- /.panel-body -->
                   
                     @endsection
-                    @include('widgets.panel', array('header'=>true, 'as'=>'pane1'))
+                    @include('widgets.panel', array('header'=>true, 'as'=>'pane1','icon' => 'pane1', 'class'=>'d'))
                       
                     
                     <!-- /.panel -->
@@ -324,7 +356,7 @@
                             <ul class="chat">
                                 <li class="left clearfix">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                        <img src="{{url('assets/images/happy.png')}}" alt="User Avatar" class="img-circle" />
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
@@ -334,75 +366,179 @@
                                             </small>
                                         </div>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            Thanks for customer support.
                                         </p>
                                     </div>
                                 </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+
                                 <li class="left clearfix">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                        <img src="{{url('assets/images/happy.png')}}" alt="User Avatar" class="img-circle" />
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
+                                            <strong class="primary-font">Leena Marsh</strong>
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
+                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago
+                                            </small>
                                         </div>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            Thanks Wahab. Good job
                                         </p>
                                     </div>
                                 </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="{{url('assets/images/happy.png')}}" alt="User Avatar" class="img-circle" />
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                            <strong class="primary-font">Leena Marsh</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago
+                                            </small>
                                         </div>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            @STR Can you please send your email..
                                         </p>
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
                         <!-- /.panel-body -->
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
                         <!-- /.panel-footer -->
                     </div>
                     <!-- /.panel .chat-panel -->
                     @endsection
-                    @include('widgets.panel', array('header'=>true, 'as'=>'pane3'))
+                    @include('widgets.panel', array('header'=>true, 'as'=>'pane3', 'class'=>'d'))
                 </div>
 
                 <!-- /.col-lg-4 -->
-            
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+<script src="{{ url("assets/scripts/utils.js") }}" type="text/javascript"></script>
+
+<script>
+var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
+    var config1 = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                "Red",
+                "Orange",
+                "Yellow",
+                "Green",
+                "Blue"
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    };
+
+        var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var config2 = {
+            type: 'line',
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [{
+                    label: "Passengers",
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor()
+                    ],
+                    fill: false,
+                }, {
+                    label: "Drivers",
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor()
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                title:{
+                    display:true,
+                    text:'Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("chart-line").getContext("2d");
+            window.myLine = new Chart(ctx, config2);
+        
+            var ctx1 = document.getElementById("chart-area").getContext("2d");
+            window.myPie = new Chart(ctx1, config1);
+
+        };
+
+    </script>
+<style>
+.primary-font
+{
+    color:#1c1c1c;
+}
+</style>
 @stop

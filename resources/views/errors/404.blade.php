@@ -5,6 +5,10 @@
     {
     	background: #f1f1f1;
     }
+    a
+    {
+      line-height: 35px !important;
+    }
     #view-source {
       position: fixed;
       display: block;
